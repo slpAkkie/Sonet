@@ -1,0 +1,83 @@
+body.dark-theme
+  background-color: #16161f
+  color: #efeffe
+
+  .window
+    background-color: #252535
+    margin-top: 3rem
+    padding: 0
+    overflow: hidden
+
+    header
+      background-color: #20202f
+
+      & > *
+        align-items: center
+    
+    .activity
+      min-height: 400px
+      max-height: 800px
+
+      & > *
+        min-height: inherit
+
+      aside, main, .editer
+        min-height: inherit
+        max-height: inherit
+
+      aside
+        position: relative
+
+        .ticket
+          background-color: #264985
+          padding-top: .5rem
+          padding-bottom: .5rem
+          padding-left: .75rem
+          padding-right: .75rem
+          transition: all .25s ease-in-out
+          margin-bottom: .75rem
+
+          &:hover
+            cursor: pointer
+            box-shadow: 0px 0px 25px 0px rgba(0, 0, 0, .55)
+            transform: scale(1.025)
+
+          p
+            color: rgba(241, 241, 254, 0.7)
+
+        .button
+          background-color: #3bcc8f
+      
+      main
+        position: relative
+
+        & > *
+          min-height: inherit
+
+        .editer
+          width: calc(100% - 30px)
+          height: 100%
+          color: inherit
+          border: 1px solid #526d7a
+          background-color: #1f1f2d
+          padding: 15px
+
+        .button
+          background-color: #3b61cc
+          right: 3rem
+
+    .button
+      position: absolute
+      right: 1rem
+      bottom: 1rem
+      width: 48px
+      height: 48px
+      padding: 12px
+      text-align: center
+      box-shadow:  0 0 10px 0px rgba(0, 0, 0, .55)
+      transition: all .25s ease
+
+      &:hover
+        cursor: pointer
+        box-shadow: 0 0 10px 1px rgba(0, 0, 0, .75)
+        transform: rotate(30deg) scale(1.1)
