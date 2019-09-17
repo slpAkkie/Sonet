@@ -1,3 +1,3 @@
-# Dnotes
+# Notes
 
 Just a project :D
