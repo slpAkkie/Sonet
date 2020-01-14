@@ -1,0 +1,17 @@
+@mixin button($color, $shadowColor)
+  background-color: $color
+  color: $white
+  font-weight: bold
+  border: none
+  margin-top: 10px
+  @include transition(box-shadow, color, background-color)
+  &:hover, &:focus
+    background-color: $color
+    @include shadow($shadowColor, false)
+  &:focus:not(:hover)
+    box-shadow: none
+  &:active
+    background-color: $white
+    color: $accent
+    @include border($accentSecondary)
+    @include shadow($accentSecondary, false)
