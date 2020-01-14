@@ -1,37 +1,22 @@
 .login-container
   height: 100vh
 .login-wrapper
-  border: 1px solid #ced4da
   border-radius: .25rem
-  box-shadow: 0 0 15px 0 rgb(206, 212, 218) !important
+  @include border($accentSecondary)
+  @include shadow($accentSecondary)
 form
   padding: 15px 25px
 .form-control
   margin-bottom: 15px
-button[type=submit].form-control
-  background-color: #2f84f3
-  color: #f5f5ff !important
-  font-weight: bold
-  border: none
-  margin-top: 10px
-  transition-property: box-shadow, color, background-color
-  transition-duration: .1s
-  transition-timing-function: ease-out
-  &:hover, &:focus
-    box-shadow: 0 0 15px 0 transparentize(#2f84f3, .75)
-    background-color: #4392f9
-  &:focus:not(:hover)
-    box-shadow: none
-  &:active
-    background-color: #fff
-    color: #495057 !important
-    border: 1px solid #ced4da
-    box-shadow: 0 0 15px 0 transparentize(#2f84f3, .50)
 .form-input
   border: none
-  border-bottom: 1px solid #ced4da
   border-radius: .25rem .25rem 0 0
+  @include border($accentSecondary, bottom)
 .form-input:focus
   border-width: 2px
   border-color: #2f84f3
-  box-shadow: 0px 10px 15px -10px #2f84f3
+  @include shadow($primary, false)
+.form-input:hover:not(:focus)
+  @include shadow($accentSecondary, false)
+button[type=submit].form-control
+  @include button($primary, $primaryHover)
