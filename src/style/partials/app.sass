@@ -1,0 +1,22 @@
+.login-container
+  height: 100vh
+.login-wrapper
+  border-radius: .25rem
+  @include border($accentSecondary)
+  @include shadow($accentSecondary)
+form
+  padding: 15px 25px
+.form-control
+  margin-bottom: 15px
+.form-input
+  border: none
+  border-radius: .25rem .25rem 0 0
+  @include border($accentSecondary, bottom)
+.form-input:focus
+  border-width: 2px
+  border-color: #2f84f3
+  @include shadow($primary, false)
+.form-input:hover:not(:focus)
+  @include shadow($accentSecondary, false)
+button[type=submit].form-control
+  @include button($primary, $primaryHover)
