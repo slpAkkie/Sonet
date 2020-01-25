@@ -1,17 +1,27 @@
-@mixin button($color, $shadowColor)
-  background-color: $color
+/**
+ * General volume button
+ */
+@mixin button($bgColor, $shadowColor)
+  width: auto
+  background-color: $bgColor
   color: $white
   font-weight: bold
   border: none
   margin-top: 10px
   @include transition(box-shadow, color, background-color)
+  @include border($bgColor)
   &:hover, &:focus
-    background-color: $color
+    background-color: $shadowColor
+    @include border($shadowColor)
     @include shadow($shadowColor, false)
   &:focus:not(:hover)
     box-shadow: none
-  &:active
+  &:active:hover
     background-color: $white
-    color: $accent
-    @include border($accentSecondary)
-    @include shadow($accentSecondary, false)
+    color: $dark
+    border-color: $inactive
+    @include shadow($inactive, false)
+
+/**
+ * TODO: float button
+ */
