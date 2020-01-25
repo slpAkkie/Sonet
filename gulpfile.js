@@ -46,7 +46,7 @@ var config = {
     },
     tunnel: false,
     host: 'localhost',
-    port: 9000,
+    port: 3000,
     logPrefix: "slpServer"
 };
 
