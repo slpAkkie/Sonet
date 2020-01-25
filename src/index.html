@@ -2,23 +2,42 @@
 <html lang="ru">
 
 <head>
-  <title>Notes</title>
-  <link rel="stylesheet" href="/css/main.min.css">
+  <title>Notes | Registration</title>
+  <link rel="stylesheet" href="css/main.min.css">
 </head>
 
 <body>
-  <div class="login-container container-fluid d-flex justify-content-center align-items-center">
-    <div class="login-wrapper">
-      <form action="javascript:void(0);" method="post" class="d-flex flex-column">
-        <h1 class="text-center">Авторизация</h1>
-        <input type="email" name="email" id="email" class="form-control form-input" placeholder="Ваш E-mail" autocomplete="off">
-        <input type="password" name="password" id="password" class="form-control form-input" placeholder="Ваш пароль" autocomplete="off">
-        <button type="submit" class="w-50 align-self-center form-control"><span>Войти</span></button>
-        <p class="text-center text-muted">Вы также можете зарегистрироваться<br><a href="javascript:void(0);">здесь</a>
-        </p>
-      </form>
+  <!-- General app container -->
+  <div class="app-container container-fluid flex-centered">
+    <!-- Main app area -->
+    <div class="notes-wrapper d-flex">
+      <!-- Left side with notes strip -->
+      <div class="left-side">
+        <h2 class="text-center p-4">Заметки</h2>
+        <div class="notes-list">
+          <div class="notes-stprip">
+            //= templates/strip-item.html
+            //= templates/strip-item.html
+            //= templates/strip-item.html
+            //= templates/strip-item.html
+            //= templates/strip-item.html
+            //= templates/strip-item.html
+            //= templates/strip-item.html
+            //= templates/strip-item.html
+            //= templates/strip-item.html
+            //= templates/strip-item.html
+          </div>
+          <div class="float-button"></div>
+        </div>
+      </div>
+      <!-- Middle side for note editor -->
+      <div class="middle-side"></div>
+      <!-- Right side for note settings -->
+      <div class="right-side"></div>
     </div>
+    <!-- Main app area end -->
   </div>
+  <!-- General app container end -->
 </body>
 
 </html>
