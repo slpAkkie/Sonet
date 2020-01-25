@@ -1,9 +1,22 @@
+/**
+ * Main shadow style
+ */
 @mixin shadow($color, $comprehensive: true)
   box-shadow: 0 #{if($comprehensive, 0 15px 0, 10px 15px -10px)} $color
 
-@mixin border($color, $side: false)
-  border#{if($side, -$side, '')}: 1px solid $color
+/**
+ * Main border style
+ */
+@mixin border($color, $sides...)
+  @if length($sides) != 0
+    @for $i from 0 to length($sides)
+      border#{'-' + nth($sides, $i + 1)}: 1px solid $color
+  @else
+    border: 1px solid $color
 
+/**
+ * Main transition
+ */
 @mixin transition($properties...)
   transition-property: $properties
   transition-duration: .1s
