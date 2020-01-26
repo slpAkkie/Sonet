@@ -1,12 +1,4 @@
 /**
- * Templates
- */
-%flex-center
-  display: flex
-  justify-content: center
-  align-items: center
-
-/**
  * General styles
  */
 .app-container
@@ -16,14 +8,6 @@
   &-sides
     justify-content: space-between !important
     @extend %flex-center
-
-/**
- * Bootstrap overwrite
- */
-
-/**
- * Main classes and tag style
- */
 body
   background-color: $white
   color: $black
@@ -36,27 +20,3 @@ input[type=name]:focus,
 input[type=email]:focus,
 input[type=password]:focus
   background-color: transparent
-
-.notes-wrapper
-  border-width: 2px !important
-  @include border($active, left, right)
-  @include shadow($inactive)
-.notes-strip
-  max-height: 800px
-  overflow: auto
-  &::-webkit-scrollbar
-    display: none
-.strip-item
-  position: relative
-  z-index: 0
-  @include transition(background-color, color)
-.strip-item:nth-child(odd)
-  background-color: lighten($inactive, 10%)
-.strip-item:hover
-  background-color: $active
-  color: $light
-  cursor: pointer
-  z-index: 1
-  @include shadow($active)
-  .text-muted
-    color: $inactive !important

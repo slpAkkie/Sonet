@@ -1,11 +1,15 @@
 /**
- * Main shadow style
+ * Shadow
+ *  $color - shadow color
+ * $comprehensive - true for all-sides shadow and false for shifted-down shadow
  */
 @mixin shadow($color, $comprehensive: true)
   box-shadow: 0 #{if($comprehensive, 0 15px 0, 10px 15px -10px)} $color
 
 /**
- * Main border style
+ * Border
+ *  $color - border color
+ *  $sides - list of sides which need to be styled or null for all sides
  */
 @mixin border($color, $sides...)
   @if length($sides) != 0
@@ -15,7 +19,8 @@
     border: 1px solid $color
 
 /**
- * Main transition
+ * Transition
+ *  $properties - So... It`s properties :D which need to have transition
  */
 @mixin transition($properties...)
   transition-property: $properties
