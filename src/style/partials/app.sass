@@ -3,6 +3,7 @@
  */
 %flex-center
   display: flex
+  justify-content: center
   align-items: center
 
 /**
@@ -11,10 +12,9 @@
 .app-container
   height: 100vh
 .flex-centered
-  justify-content: center
   @extend %flex-center
   &-sides
-    justify-content: space-between
+    justify-content: space-between !important
     @extend %flex-center
 
 /**
@@ -22,7 +22,7 @@
  */
 
 /**
- * Classes and tag style
+ * Main classes and tag style
  */
 body
   background-color: $white
@@ -39,7 +39,7 @@ input[type=password]:focus
 
 .notes-wrapper
   border-width: 2px !important
-  @include border($dark, left, right)
+  @include border($active, left, right)
   @include shadow($inactive)
 .notes-strip
   max-height: 800px
