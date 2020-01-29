@@ -51,7 +51,7 @@ var config = {
 };
 
 gulp.task('webserver', function () {
-    browserSync(config);
+    browserSync.init(config);
 });
 
 gulp.task('clean', function (cb) {
@@ -59,24 +59,24 @@ gulp.task('clean', function (cb) {
 });
 
 gulp.task('html:build', function () {
-    return gulp.src(path.src.html) 
+    return gulp.src(path.src.html)
         .pipe(rigger())
         .pipe(gulp.dest(path.build.html))
-        .pipe(reload({stream: true}));
+        .pipe(reload({ stream: true }));
 });
 
 gulp.task('js:build', function () {
-    return gulp.src(path.src.js) 
-        .pipe(rigger()) 
-        .pipe(sourcemaps.init()) 
-        .pipe(uglify()) 
-        .pipe(sourcemaps.write()) 
+    return gulp.src(path.src.js)
+        .pipe(rigger())
+        .pipe(sourcemaps.init())
+        .pipe(uglify())
+        .pipe(sourcemaps.write())
         .pipe(gulp.dest(path.build.js))
-        .pipe(reload({stream: true}));
+        .pipe(reload({ stream: true }));
 });
 
 gulp.task('style:build', function () {
-    return gulp.src(path.src.style) 
+    return gulp.src(path.src.style)
         .pipe(sourcemaps.init())
         .pipe(sass({
             sourceMap: true,
@@ -85,24 +85,24 @@ gulp.task('style:build', function () {
         .pipe(prefixer())
         .pipe(cssmin())
         .pipe(sourcemaps.write())
-		.pipe(rename({suffix: '.min'}))
+        .pipe(rename({ suffix: '.min' }))
         .pipe(gulp.dest(path.build.css))
-        .pipe(reload({stream: true}));
+        .pipe(reload({ stream: true }));
 });
 
 gulp.task('image:build', function () {
-    return gulp.src(path.src.img) 
+    return gulp.src(path.src.img)
         .pipe(imagemin({
             progressive: true,
-            svgoPlugins: [{removeViewBox: false}],
+            svgoPlugins: [{ removeViewBox: false }],
             use: [pngquant()],
             interlaced: true
         }))
         .pipe(gulp.dest(path.build.img))
-        .pipe(reload({stream: true}));
+        .pipe(reload({ stream: true }));
 });
 
-gulp.task('fonts:build', function() {
+gulp.task('fonts:build', function () {
     return gulp.src(path.src.fonts)
         .pipe(gulp.dest(path.build.fonts))
 });
@@ -116,7 +116,7 @@ gulp.task('build', gulp.series(
 ));
 
 
-gulp.task('watch', function(){
+gulp.task('watch', function () {
     gulp.watch([path.watch.html], gulp.series('html:build'));
     gulp.watch([path.watch.style], gulp.series('style:build'));
     gulp.watch([path.watch.js], gulp.series('js:build'));
