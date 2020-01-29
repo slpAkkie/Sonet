@@ -1,13 +1,20 @@
-# Notes
+# slpNotes
 
-Сайт заметок, где вы можете добавлять свои мысли и идеи, цели и задания
-В приложение необходимо зарегистрироваться и входить под своим пользователем для доступа к заметкам
+Here you can leave notes, create categories,
+write down your thoughts. Other people will
+never know what you write here.
 
-Проект включает в себя:
+## Getting Started
 
-- Авторизация/Регистрация пользователей
-- Создание заметок:
-  - Простой текст
-  - Список
-  - Файл (вложение с компьюетра)
-- Создание папок для группировки заметок
+In order to copy the repository to yourself,
+you can use the git clone command or download
+it through the website (or the Github Desktop app).
+
+### Prerequisites
+
+You need to install
+	- `npm` (or `yarn`)
+	- `bower`
+	- `gulp`
+From npm (yarn) install all from `package.json`
+by `npm install` in the work directory
