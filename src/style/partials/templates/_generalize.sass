@@ -7,3 +7,12 @@
   display: flex
   justify-content: center
   align-items: center
+
+%active-strip
+  background-color: $active !important
+  color: $light
+  cursor: pointer
+  z-index: 1
+  @include shadow($active)
+  .text-muted
+    color: $inactive !important

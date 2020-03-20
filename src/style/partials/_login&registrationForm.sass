@@ -4,7 +4,7 @@
 .login-wrapper,
 .registration-wrapper
   border-radius: .25rem
-  @include border($inactive)
+  @include border(1px, $inactive)
   @include shadow($inactive)
 form
   padding: 15px 25px
@@ -13,7 +13,7 @@ form
 .form-input
   border: none
   border-radius: .25rem .25rem 0 0
-  @include border($inactive, bottom)
+  @include border(1px, $inactive, bottom)
 .form-input:focus
   border-width: 2px
   border-color: $accent

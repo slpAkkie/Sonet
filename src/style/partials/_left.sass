@@ -2,8 +2,7 @@
  * Left side of the app
  */
 .notes-wrapper
-  border-width: 2px !important
-  @include border($active, left, right)
+  @include border(2px, $active, left, right)
   @include shadow($inactive)
 .notes-strip
   max-height: 678px
@@ -16,11 +15,6 @@
   @include transition(background-color, color)
 .strip-item:nth-child(odd)
   background-color: lighten($inactive, 10%)
-.strip-item:hover
-  background-color: $active
-  color: $light
-  cursor: pointer
-  z-index: 1
-  @include shadow($active)
-  .text-muted
-    color: $inactive !important
+.strip-item:hover,
+.strip-item.active
+  @extend %active-strip

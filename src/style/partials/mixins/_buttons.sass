@@ -11,10 +11,10 @@
   border: none
   margin-top: 10px
   @include transition(box-shadow, color, background-color)
-  @include border($bgColor)
+  @include border(1px, $bgColor)
   &:hover, &:focus
     background-color: $shadowColor
-    @include border($shadowColor)
+    @include border(1px, $shadowColor)
     @include shadow($shadowColor, false)
   &:focus:not(:hover)
     box-shadow: none

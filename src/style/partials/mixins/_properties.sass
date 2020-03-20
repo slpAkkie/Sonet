@@ -11,12 +11,12 @@
  *  $color - border color
  *  $sides - list of sides which need to be styled or null for all sides
  */
-@mixin border($color, $sides...)
+@mixin border($size, $color, $sides...)
   @if length($sides) != 0
     @for $i from 0 to length($sides)
-      border#{'-' + nth($sides, $i + 1)}: 1px solid $color
+      border#{'-' + nth($sides, $i + 1)}: $size solid $color
   @else
-    border: 1px solid $color
+    border: $size solid $color
 
 /**
  * Transition
