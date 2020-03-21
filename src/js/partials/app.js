@@ -3,9 +3,14 @@
 $(`document`).ready(function () {
 
   $(`.strip-item`).click(function (e) {
-    $(`.middle-side`).removeClass(`hidden`);
-    $(`.active`).removeClass(`active`);
-    $(e.currentTarget).addClass(`active`);
+    if ($(e.currentTarget).hasClass(`active`)) {
+      $(`.middle-side`).addClass(`hidden`);
+      $(e.currentTarget).removeClass(`active`);
+    } else {
+      $(`.middle-side`).removeClass(`hidden`);
+      $(`.active`).removeClass(`active`);
+      $(e.currentTarget).addClass(`active`);
+    }
   });
 
   $(`#bold`).mousedown(function () {
