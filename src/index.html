@@ -3,22 +3,60 @@
 
 <head>
   <title>Notes</title>
-  <link rel="stylesheet" href="/css/main.min.css">
+  <link rel="stylesheet" href="css/main.min.css">
 </head>
 
 <body>
-  <div class="login-container container-fluid d-flex justify-content-center align-items-center">
-    <div class="login-wrapper">
-      <form action="javascript:void(0);" method="post" class="d-flex flex-column">
-        <h1 class="text-center">Авторизация</h1>
-        <input type="email" name="email" id="email" class="form-control form-input" placeholder="Ваш E-mail">
-        <input type="password" name="password" id="password" class="form-control form-input" placeholder="Ваш пароль">
-        <button type="submit" class="w-50 align-self-center form-control"><span>Войти</span></button>
-        <p class="text-center text-muted">Вы также можете зарегистрироваться<br><a href="javascript:void(0);">здесь</a>
-        </p>
-      </form>
+  <!-- General app container -->
+  <div class="app-container container-fluid flex-centered">
+    <!-- Main app area -->
+    <div class="notes-wrapper d-flex">
+      <!-- Left side with notes strip -->
+      <div class="left-side">
+        <h2 class="text-center p-4">Заметки</h2>
+        <div class="notes-list">
+          <div class="notes-strip">
+            //= templates/strip-item.html
+            //= templates/strip-item.html
+            //= templates/strip-item.html
+            //= templates/strip-item.html
+            //= templates/strip-item.html
+            //= templates/strip-item.html
+            //= templates/strip-item.html
+            //= templates/strip-item.html
+            //= templates/strip-item.html
+            //= templates/strip-item.html
+          </div>
+          <div class="float-button"></div>
+        </div>
+      </div>
+      <!-- Middle side for note editor -->
+      <div class="collapsing-wrapper hidden" id="js-collapse-middle">
+        <div id="middle-side">
+          <div class="editor d-flex flex-column">
+            <div class="editor-field mb-3">
+              <h4 class="m-0 w-placeholder" contenteditable="true" data-text="Название"></h4>
+            </div>
+            <div class="editor-field d-flex flex-grow-1 position-relative">
+              <div class="w-placeholder flex-grow-1 text-area" id="js-change" contenteditable="true"
+                data-text="Контент"></div>
+              <div class="text-tools hidden" id="js-slide">
+                <div class="text-format" id="js-bold"><b>B</b></div>
+                <div class="text-format" id="js-italic"><i>I</i></div>
+                <div class="text-format" id="js-underline"><u>U</u></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- Right side for note settings -->
+      <div class="right-side hidden"></div>
     </div>
+    <!-- Main app area end -->
   </div>
+  <!-- General app container end -->
+
+  <script src="js/main.js"></script>
 </body>
 
 </html>

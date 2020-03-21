@@ -1,0 +1,21 @@
+/**
+ * Left side of the app
+ */
+.notes-wrapper
+  max-height: 772px
+  @include border(2px, $active, left, right)
+  @include shadow($inactive)
+.notes-strip
+  max-height: 678px
+  overflow: auto
+  &::-webkit-scrollbar
+    display: none
+.strip-item
+  position: relative
+  z-index: 0
+  @include transition(background-color, color)
+.strip-item:nth-child(odd)
+  background-color: lighten($inactive, 10%)
+.strip-item:hover,
+.strip-item.active
+  @extend %active-strip

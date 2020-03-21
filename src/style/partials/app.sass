@@ -1,22 +1,102 @@
-.login-container
+/**
+ * General styles
+ */
+.app-container
   height: 100vh
-.login-wrapper
-  border-radius: .25rem
-  @include border($accentSecondary)
-  @include shadow($accentSecondary)
-form
-  padding: 15px 25px
-.form-control
-  margin-bottom: 15px
-.form-input
-  border: none
-  border-radius: .25rem .25rem 0 0
-  @include border($accentSecondary, bottom)
-.form-input:focus
-  border-width: 2px
-  border-color: #2f84f3
-  @include shadow($primary, false)
-.form-input:hover:not(:focus)
-  @include shadow($accentSecondary, false)
-button[type=submit].form-control
-  @include button($primary, $primaryHover)
+.flex-centered
+  @extend %flex-center
+  &-sides
+    justify-content: space-between !important
+    @extend %flex-center
+body
+  background-color: $white
+  color: $black
+input[type=text],
+input[type=name],
+input[type=email],
+input[type=password],
+input[type=text]:focus,
+input[type=name]:focus,
+input[type=email]:focus,
+input[type=password]:focus
+  background-color: transparent
+  font-family: 'Open Sans', sans-serif !important
+
+/**
+ * Current item styles
+ */
+
+.collapsing-wrapper
+  width: 800px
+  overflow: hidden
+  transition-duration: .25s !important
+  @include transition(width)
+  &.hidden
+    width: 0
+    padding: 0
+
+#middle-side
+  padding: 25px
+  height: 100%
+  @include border(2px, $accent, left)
+
+  .editor
+    overflow: hidden
+    width: 100%
+    height: 100%
+    max-height: 100%
+
+  .editor-field
+    padding: 15px
+    background-color: $light
+    overflow: hidden
+    @include border(1px, $inactive, left, right)
+
+  .w-placeholder:empty:before
+    color: darken($inactive, 25%)
+    content: attr(data-text)
+    white-space: nowrap
+    overflow: hidden
+    cursor: text
+
+  [contenteditable="true"]
+    outline: none
+
+  .text-area
+    max-height: 618px
+    overflow: auto
+    margin-bottom: 77px
+
+  .text-tools
+    position: absolute
+    bottom: 15px
+    left: 0
+    right: 0
+    padding: 10px
+    display: flex
+    justify-content: center
+    background: #ffffff
+    width: 96%
+    margin: 0 auto
+    border-radius: 10px
+    transition: bottom .25s cubic-bezier(0.5, -0.65, 0.5, 1.65)
+    @include border(1px ,$inactive)
+    @include shadow(transparentize($inactive, .25))
+    &.hidden
+      bottom: -70px
+
+  .text-format
+    padding: 5px 10px
+    border-radius: .75rem
+    margin: 0 10px
+    background: transparent
+    color: $dark
+    font-size: 1.25rem
+    width: 40px
+    height: 40px
+    text-align: center
+    @include transition(color, background)
+    &:hover
+      background-color: $dark
+      color: $light
+      cursor: pointer

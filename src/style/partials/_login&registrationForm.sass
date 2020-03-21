@@ -1,0 +1,24 @@
+/**
+ * Login and registration form
+ */
+.login-wrapper,
+.registration-wrapper
+  border-radius: .25rem
+  @include border(1px, $inactive)
+  @include shadow($inactive)
+form
+  padding: 15px 25px
+.form-control
+  margin-bottom: 15px
+.form-input
+  border: none
+  border-radius: .25rem .25rem 0 0
+  @include border(1px, $inactive, bottom)
+.form-input:focus
+  border-width: 2px
+  border-color: $accent
+  @include shadow($accent, false)
+.form-input:hover:not(:focus)
+  @include shadow($inactive, false)
+button[type=submit].form-control
+  @include button($accent, $active)

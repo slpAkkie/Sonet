@@ -1,1 +1,3 @@
 *.sass
+gulpfile.js
+src/js/main.js
