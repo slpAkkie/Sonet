@@ -1,21 +1,21 @@
 /**
- * Left side of the app
+ * Часть приложения со списком заметок
  */
-.notes-wrapper
+.app__notes-wrapper
   max-height: 772px
   @include border(2px, $active, left, right)
   @include shadow($inactive)
-.notes-strip
+.notes__list
   max-height: 678px
   overflow: auto
   &::-webkit-scrollbar
     display: none
-.strip-item
+.list__item
   position: relative
   z-index: 0
   @include transition(background-color, color)
-.strip-item:nth-child(odd)
+.list__item:nth-child(odd)
   background-color: lighten($inactive, 10%)
-.strip-item:hover,
-.strip-item.active
+.list__item:hover,
+.list__item.active
   @extend %active-strip

@@ -26,7 +26,7 @@ input[type=password]:focus
  * Current item styles
  */
 
-.collapsing-wrapper
+.notes__collapsing-wrapper
   width: 800px
   overflow: hidden
   transition-duration: .25s !important
@@ -35,68 +35,76 @@ input[type=password]:focus
     width: 0
     padding: 0
 
-#middle-side
+.notes__editor-wrapper
   padding: 25px
   height: 100%
   @include border(2px, $accent, left)
 
-  .editor
-    overflow: hidden
-    width: 100%
-    height: 100%
-    max-height: 100%
+.notes__editor
+  overflow: hidden
+  width: 100%
+  height: 100%
+  max-height: 100%
 
-  .editor-field
-    padding: 15px
-    background-color: $light
-    overflow: hidden
-    @include border(1px, $inactive, left, right)
+.editor__input-wrapper
+  padding: 15px
+  background-color: $light
+  overflow: hidden
+  @include border(1px, $inactive, left, right)
 
-  .w-placeholder:empty:before
-    color: darken($inactive, 25%)
-    content: attr(data-text)
-    white-space: nowrap
-    overflow: hidden
-    cursor: text
+.w-placeholder:empty:before
+  color: darken($inactive, 25%)
+  content: attr(data-text)
+  white-space: nowrap
+  overflow: hidden
+  cursor: text
 
-  [contenteditable="true"]
-    outline: none
+[contenteditable="true"]
+  outline: none
 
-  .text-area
-    max-height: 618px
-    overflow: auto
-    margin-bottom: 77px
+.editor__frame
+  max-height: 618px
+  overflow: auto
+  margin-bottom: 77px
+  border: none
 
-  .text-tools
-    position: absolute
-    bottom: 15px
-    left: 0
-    right: 0
-    padding: 10px
-    display: flex
-    justify-content: center
-    background: #ffffff
-    width: 96%
-    margin: 0 auto
-    border-radius: 10px
-    transition: bottom .25s cubic-bezier(0.5, -0.65, 0.5, 1.65)
-    @include border(1px ,$inactive)
-    @include shadow(transparentize($inactive, .25))
-    &.hidden
-      bottom: -70px
+.editor__formatting-tool-wrapper
+  position: absolute
+  bottom: 15px
+  left: 0
+  right: 0
+  padding: 10px
+  display: flex
+  justify-content: center
+  background: #ffffff
+  width: 96%
+  margin: 0 auto
+  border-radius: 10px
+  transition-property: bottom, transform
+  transition-duration: .25s
+  transition-timing-function: cubic-bezier(0.5, -0.65, 0.5, 1.65)
+  @include border(1px ,$inactive)
+  @include shadow(transparentize($inactive, .25))
+  &.hidden
+    bottom: -70px
+  &:hover
+    transform: scale(1.015)
 
-  .text-format
-    padding: 5px 10px
-    border-radius: .75rem
-    margin: 0 10px
-    background: transparent
-    color: $dark
-    font-size: 1.25rem
-    width: 40px
-    height: 40px
-    text-align: center
-    @include transition(color, background)
-    &:hover
-      background-color: $dark
-      color: $light
-      cursor: pointer
+.editor__formatting-tool
+  padding: 5px 10px
+  border-radius: .75rem
+  margin: 0 10px
+  background: transparent
+  color: $dark
+  font-size: 1.25rem
+  width: 40px
+  height: 40px
+  text-align: center
+  @include transition(color, background)
+  &:hover
+    background-color: $dark
+    color: $light
+    cursor: pointer
+
+#js-frameBody
+  background-color: transparent
