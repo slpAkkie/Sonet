@@ -24,6 +24,8 @@ $(`document`).ready(function () {
       this.editorFrame = $(`#js-editorFrame`)[0];
       this.editorFrameDoc = this.editorFrame.contentDocument;
       this.editorFrameWin = this.editorFrame.contentWindow;
+      /** Немного переопределим переменную фрейма */
+      this.editorFrame = $($(`#js-editorFrame`)[0]);
 
       this.formattingTools = $(`#js-formattingTools`);
       this.activeNote = false;
@@ -67,9 +69,14 @@ $(`document`).ready(function () {
       $(`.editor__formatting-tool`).mousedown(function () { return _app.formatText(this); });
 
       /**
-       * Нажатие кнопки внутри Фрейма
+       * Нажатие кнопки внутри Фрейма и перевод фокуса на окно редактирования
        */
-      $(this.editorFrameBody).keyup(function () { _app.frameChangeHandler() })
+      $(this.editorFrameBody).keyup(function () { _app.frameInterection() });
+      $(this.editorFrameBody).focusout(function () { _app.frameInterection(false) });
+      $(this.editorFrameBody).focusin(function () { _app.frameInterection(true) });
+
+      // TODO: Реализовать метод открытия окна настроек
+      // $(`#js-openSettings`).click(function () { this.openSettings() });
     }
 
     openNote(clickedNote) {
@@ -97,13 +104,19 @@ $(`document`).ready(function () {
       }
     }
 
-    frameChangeHandler() {
+    frameInterection(isFocus = true) {
       /**
        * Обработчик нажатия кнопок внутри фрейма
        */
 
       /** Если после изменения фрейма он стал пустым, убрать блок с кнопками форматирования, иначе показать его */
-      this.editorFrameBody.innerHTML ? this.formattingTools.removeClass(`hidden`) : this.formattingTools.addClass(`hidden`);
+      if (this.editorFrameBody.innerHTML && isFocus) {
+        this.formattingTools.removeClass(`hidden`);
+        this.editorFrame.addClass(`frame-short`);
+      } else {
+        this.formattingTools.addClass(`hidden`);
+        this.editorFrame.removeClass(`frame-short`);
+      }
     }
 
     formatText(tool) {

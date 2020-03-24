@@ -55,6 +55,8 @@ input[type=password]:focus,
   transition-timing-function: ease-out
   .item__text-muted
     color: darken($inactive, 42%)
+  .item__icon
+    font-size: 2.7rem
 
 .list__item:nth-child(odd)
   background-color: lighten($inactive, 10%)
@@ -110,12 +112,16 @@ input[type=password]:focus,
   outline: none
 
 .editor__frame
-  max-height: 618px
   overflow: auto
-  margin-bottom: 77px
   border: none
+  transition-property: max-height, margin-bottom
+  transition-duration: .25s
+  transition-timing-function: ease-out
+  &.frame-short
+    max-height: 618px
+    margin-bottom: 77px
 
-.editor__formatting-tool-wrapper
+.editor__bottom-tool-wrapper
   position: absolute
   bottom: 15px
   left: 0
@@ -137,7 +143,7 @@ input[type=password]:focus,
   &:hover
     transform: scale(1.015)
 
-.editor__formatting-tool
+.editor__formatting-tool, .editor__settings-tool
   padding: 5px 10px
   border-radius: .75rem
   margin: 0 10px
