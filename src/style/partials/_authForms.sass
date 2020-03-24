@@ -17,8 +17,8 @@ form
 .form-input:focus
   border-width: 2px
   border-color: $accent
-  @include shadow($accent, false)
+  @include shadow($accent, true)
 .form-input:hover:not(:focus)
-  @include shadow($inactive, false)
+  @include shadow($inactive, true)
 button[type=submit].form-control
   @include button($accent, $active)

@@ -10,19 +10,21 @@
   font-weight: bold
   border: none
   margin-top: 10px
-  @include transition(box-shadow, color, background-color)
+  transition-property: background-color, box-shadow, color
+  transition-duration: .1s
+  transition-timing-function: ease-out
   @include border(1px, $b_inactiveColor)
   &:hover, &:focus
     background-color: $b_activeColor
     @include border(1px, $b_activeColor)
-    @include shadow($b_activeColor, false)
+    @include shadow($b_activeColor, true)
   &:focus:not(:hover)
     box-shadow: none
   &:active:hover
     background-color: $white
     color: $dark
     border-color: $inactive
-    @include shadow($inactive, false)
+    @include shadow($inactive, true)
 
 /**
  * TODO: Сделать стили для плавающей кнопки добавления новой заметки
@@ -33,10 +35,10 @@
 /**
  * Тень блоков
  * @color - Цвет тени
- * @comprehensive - TRUE - Для тени без смещения FALSE - для смещения
+ * @comprehensive - FALSE - Для тени без смещения TRUE - для смещения
  */
-@mixin shadow($sh_color, $sh_shift: true)
-  box-shadow: 0 #{if($sh_shift, 0 15px 0, 10px 15px -10px)} $sh_color
+@mixin shadow($sh_color, $sh_shift: false)
+  box-shadow: 0 #{if($sh_shift, 10px 15px -10px, 0 15px 0)} $sh_color
 
 /**
  * Рамка блоков
@@ -50,12 +52,3 @@
       border#{'-' + nth($b_sides, $i + 1)}: $b_width solid $b-color
   @else
     border: $b_width solid $b-color
-
-/**
- * Transition
- * @properties - Свойства для анимирования
- */
-@mixin transition($properties...)
-  transition-property: $properties
-  transition-duration: .1s
-  transition-timing-function: ease-out
