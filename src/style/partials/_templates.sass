@@ -1,5 +1,19 @@
 /**
- * Compilation all sass templates
+ * Шаблоны
  */
 
-@import 'templates/generalize'
+/** Для блоков, которые должны быть отцентрированы по центру со всех сторон */
+%flex-center
+  display: flex
+  justify-content: center
+  align-items: center
+
+/** Стили для активной заметки */
+%active-strip
+  background-color: $active !important
+  color: $light
+  cursor: pointer
+  z-index: 1
+  @include shadow($active)
+  .text-muted
+    color: lighten($inactive, 10%) !important
