@@ -34,12 +34,27 @@ input[type=password]:focus,
   font-family: 'Open Sans', sans-serif
 
 /**
+ * Preloader
+ */
+.preloader-container
+  z-index: 999
+  background-color: $light
+  color: $accent
+  transition: transform
+  transition-duration: .75s
+  transition-timing-function: cubic-bezier(0, 0, 0.05, 1)
+  &.hidden
+    transform: translateY(-100%)
+
+/**
  * Левая часть приложения со списком заметок
  */
 .app__notes-wrapper
   max-height: 772px
-  @include border(2px, $active, left, right)
-  @include shadow($inactive)
+  box-shadow: 0 0 15px 0 $inactive
+  border-left: 2px solid $active
+  border-right: 2px solid $active
+  position: relative
 
 .notes__list
   max-height: 678px
@@ -67,14 +82,18 @@ input[type=password]:focus,
   color: $light
   cursor: pointer
   z-index: 1
-  @include shadow($active)
+  box-shadow: 0 0 15px 0 $active
   .item__text-muted
     color: lighten($inactive, 10%)
 
 /**
+ * TODO: Сделать стили для плавающей кнопки добавления новой заметки
+ */
+
+/**
  * Центральная часть приложения с редактором
  */
-.notes__collapsing-wrapper
+.notes__collapsing-wrapper, .notes__collapsing-wrapper
   width: 800px
   overflow: hidden
   transition-property: width
@@ -86,8 +105,7 @@ input[type=password]:focus,
 
 .notes__editor-wrapper
   padding: 25px
-  height: 100%
-  @include border(2px, $accent, left)
+  border-left: 2px solid $accent
 
 .notes__editor
   overflow: hidden
@@ -99,7 +117,8 @@ input[type=password]:focus,
   padding: 15px
   background-color: $light
   overflow: hidden
-  @include border(1px, $inactive, left, right)
+  border-left: 1px solid $inactive
+  border-right: 1px solid $inactive
 
 .w-placeholder:empty:before
   color: darken($inactive, 25%)
@@ -133,11 +152,11 @@ input[type=password]:focus,
   width: 96%
   margin: 0 auto
   border-radius: 10px
+  box-shadow: 0 0 15px 0 transparentize($inactive, .25)
   transition-property: bottom, transform
   transition-duration: .25s
   transition-timing-function: cubic-bezier(0.5, -0.65, 0.5, 1.65)
-  @include border(1px ,$inactive)
-  @include shadow(transparentize($inactive, .25))
+  border: 1px solid $inactive
   &.hidden
     bottom: -70px
   &:hover
@@ -160,3 +179,78 @@ input[type=password]:focus,
     background-color: $dark
     color: $light
     cursor: pointer
+
+/**
+ * Блок настроек
+ */
+.notes__collapsing-wrapper_inside
+  position: absolute
+  top: 0
+  bottom: 0
+  right: 0
+  padding: 0 0 0 2px
+  z-index: 10
+
+.notes__settins-wrapper
+  min-width: 798px
+  background-color: $light
+  padding: 25px 25px 25px 23px
+
+.setting__item-wrapper
+  padding: 10px 30px
+  background: $white
+  border-radius: .25rem
+  display: flex
+  justify-content: space-between
+  box-shadow: 0 0 15px 0 $inactive
+  &:not(:first-child)
+    margin-top: 25px
+
+.top__icon
+  display: flex
+  align-items: center
+  font-size: 1.5rem
+  padding: 8px 15px 8px 10px
+  cursor: pointer
+  color: $dark
+  border-radius: .25rem
+  transition: background-color .1s ease-out
+  &:hover
+    color: $exude
+    background-color: $inactive
+  i
+    width: 24px
+    text-align: center
+
+.control__switch
+  width: 64px
+  height: 34px
+  position: relative
+  cursor: pointer
+  &::after
+    content: ""
+    background: $inactive
+    position: absolute
+    top: 0
+    left: 0
+    width: 64px
+    height: 34px
+    border-radius: 20px
+    transition: box-shadow .1s ease-out
+  &::before
+    content: ""
+    position: absolute
+    top: 2px
+    left: 2px
+    height: 30px
+    width: 30px
+    border-radius: 50%
+    background-color: darken($inactive, 20%)
+    z-index: 2
+    transition-property: margin, background
+    transition: .25s ease-in-out
+  &.active::before
+    margin-left: 30px
+    background-color: $active
+  &:hover::after
+    box-shadow: 0 0 15px 0 lighten($inactive, 5%)

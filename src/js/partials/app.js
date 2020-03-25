@@ -1,138 +1,154 @@
-`use strict`;
-
 /**
  * TODO: Разбить на класс Note
  */
 
-// Ждем загрузки файла
-$(`document`).ready(function () {
+class App {
+  /**
+   * Класс App отвечает за управлением всем приложением
+   */
 
-  class App {
+  constructor() {
     /**
-     * Класс App отвечает за управлением всем приложением
+     * Инициализируем необходимые элементы
      */
 
-    constructor() {
-      /**
-       * Инициализируем необходимые элементы
-       */
+    this.hidePreloader();
 
-      this.noteList = $(`#js-notesList`);
-      this.middleCollapsing = $(`#js-collapseMiddle`);
+    this.noteList = $(`#js-notesList`);
+    this.middleCollapsing = $(`#js-collapseMiddle`);
 
-      this.editorTitle = $(`#js-editorTitle`);
-      this.editorFrame = $(`#js-editorFrame`)[0];
-      this.editorFrameDoc = this.editorFrame.contentDocument;
-      this.editorFrameWin = this.editorFrame.contentWindow;
-      /** Немного переопределим переменную фрейма */
-      this.editorFrame = $($(`#js-editorFrame`)[0]);
+    this.editorTitle = $(`#js-editorTitle`);
+    this.editorFrame = $(`#js-editorFrame`)[0];
+    this.editorFrameDoc = this.editorFrame.contentDocument;
+    this.editorFrameWin = this.editorFrame.contentWindow;
+    /** Немного переопределим переменную фрейма */
+    this.editorFrame = $($(`#js-editorFrame`)[0]);
 
-      this.formattingTools = $(`#js-formattingTools`);
-      this.activeNote = false;
+    this.formattingTools = $(`#js-formattingTools`);
+    this.activeNote = false;
 
-      /** Инициализируем фрейм */
-      this.initilizeFrame();
-      /** Инициализируем обработчики событий */
-      this.initilizeHandlers();
-    }
+    /** Инициализируем фрейм */
+    this.initilizeFrame();
+    /** Инициализируем обработчики событий */
+    this.initilizeHandlers();
+  }
 
-    initilizeFrame() {
-      /**
-       * Инициализация Фрейм - Создание его разметки, запись и активация режима проектирования
-       */
+  hidePreloader() {
+    setTimeout(() => { $(`#js-preloader`).addClass(`hidden`) }, 500);
+  }
 
-      /** TODO: Здесь мы подгружаем нашу заметку */
-      // this.note.loadNote();
+  initilizeFrame() {
+    /**
+     * Инициализация Фрейм - Создание его разметки, запись и активация режима проектирования
+     */
 
-      const iHTML = `<html><head><link rel="stylesheet" href="css/main.min.css"></head><body class="w-placeholder" id="js-frameBody" data-text="Тело заметки"></body></html>`;
-      this.editorFrameDoc.open();
-      this.editorFrameDoc.write(iHTML);
-      this.editorFrameDoc.close();
-      this.editorFrameDoc.designMode = `on`;
+    /** TODO: Здесь мы подгружаем нашу заметку */
+    // this.note.loadNote();
 
-      this.editorFrameBody = this.editorFrameDoc.body;
-    }
+    const iHTML = `<html><head><link rel="stylesheet" href="css/main.min.css"></head><body class="w-placeholder" id="js-frameBody" data-text="Тело заметки"></body></html>`;
+    this.editorFrameDoc.open();
+    this.editorFrameDoc.write(iHTML);
+    this.editorFrameDoc.close();
+    this.editorFrameDoc.designMode = `on`;
 
-    initilizeHandlers() {
-      /**
-       * Инициализируем базовые обработчики событий
-       */
+    this.editorFrameBody = this.editorFrameDoc.body;
+  }
 
-      /**
-       * Клик по заметке
-       */
-      $(`.list__item`).click(function () { _app.openNote(this) });
+  initilizeHandlers() {
+    /**
+     * Инициализируем базовые обработчики событий
+     */
 
-      /**
-       * Клик на кнопки форматирования
-       */
-      $(`.editor__formatting-tool`).mousedown(function () { return _app.formatText(this); });
+    /**
+     * Клик по заметке
+     */
+    $(`.list__item`).click(function () { _app.openNote(this) });
 
-      /**
-       * Нажатие кнопки внутри Фрейма и перевод фокуса на окно редактирования
-       */
-      $(this.editorFrameBody).keyup(function () { _app.frameInterection() });
-      $(this.editorFrameBody).focusout(function () { _app.frameInterection(false) });
-      $(this.editorFrameBody).focusin(function () { _app.frameInterection(true) });
+    /**
+     * Клик на кнопки форматирования
+     */
+    $(`.editor__formatting-tool`).mousedown(function () { return _app.formatText(this); });
 
-      // TODO: Реализовать метод открытия окна настроек
-      // $(`#js-openSettings`).click(function () { this.openSettings() });
-    }
+    /**
+     * Нажатие кнопки внутри Фрейма и перевод фокуса на окно редактирования
+     */
+    $(this.editorFrameBody).keyup(function () { _app.frameInterection() });
+    $(this.editorFrameBody).focusout(function () { _app.frameInterection(false) });
+    $(this.editorFrameBody).focusin(function () { _app.frameInterection(true) });
 
-    openNote(clickedNote) {
-      /**
-       * Если выбранная заметка уже была открыта (имеет класс active), то
-       * Закроем поле редактирования и удалим класс active
-       *
-       * Иначе откроем поле редактирования и добавим класс выбранной заметке active
-       */
+    $(`#js-openSettings`).click(function () { _app.openSettings() });
+    $(`#js-closeSettings`).click(function () { _app.closeSettings() });
 
-      /** TODO: Здесь подгружается Фрейм с содержимым заметки, реализовать методы:
-       * this.noteId = this.activeNote.attr(`data-id`);
-       * this.reloadFrame();
-       */
+    $(`#js-isProtect`).click(function () { _app.changeProtect(this) });
+  }
 
-      if ($(clickedNote).hasClass(`active`)) {
-        $(this.middleCollapsing).addClass(`hidden`);
-        this.activeNote.removeClass(`active`),
-          this.activeNote = false;
-      } else {
-        $(this.middleCollapsing).removeClass(`hidden`);
-        this.activeNote ? this.activeNote.removeClass(`active`) : false,
-          this.activeNote = $(clickedNote);
-        this.activeNote.addClass(`active`);
-      }
-    }
+  openNote(clickedNote) {
+    /**
+     * Если выбранная заметка уже была открыта (имеет класс active), то
+     * Закроем поле редактирования и удалим класс active
+     *
+     * Иначе откроем поле редактирования и добавим класс выбранной заметке active
+     */
 
-    frameInterection(isFocus = true) {
-      /**
-       * Обработчик нажатия кнопок внутри фрейма
-       */
+    /** TODO: Здесь подгружается Фрейм с содержимым заметки, реализовать методы:
+     * this.noteId = this.activeNote.attr(`data-id`);
+     * this.reloadFrame();
+     */
 
-      /** Если после изменения фрейма он стал пустым, убрать блок с кнопками форматирования, иначе показать его */
-      if (this.editorFrameBody.innerHTML && isFocus) {
-        this.formattingTools.removeClass(`hidden`);
-        this.editorFrame.addClass(`frame-short`);
-      } else {
-        this.formattingTools.addClass(`hidden`);
-        this.editorFrame.removeClass(`frame-short`);
-      }
-    }
-
-    formatText(tool) {
-      /**
-       * Обработчик кнопок форматирования
-       */
-
-      this.editorFrameWin.focus();
-      const action = $(tool).attr(`data-action`);                     // Действие для обработки текста
-      const param = $(tool).attr(`data-param`) || null;               // Параметры если есть
-      this.editorFrameDoc.execCommand(action, false, param);          // Выполняем команду с указанным действием и параметрами
-      // Прерываем стандартное поведение, что бы не потерять фокус
-      return false;
+    if ($(clickedNote).hasClass(`active`)) {
+      $(this.middleCollapsing).addClass(`hidden`);
+      this.activeNote.removeClass(`active`),
+        this.activeNote = false;
+    } else {
+      $(this.middleCollapsing).removeClass(`hidden`);
+      this.activeNote ? this.activeNote.removeClass(`active`) : false,
+        this.activeNote = $(clickedNote);
+      this.activeNote.addClass(`active`);
     }
   }
 
-  /** Инициализируем объект приложения */
-  _app = new App;
-});
+  openSettings() { $(`#js-collapseRight`).removeClass(`hidden`) }
+
+  closeSettings() {
+    $(`#js-collapseRight`).addClass(`hidden`);
+    this.editorFrameBody.focus()
+  }
+
+  changeProtect(switcher) {
+    // TODO: Изменить схему становления защищенной через класс Note
+    switcher = $(switcher);
+    if (switcher.hasClass(`active`)) switcher.removeClass(`active`)
+    else switcher.addClass(`active`);
+  }
+
+  frameInterection(isFocus = true) {
+    /**
+     * Обработчик нажатия кнопок внутри фрейма
+     */
+
+    /** Если после изменения фрейма он стал пустым, убрать блок с кнопками форматирования, иначе показать его */
+    if (this.editorFrameBody.innerHTML && isFocus) {
+      this.formattingTools.removeClass(`hidden`);
+      this.editorFrame.addClass(`frame-short`);
+    } else {
+      this.formattingTools.addClass(`hidden`);
+      this.editorFrame.removeClass(`frame-short`);
+    }
+  }
+
+  formatText(tool) {
+    /**
+     * Обработчик кнопок форматирования
+     */
+
+    this.editorFrameWin.focus();
+    const action = $(tool).attr(`data-action`);                     // Действие для обработки текста
+    const param = $(tool).attr(`data-param`) || null;               // Параметры если есть
+    this.editorFrameDoc.execCommand(action, false, param);          // Выполняем команду с указанным действием и параметрами
+    // Прерываем стандартное поведение, что бы не потерять фокус
+    return false;
+  }
+}
+
+/** Инициализируем объект приложения */
+_app = new App;

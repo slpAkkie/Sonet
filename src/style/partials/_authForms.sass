@@ -4,21 +4,47 @@
 .app__login-wrapper,
 .app__registration-wrapper
   border-radius: .25rem
-  @include border(1px, $inactive)
-  @include shadow($inactive)
+  box-shadow: 0 0 15px 0 $inactive
+  border: 1px solid $inactive
+
 form
   padding: 15px 25px
+
 .form-control
   margin-bottom: 15px
+
 .form-input
   border: none
   border-radius: .25rem .25rem 0 0
-  @include border(1px, $inactive, bottom)
+  border-bottom: 1px solid $inactive
+
 .form-input:focus
   border-width: 2px
   border-color: $accent
-  @include shadow($accent, true)
+  box-shadow: 0 10px 15px -10px $accent
+
 .form-input:hover:not(:focus)
-  @include shadow($inactive, true)
+  box-shadow: 0 10px 15px -10px $inactive
+
 button[type=submit].form-control
-  @include button($accent, $active)
+  width: auto
+  background-color: $accent
+  color: $white
+  font-weight: bold
+  border: none
+  margin-top: 10px
+  transition-property: background-color, box-shadow, color
+  transition-duration: .1s
+  transition-timing-function: ease-out
+  border: 1px solid $accent
+  &:hover, &:focus
+    background-color: $active
+    box-shadow: 0 10px 15px -10px $active
+    border: 1px solid $active
+  &:focus:not(:hover)
+    box-shadow: none
+  &:active:hover
+    background-color: $white
+    color: $dark
+    border-color: $inactive
+    box-shadow: 0 10px 15px -10px $inactive
