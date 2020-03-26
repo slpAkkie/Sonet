@@ -76,10 +76,12 @@ class App {
     $(this.editorFrameBody).focusout(function () { _app.frameInterection(false) });
     $(this.editorFrameBody).focusin(function () { _app.frameInterection(true) });
 
-    $(`#js-openSettings`).click(function () { _app.openSettings() });
-    $(`#js-closeSettings`).click(function () { _app.closeSettings() });
+    $(`#js-openSettings`).mousedown(() => { _app.openSettings() });
+    $(`#js-closeSettings`).mousedown(() => { this.closeSettings() });
 
     $(`#js-isProtect`).click(function () { _app.changeProtect(this) });
+
+    $(`#js-formattingTools`).click(() => { return false });
   }
 
   openNote(clickedNote) {
