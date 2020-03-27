@@ -163,7 +163,9 @@ class App {
     const param = tool.attr(`data-param`) || null;               // Параметры если есть
     this.editorFrameDoc.execCommand(action, false, param);       // Выполняем команду с указанным действием и параметрами
 
-    this.updateFormattingButton();
+    tool.hasClass(`active`) ? tool.removeClass(`active`) : tool.addClass(`active`);
+    // this.editorFrameBody.focus();
+    // this.updateFormattingButton();
     // Прерываем стандартное поведение, что бы не потерять фокус
     return false;
   }
@@ -180,9 +182,9 @@ class App {
 
   updateFormattingButton() {
     let tags = this.getTags();
-    const bBold = $(`#js-bold`),
-      bItalic = $(`#js-italic`),
-      bUnderline = $(`#js-inderline`);
+    let bBold = $(`#js-bold`);
+    let bItalic = $(`#js-italic`);
+    let bUnderline = $(`#js-inderline`);
     tags.includes(`b`) ? bBold.addClass(`active`) : bBold.removeClass(`active`);
     tags.includes(`i`) ? bItalic.addClass(`active`) : bItalic.removeClass(`active`);
     tags.includes(`u`) ? bUnderline.addClass(`active`) : bUnderline.removeClass(`active`);

@@ -140,6 +140,9 @@ input[type=password]:focus,
     max-height: 618px
     margin-bottom: 77px
 
+#js-frameBody
+  overflow-wrap: break-word
+
 .editor__bottom-tool-wrapper
   position: absolute
   bottom: 15px
@@ -175,10 +178,18 @@ input[type=password]:focus,
   transition-property: background, color
   transition-duration: .1s
   transition-timing-function: ease-out
-  &:hover, &.active
+  cursor: pointer
+  &:hover
+    background-color: darken($light, 5%)
+    color: $accent
+  &.active
     background-color: $dark
     color: $light
-    cursor: pointer
+  &.active:hover
+    background-color: lighten($dark, 15%)
+    color: $light
+
+
 
 /**
  * Блок настроек
