@@ -175,7 +175,7 @@ input[type=password]:focus,
   transition-property: background, color
   transition-duration: .1s
   transition-timing-function: ease-out
-  &:hover
+  &:hover, &.active
     background-color: $dark
     color: $light
     cursor: pointer
@@ -188,13 +188,13 @@ input[type=password]:focus,
   top: 0
   bottom: 0
   right: 0
-  padding: 0 0 0 2px
   z-index: 10
 
 .notes__settins-wrapper
   min-width: 798px
   background-color: $light
-  padding: 25px 25px 25px 23px
+  padding: 25px 25px 25px 25px
+  border-left: 2px solid $accent
 
 .setting__item-wrapper
   padding: 10px 30px
@@ -252,5 +252,7 @@ input[type=password]:focus,
   &.active::before
     margin-left: 30px
     background-color: $active
+  &.active::after
+    background-color: darken($light, 5%)
   &:hover::after
     box-shadow: 0 0 15px 0 lighten($inactive, 5%)

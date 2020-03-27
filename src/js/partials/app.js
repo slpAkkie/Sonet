@@ -9,32 +9,34 @@ class App {
 
   constructor() {
     /**
-     * Инициализируем необходимые элементы
+     * Инициализируем необходимые переменные
      */
 
-    this.hidePreloader();
-
+    // Определяем переменные для списка заметок
     this.noteList = $(`#js-notesList`);
     this.middleCollapsing = $(`#js-collapseMiddle`);
 
+    // Определяем поле редактирования текста
     this.editorTitle = $(`#js-editorTitle`);
     this.editorFrame = $(`#js-editorFrame`)[0];
     this.editorFrameDoc = this.editorFrame.contentDocument;
     this.editorFrameWin = this.editorFrame.contentWindow;
-    /** Немного переопределим переменную фрейма */
+    /** Немного переопределим фрейм */
     this.editorFrame = $($(`#js-editorFrame`)[0]);
 
+    // Элементы форматирования текста
     this.formattingTools = $(`#js-formattingTools`);
     this.activeNote = false;
 
+    /**
+     * Выполняем необходимые действия
+     */
     /** Инициализируем фрейм */
     this.initilizeFrame();
     /** Инициализируем обработчики событий */
     this.initilizeHandlers();
-  }
-
-  hidePreloader() {
-    setTimeout(() => { $(`#js-preloader`).addClass(`hidden`) }, 500);
+    // Прячем прелоадер
+    this.hidePreloader();
   }
 
   initilizeFrame() {
@@ -42,8 +44,10 @@ class App {
      * Инициализация Фрейм - Создание его разметки, запись и активация режима проектирования
      */
 
-    /** TODO: Здесь мы подгружаем нашу заметку */
+    /** TODO: Здесь мы подгружаем данные о нашей заметке */
     // this.note.loadNote();
+    // let nTitle = this.note.title;
+    // let nContent = this.note.content;
 
     const iHTML = `<html><head><link rel="stylesheet" href="css/main.min.css"></head><body class="w-placeholder" id="js-frameBody" data-text="Тело заметки"></body></html>`;
     this.editorFrameDoc.open();
@@ -51,6 +55,7 @@ class App {
     this.editorFrameDoc.close();
     this.editorFrameDoc.designMode = `on`;
 
+    // Обновляем содержимое body фрейма
     this.editorFrameBody = this.editorFrameDoc.body;
   }
 
@@ -72,16 +77,25 @@ class App {
     /**
      * Нажатие кнопки внутри Фрейма и перевод фокуса на окно редактирования
      */
-    $(this.editorFrameBody).keyup(function () { _app.frameInterection() });
-    $(this.editorFrameBody).focusout(function () { _app.frameInterection(false) });
-    $(this.editorFrameBody).focusin(function () { _app.frameInterection(true) });
+    $(this.editorFrameBody).keyup(function () { _app.frameInterection(); _app.updateFormattingButton() })
+      .focusout(function () { _app.frameInterection(false) })
+      .focusin(function () { _app.frameInterection(true) })
+      .mouseup(function () { _app.updateFormattingButton() });
 
-    $(`#js-openSettings`).mousedown(() => { _app.openSettings() });
-    $(`#js-closeSettings`).mousedown(() => { this.closeSettings() });
+    $(`#js-openSettings`).mousedown(() => { return false })
+      .click(() => { _app.openSettings() });
+    $(`#js-closeSettings`).click(() => { this.closeSettings() });
 
     $(`#js-isProtect`).click(function () { _app.changeProtect(this) });
 
-    $(`#js-formattingTools`).click(() => { return false });
+    $(`#js-formattingTools`).mousedown(() => { return false });
+  }
+
+  hidePreloader() {
+    /**
+     * Прячем прелоадер с задержкой в 500мс
+     */
+    setTimeout(() => { $(`#js-preloader`).addClass(`hidden`) }, 500);
   }
 
   openNote(clickedNote) {
@@ -113,7 +127,7 @@ class App {
 
   closeSettings() {
     $(`#js-collapseRight`).addClass(`hidden`);
-    this.editorFrameBody.focus()
+    this.editorFrameBody.focus();
   }
 
   changeProtect(switcher) {
@@ -142,13 +156,36 @@ class App {
     /**
      * Обработчик кнопок форматирования
      */
+    tool = $(tool);
 
     this.editorFrameWin.focus();
-    const action = $(tool).attr(`data-action`);                     // Действие для обработки текста
-    const param = $(tool).attr(`data-param`) || null;               // Параметры если есть
-    this.editorFrameDoc.execCommand(action, false, param);          // Выполняем команду с указанным действием и параметрами
+    const action = tool.attr(`data-action`);                     // Действие для обработки текста
+    const param = tool.attr(`data-param`) || null;               // Параметры если есть
+    this.editorFrameDoc.execCommand(action, false, param);       // Выполняем команду с указанным действием и параметрами
+
+    this.updateFormattingButton();
     // Прерываем стандартное поведение, что бы не потерять фокус
     return false;
+  }
+
+  getTags() {
+    let tagQueue = this.editorFrameDoc.getSelection().focusNode.parentElement;
+    let tagArray = [];
+    while (![`body`, `html`].includes(tagQueue.localName)) {
+      tagArray.push(tagQueue.localName);
+      tagQueue = tagQueue.parentElement;
+    }
+    return tagArray;
+  }
+
+  updateFormattingButton() {
+    let tags = this.getTags();
+    const bBold = $(`#js-bold`),
+      bItalic = $(`#js-italic`),
+      bUnderline = $(`#js-inderline`);
+    tags.includes(`b`) ? bBold.addClass(`active`) : bBold.removeClass(`active`);
+    tags.includes(`i`) ? bItalic.addClass(`active`) : bItalic.removeClass(`active`);
+    tags.includes(`u`) ? bUnderline.addClass(`active`) : bUnderline.removeClass(`active`);
   }
 }
 
