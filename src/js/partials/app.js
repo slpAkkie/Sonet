@@ -184,7 +184,7 @@ class App {
     let tags = this.getTags();
     let bBold = $(`#js-bold`);
     let bItalic = $(`#js-italic`);
-    let bUnderline = $(`#js-inderline`);
+    let bUnderline = $(`#js-underline`);
     tags.includes(`b`) ? bBold.addClass(`active`) : bBold.removeClass(`active`);
     tags.includes(`i`) ? bItalic.addClass(`active`) : bItalic.removeClass(`active`);
     tags.includes(`u`) ? bUnderline.addClass(`active`) : bUnderline.removeClass(`active`);
