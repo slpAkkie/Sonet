@@ -1,20 +1,48 @@
-# slpNotes
+# Notes
 
-Here you can leave notes, create categories,
-write down your thoughts. Other people will
-never know what you write here.
+### [Live Demo](//slpMouse.github.io/)
 
-## Getting Started
+***
 
-In order to copy the repository to yourself,
-you can use the git clone command or download
-it through the website (or the Github Desktop app).
+# Описание
 
-### Prerequisites
+Web приложение для заметок.
+Простое приложения где вы можете записывать свои мысли и идеи, а так же защищать их поролем.
 
-You need to install
-	- `npm` (or `yarn`)
-	- `bower`
-	- `gulp`
-From npm (yarn) install all from `package.json`
-by `npm install` in the work directory
+На данный момент приложение не обладает всеми заявленными функциями.
+
+![Demo image](/demo/editor-empty.png?raw=true)
+
+***
+
+## Приступая к работе
+
+Сперва клонирйте репозиторий к себе
+
+#### Компоненты
+
+Вам нужно установить
+- `npm` (или `yarn`)
+- `bower`
+- `gulp`
+
+Установите все пакеты, указанные в package.json командой `npm install`,предварительно перейдя в корневой папке проекта
+
+#### Структура проекта
+
+- `build` - Собранный проект. Сборка осуществляется по средствам `gulp`
+- `src` - Исходные файлы.
+
+***
+
+# Version
+
+0.3.1
+
+# Author
+
+Alexandr Shamanin (a.k.a slpMouse)
+
+# License
+
+MIT

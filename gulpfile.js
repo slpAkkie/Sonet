@@ -124,5 +124,10 @@ gulp.task(`watch`, function () {
     gulp.watch([path.watch.fonts], gulp.series(`fonts:build`));
 });
 
+gulp.task(`css:copy`, function () {
+    return gulp.src(`src/style/*.css`)
+        .pipe(gulp.dest(path.build.css));
+});
 
-gulp.task(`default`, gulp.series(`clean`, gulp.parallel(`build`), gulp.parallel(`watch`, `webserver`)));
+
+gulp.task(`default`, gulp.series(`clean`, gulp.parallel(`build`), `css:copy`, gulp.parallel(`watch`, `webserver`)));

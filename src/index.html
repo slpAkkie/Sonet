@@ -4,57 +4,96 @@
 <head>
   <title>Notes</title>
   <link rel="stylesheet" href="css/main.min.css">
+  <link rel="stylesheet" href="css/fontawesome.min.css">
 </head>
 
 <body>
-  <!-- General app container -->
-  <div class="app-container container-fluid flex-centered">
-    <!-- Main app area -->
-    <div class="notes-wrapper d-flex">
-      <!-- Left side with notes strip -->
-      <div class="left-side">
-        <h2 class="text-center p-4">Заметки</h2>
-        <div class="notes-list">
-          <div class="notes-strip">
-            //= templates/strip-item.html
-            //= templates/strip-item.html
-            //= templates/strip-item.html
-            //= templates/strip-item.html
-            //= templates/strip-item.html
-            //= templates/strip-item.html
-            //= templates/strip-item.html
-            //= templates/strip-item.html
-            //= templates/strip-item.html
-            //= templates/strip-item.html
+  <!-- Preloader -->
+  <div class="preloader-container flex-centered flex-column position-absolute w-100 h-100" id="js-preloader">
+    <div class="preloader-wrapper text-center">
+      <div class="preloader-body">
+        <h2>Подождите!</h2>
+        <p>Идет загрузка</p>
+      </div>
+    </div>
+  </div>
+  <!-- Preloader end -->
+
+  <!-- Контейнер приложения -->
+  <div class="app-container container-fluid p-0 flex-centered">
+    <!-- Основная часть приложения -->
+    <div class="app__notes-wrapper d-flex">
+      <!-- Левая часть со списком заметок -->
+      <div class="notes__list-wrapper">
+        <h2 class=" text-center p-4">Заметки</h2>
+        <div class="notes__list-body">
+          <div class="notes__list" id="js-notesList">
+            //= templates/list__item.html
+            //= templates/list__item.html
+            //= templates/list__item.html
+            //= templates/list__item.html
+            //= templates/list__item.html
+            //= templates/list__item.html
+            //= templates/list__item.html
+            //= templates/list__item.html
+            //= templates/list__item.html
+            //= templates/list__item.html
           </div>
-          <div class="float-button"></div>
+          <div class="notes__add-note-button"></div>
         </div>
       </div>
-      <!-- Middle side for note editor -->
-      <div class="collapsing-wrapper hidden" id="js-collapse-middle">
-        <div id="middle-side">
-          <div class="editor d-flex flex-column">
-            <div class="editor-field mb-3">
-              <h4 class="m-0 w-placeholder" contenteditable="true" data-text="Название"></h4>
+
+      <!-- Центральная часть для редактора -->
+      <div class="notes__collapsing-wrapper d-flex hidden" id="js-collapseMiddle">
+        <div class="notes__editor-wrapper flex-grow-1">
+          <div class="notes__editor d-flex flex-column">
+            <!-- Редактор Заголовка заметки -->
+            <div class="editor__input-wrapper mb-3">
+              <h4 class="m-0 w-placeholder" id="js-editorTitle" contenteditable="true" data-text="Название"></h4>
             </div>
-            <div class="editor-field d-flex flex-grow-1 position-relative">
-              <div class="w-placeholder flex-grow-1 text-area" id="js-change" contenteditable="true"
-                data-text="Контент"></div>
-              <div class="text-tools hidden" id="js-slide">
-                <div class="text-format" id="js-bold"><b>B</b></div>
-                <div class="text-format" id="js-italic"><i>I</i></div>
-                <div class="text-format" id="js-underline"><u>U</u></div>
+            <!-- Редактор тела зметки -->
+            <div class="editor__input-wrapper d-flex flex-grow-1 position-relative">
+              <!-- Фрейм для ввода-редактирования текста -->
+              <iframe class="w-placeholder flex-grow-1 editor__frame" id="js-editorFrame" contenteditable="true"
+                data-text="Контент"></iframe>
+              <!-- Инструменты форматирования -->
+              <div class="editor__bottom-tool-wrapper hidden" id="js-formattingTools">
+                <div class="bottom-tool__formatting-tools d-flex flex-grow-1">
+                  <div class="editor__formatting-tool" id="js-bold" data-action="bold"><i class="fas fa-bold"></i></div>
+                  <div class="editor__formatting-tool" id="js-italic" data-action="italic"><i class="fas fa-italic"></i>
+                  </div>
+                  <div class="editor__formatting-tool" id="js-underline" data-action="underline"><i
+                      class="fas fa-underline"></i></div>
+                </div>
+
+                <div class="bottom-tool__settings-tools d-flex">
+                  <div class="editor__settings-tool" id="js-openSettings"><i class="fas fa-cog"></i></div>
+                </div>
               </div>
             </div>
           </div>
         </div>
       </div>
-      <!-- Right side for note settings -->
-      <div class="right-side hidden"></div>
+
+      <!-- Правая часть с настройками заметки -->
+      <div class="notes__collapsing-wrapper notes__collapsing-wrapper_inside d-flex hidden" id="js-collapseRight">
+        <div class="notes__settins-wrapper d-flex flex-grow-1">
+          <div class="notes__settings flex-grow-1">
+            <div class="setting__item-wrapper settings__top d-flex">
+              <div class="top__icon" id="js-closeSettings"><i class="fas fa-caret-left"></i></div>
+              <div class="top__title flex-grow-1 h3 m-0 text-center">Настройки</div>
+            </div>
+            <div class="setting__item-wrapper">
+              <div class="control__title h4 m-0">Защищенная заметка</div>
+              <div class="control__switch" id="js-isProtect"></div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
-    <!-- Main app area end -->
+    <!-- Основная часть приложенния end -->
   </div>
-  <!-- General app container end -->
+  <!-- Контейнер приложения end -->
 
   <script src="js/main.js"></script>
 </body>

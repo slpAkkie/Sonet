@@ -234,7 +234,7 @@
     "sort-vars": "warn",
     "spaced-comment": [
       "warn",
-      "never"
+      "smart"
     ],
     "switch-colon-spacing": "error",
     "template-tag-spacing": [
