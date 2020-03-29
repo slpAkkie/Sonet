@@ -11,7 +11,7 @@ Web приложение для заметок.
 
 На данный момент приложение не обладает всеми заявленными функциями.
 
-![Screenshoot](//github.com/slpMouse/Notes/demo/editor-empty.png)
+![Demo image](//github.com/slpMouse/Notes/blob/dev/demo/editor-empty.png?raw=true)
 
 ***
 
