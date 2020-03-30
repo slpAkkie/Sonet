@@ -69,6 +69,8 @@ class App {
      */
     $(`.list__item`).click(function () { _app.openNote(this) });
 
+    $(`#js-closeMiddle`).click(function () { _app.closeMiddle_onSmallScreens() });
+
     /**
      * Клик на кнопки форматирования
      */
@@ -98,7 +100,7 @@ class App {
     setTimeout(() => { $(`#js-preloader`).addClass(`hidden`) }, 500);
   }
 
-  openNote(clickedNote) {
+  openNote(clickedNote = this.activeNote) {
     /**
      * Если выбранная заметка уже была открыта (имеет класс active), то
      * Закроем поле редактирования и удалим класс active
@@ -113,14 +115,21 @@ class App {
 
     if ($(clickedNote).hasClass(`active`)) {
       $(this.middleCollapsing).addClass(`hidden`);
-      this.activeNote.removeClass(`active`),
-        this.activeNote = false;
+      this.activeNote.removeClass(`active`);
+      this.activeNote = false;
     } else {
       $(this.middleCollapsing).removeClass(`hidden`);
-      this.activeNote ? this.activeNote.removeClass(`active`) : false,
-        this.activeNote = $(clickedNote);
+      this.activeNote ? this.activeNote.removeClass(`active`) : this.activeNote = $(clickedNote);
       this.activeNote.addClass(`active`);
+      $(`.notes__list-wrapper`).hasClass(`on-small-screens`) ? false : $(`.notes__list-wrapper`).addClass(`on-small-screens`),
+        $(`.app__notes-wrapper`).addClass(`on-small-screens`);
     }
+  }
+
+  closeMiddle_onSmallScreens() {
+    $(`.notes__list-wrapper`).removeClass(`on-small-screens`);
+    $(`.app__notes-wrapper`).removeClass(`on-small-screens`);
+    this.openNote()
   }
 
   openSettings() { $(`#js-collapseRight`).removeClass(`hidden`) }
