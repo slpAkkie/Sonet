@@ -14,7 +14,7 @@
   },
   "rules": {
     "indent": [
-      "warn",
+      "error",
       2
     ],
     "linebreak-style": [
@@ -30,20 +30,30 @@
       "always"
     ],
     "no-unused-vars": "warn",
-    "getter-return": "error",
+    "getter-return": "warn",
     "no-setter-return": "warn",
     "no-cond-assign": [
       "warn",
       "always"
     ],
-    "no-constant-condition": "warn",
+    "no-constant-condition": "off",
     "no-dupe-args": "error",
     "no-dupe-keys": "error",
     "no-duplicate-case": "error",
     "no-extra-boolean-cast": "warn",
-    "no-extra-parens": "error",
-    "no-extra-semi": "off",
-    "no-func-assign": "error",
+    "no-extra-parens": [
+      "warn",
+      "all",
+      {
+        "ignoreJSX": "all",
+        "nestedBinaryExpressions": false,
+        "returnAssign": false,
+        "enforceForArrowConditionals": false,
+        "enforceForSequenceExpressions": false
+      }
+    ],
+    "no-extra-semi": "warn",
+    "no-func-assign": "off",
     "no-inner-declarations": "off",
     "no-irregular-whitespace": "error",
     "no-template-curly-in-string": "error",
@@ -51,15 +61,17 @@
     "no-unreachable": "error",
     "use-isnan": "error",
     "array-callback-return": "warn",
-    "block-scoped-var": "error",
     "class-methods-use-this": "warn",
     "consistent-return": "warn",
-    "curly": "warn",
+    "curly": [
+      "warn",
+      "multi-line"
+    ],
     "default-case": "warn",
     "default-param-last": [
       "warn"
     ],
-    "dot-notation": "error",
+    "dot-notation": "warn",
     "eqeqeq": [
       "warn",
       "smart"
@@ -68,12 +80,7 @@
     "no-eval": "warn",
     "no-invalid-this": "warn",
     "no-lone-blocks": "error",
-    "no-magic-numbers": [
-      "error",
-      {
-        "detectObjects": true
-      }
-    ],
+    "no-magic-numbers": "off",
     "no-multi-spaces": [
       "error",
       {
@@ -125,12 +132,19 @@
       "error",
       "always",
       {
-        "singleValue": false,
-        "objectsInArrays": false
+        "singleValue": true,
+        "objectsInArrays": false,
+        "arraysInArrays": false
       }
     ],
     "block-spacing": "error",
-    "brace-style": "warn",
+    "brace-style": [
+      "error",
+      "1tbs",
+      {
+        "allowSingleLine": true
+      }
+    ],
     "camelcase": "warn",
     "comma-dangle": [
       "error",
@@ -233,8 +247,8 @@
     "sort-keys": "warn",
     "sort-vars": "warn",
     "spaced-comment": [
-      "warn",
-      "smart"
+      "error",
+      "always"
     ],
     "switch-colon-spacing": "error",
     "template-tag-spacing": [
