@@ -1,6 +1,6 @@
 # Notes
 
-## [Live Demo](//slpMouse.github.io/)
+## [Live Demo](//slpAkkie.github.io/)
 
 ***
 
@@ -55,7 +55,7 @@ Web приложение для заметок.
 
 ## Author
 
-Alexandr Shamanin (a.k.a slpMouse)
+@slpAkkie
 
 ## License
 
