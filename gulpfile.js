@@ -27,21 +27,21 @@ var path = {
         js: `build/js/`,
         css: `build/css/`,
         img: `build/img/`,
-        fonts: `build/fonts/`
+        fonts: `build/webfonts/`
     },
     src: {
         html: `src/*.html`,
         js: `src/js/main.js`,
         style: `src/style/main.sass`,
         img: `src/img/**/*.*`,
-        fonts: `src/fonts/**/*.*`
+        fonts: `src/webfonts/**/*.*`
     },
     watch: {
         html: `src/**/*.html`,
         js: `src/js/**/*.js`,
         style: `src/style/**/*.sass`,
         img: `src/img/**/*.*`,
-        fonts: `src/fonts/**/*.*`
+        fonts: `src/webfonts/**/*.*`
     },
     clean: `./build`
 };
@@ -124,10 +124,10 @@ gulp.task( `watch`, function () {
     gulp.watch( [ path.watch.fonts ], gulp.series( `fonts:build` ) );
 } );
 
-gulp.task( `css:copy`, function () {
-    return gulp.src( `src/style/*.css` )
+gulp.task( `css-libs:copy`, function () {
+    return gulp.src( `src/style/libs/*` )
         .pipe( gulp.dest( path.build.css ) );
 } );
 
 
-gulp.task( `default`, gulp.series( `clean`, gulp.parallel( `build` ), `css:copy`, gulp.parallel( `watch`, `webserver` ) ) );
+gulp.task( `default`, gulp.series( `clean`, gulp.parallel( `build` ), `css-libs:copy`, gulp.parallel( `watch`, `webserver` ) ) );
