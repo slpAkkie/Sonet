@@ -15,7 +15,7 @@
     <div class="preloader-wrapper text-center">
       <div class="preloader-body">
         <h2>Подождите!</h2>
-        <p>Идет загрузка</p>
+        <p>Идет загрузка...</p>
       </div>
     </div>
   </div>
@@ -28,19 +28,43 @@
       <!-- Левая часть со списком заметок -->
       <div class="notes__list-wrapper">
         <div class="notes__list-container">
-          <h2 class=" text-center p-4">Заметки</h2>
+          <h2 class=" text-center p-4">Список</h2>
           <div class="notes__list-body">
             <div class="notes__list" id="js-notesList">
-              //= templates/list__item.html
-              //= templates/list__item.html
-              //= templates/list__item.html
-              //= templates/list__item.html
-              //= templates/list__item.html
-              //= templates/list__item.html
-              //= templates/list__item.html
-              //= templates/list__item.html
-              //= templates/list__item.html
-              //= templates/list__item.html
+              @@include('templates/list__item.html', { "noteTitle": "Заметка номер 1", "noteDate": "Вчера", "noteType":
+              "Заметка" })
+
+              @@include('templates/list__item.html', { "noteTitle": "Вторая заметка", "noteDate": "Завтра", "noteType":
+              "Заметка" })
+
+              @@include('templates/list__item.html', { "noteTitle": "Как готовить овощи", "noteDate": "Позавчера",
+              "noteType":
+              "Заметка" })
+
+              @@include('templates/list__item.html', { "noteTitle": "Что если?", "noteDate": "19 сентября", "noteType":
+              "Заметка" })
+
+              @@include('templates/list__item.html', { "noteTitle": "Планы на жизнь", "noteDate": "В 2019 году",
+              "noteType":
+              "Список" })
+
+              @@include('templates/list__item.html', { "noteTitle": "Купить!!!", "noteDate": "Два века ранее",
+              "noteType":
+              "Заметка" })
+
+              @@include('templates/list__item.html', { "noteTitle": "ОЧЕНЬ ВАЖНО", "noteDate": "Сегодня", "noteType":
+              "Заметка" })
+
+              @@include('templates/list__item.html', { "noteTitle": "На всякий", "noteDate":
+              "Вчера", "noteType":
+              "Заметка" })
+
+              @@include('templates/list__item.html', { "noteTitle": "Пароли", "noteDate": "19.05.19", "noteType":
+              "Таблица" })
+
+              @@include('templates/list__item.html', { "noteTitle": "Проекты", "noteDate": "неделю назад", "noteType":
+              "Заметка" })
+
             </div>
             <div class="notes__add-note-button"></div>
           </div>
