@@ -11,7 +11,7 @@ Web приложение для заметок.
 
 На данный момент приложение не обладает всеми заявленными функциями.
 
-![Demo image](/figma%20layout/Notes%20With%20Editor.png?raw=true)
+![Demo image](/figma-layout/Notes%20With%20Editor.png?raw=true)
 
 ***
 
