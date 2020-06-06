@@ -17,7 +17,7 @@ Web приложение для заметок.
 
 ## Как работать с проектом?
 
-Принцип работы с моим dev-kit описан в [этом](//github.com/slpAkkie/frontend-dev-kit) репозитории
+Принцип работы с моим dev-kit описан в [этом](//github.com/slpAkkie/frontendDevKit) репозитории
 
 ***
 
