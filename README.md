@@ -1,4 +1,4 @@
-# Notes
+# web-notes
 
 ***
 
@@ -9,7 +9,7 @@ Web-приложение для заметок.
 
 На данный момент приложение не обладает всеми заявленными функциями.
 
-![Demo image](/figma-layout/notes-with-editor.png?raw=true)
+![Demo image](/figma-layout/web-notes-with-editor.png?raw=true)
 
 ***
 

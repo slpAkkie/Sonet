@@ -1,12 +1,11 @@
 {
-  "name": "template",
-  "description": "",
+  "name": "web-notes",
+  "description": "Web-приложения для создания заметок",
   "main": "gulpfile.js",
   "authors": [
     "slpMouse"
   ],
   "license": "MIT",
-  "homepage": "",
   "ignore": [
     "**/.*",
     "node_modules",
