@@ -1,5 +1,5 @@
 {
-  "name": "web-notes",
+  "name": "SkyNotes",
   "description": "Web-приложения для создания заметок",
   "main": "gulpfile.js",
   "authors": [

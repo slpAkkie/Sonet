@@ -1,8 +1,8 @@
 {
-  "name": "web-notes",
+  "name": "SkyNotes",
   "version": "0.3.2",
   "description": "Web-приложения для создания заметок",
-  "repository": "https://github.com/slpMouse/web-notes.git",
+  "repository": "https://github.com/slpMouse/SkyNotes.git",
   "author": "slpMouse <slpMouse@yandex.ru>",
   "license": "MIT",
   "devDependencies": {
