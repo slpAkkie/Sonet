@@ -15,4 +15,4 @@ Alexandr Shamanin (@slpAkkie)
 
 ## Версия
 
-0.3.1
+0.3.2
