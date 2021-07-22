@@ -30,8 +30,24 @@ body {
   font-size: 1.6rem; }
 
 a {
+  position: relative;
   color: inherit;
   text-decoration: none; }
+  a::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: -.2rem;
+    width: 80%;
+    height: .1rem;
+    margin: 0 auto;
+    background-color: #3f72af;
+    transition-property: width;
+    transition-duration: 0.15s;
+    transition-timing-function: ease; }
+  a:hover::after {
+    width: 100%; }
 
 input,
 button {
@@ -84,6 +100,24 @@ h6 {
 .f_align-center {
   align-items: center; }
 
+.p-0 {
+  padding: 0rem; }
+
+.p-1 {
+  padding: .5rem; }
+
+.p-2 {
+  padding: 1rem; }
+
+.p-3 {
+  padding: 1.5rem; }
+
+.p-4 {
+  padding: 2.5rem; }
+
+.p-5 {
+  padding: 5rem; }
+
 .py-4 {
   padding-top: 2.5rem;
   padding-bottom: 2.5rem; }
@@ -113,6 +147,24 @@ h6 {
 
 .mt-5 {
   margin-top: 5rem; }
+
+.ml-0 {
+  margin-left: 0rem; }
+
+.ml-1 {
+  margin-left: .5rem; }
+
+.ml-2 {
+  margin-left: 1rem; }
+
+.ml-3 {
+  margin-left: 1.5rem; }
+
+.ml-4 {
+  margin-left: 2.5rem; }
+
+.ml-5 {
+  margin-left: 5rem; }
 
 .width_stretch {
   width: 100%; }

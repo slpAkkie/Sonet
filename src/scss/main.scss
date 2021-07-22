@@ -1,12 +1,10 @@
+// Mixins
+@import './mixins/transition';
+
 // Utils
 @import './utils/fonts';
 @import './utils/vars';
 @import './utils/normalize';
-
-// Mixins
-@import './mixins/transition';
-
-// ...Utils
 @import './utils/classes';
 
 // General

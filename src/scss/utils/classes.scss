@@ -33,6 +33,30 @@
 }
 
 .p {
+  &-0 {
+    padding: 0rem;
+  }
+
+  &-1 {
+    padding: .5rem;
+  }
+
+  &-2 {
+    padding: 1rem;
+  }
+
+  &-3 {
+    padding: 1.5rem;
+  }
+
+  &-4 {
+    padding: 2.5rem;
+  }
+
+  &-5 {
+    padding: 5rem;
+  }
+
   &y {
     &-4 {
       padding-top   : 2.5rem;
@@ -77,6 +101,32 @@
 
     &-5 {
       margin-top: 5rem;
+    }
+  }
+
+  &l {
+    &-0 {
+      margin-left: 0rem;
+    }
+
+    &-1 {
+      margin-left: .5rem;
+    }
+
+    &-2 {
+      margin-left: 1rem;
+    }
+
+    &-3 {
+      margin-left: 1.5rem;
+    }
+
+    &-4 {
+      margin-left: 2.5rem;
+    }
+
+    &-5 {
+      margin-left: 5rem;
     }
   }
 }
