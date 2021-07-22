@@ -1,0 +1,34 @@
+doctype html
+html(lang="ru")
+  head
+    //- Meta
+    meta(charset="UTF-8")
+    meta(http-equiv="X-UA-Compatible", content="IE=edge")
+    meta(name="viewport", content="width=device-width, initial-scale=1.0")
+
+    //- CSS
+    link(rel="stylesheet", href="./assets/css/main.css")
+
+    //- Title
+    title SkyNotes | Login
+  body.bg_dark
+    .login__container.container.content_center
+      .login
+
+        //- Left side
+        .py-5
+          h1.my-0 SkyNotes
+
+        .login__separator.separator.separator_vertical
+
+        //- Right side
+        .py-5
+          h3.mt-0.text_center Вход
+          form.login__form(action="#")
+              .field-row
+                label.field-row__label(for="login") Ваш Логин:
+                input#login.field-row__input.input.input_text(type="text", name="login", placeholder="login")
+              .field-row
+                label.field-row__label(for="password") Ваш Пароль:
+                input#login.field-row__input.input.input_text(type="text", name="password", placeholder="password")
+              input.button.mt-4(type="submit", value="Войти")

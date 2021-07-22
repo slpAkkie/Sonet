@@ -1,0 +1,23 @@
+.button {
+  padding         : 1rem 5rem;
+  //
+  text-align      : center;
+  font-weight     : bold;
+  font-size       : 1.5rem;
+  //
+  background-color: $primary;
+  color           : $light-1;
+  border-radius   : .2rem;
+  //
+  cursor          : pointer;
+
+  @include transition(.15s, ease, background-color);
+
+  &:hover {
+    background-color: darken($color: $primary, $amount: 5%);
+  }
+
+  &:active {
+    background-color: darken($color: $primary, $amount: 15%);
+  }
+}

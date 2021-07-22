@@ -1,0 +1,17 @@
+.login {
+  display        : flex;
+  justify-content: space-around;
+  align-items    : center;
+
+  &__container {
+    height: 100vh;
+  }
+
+  @media screen and (max-width: 734px) {
+    flex-direction: column;
+
+    &__separator {
+      display: none;
+    }
+  }
+}

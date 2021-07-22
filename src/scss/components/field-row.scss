@@ -1,0 +1,14 @@
+.field-row {
+  display       : flex;
+  flex-direction: column;
+  //
+  width         : 100%;
+
+  &__label {
+    margin-bottom: .5em;
+  }
+
+  &+& {
+    margin-top: 2rem;
+  }
+}

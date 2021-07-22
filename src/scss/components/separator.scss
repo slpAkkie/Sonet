@@ -1,0 +1,15 @@
+.separator {
+  background-color: $primary;
+
+  &_vertical {
+    width : .2rem;
+    height: 100%;
+    margin: 0 2.5em;
+  }
+
+  &_horizontal {
+    width : 100%;
+    height: .2rem;
+    margin: 2.5em 0;
+  }
+}

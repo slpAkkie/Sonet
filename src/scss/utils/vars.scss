@@ -1,0 +1,38 @@
+  // Font
+  $html-font-size : 10px;
+  $body-font-size : 1.6rem;
+  $body-font-family: 'Exo 2',
+  -apple-system,
+  BlinkMacSystemFont,
+  'Segoe UI',
+  Roboto,
+  'Helvetica Neue',
+  Arial,
+  'Noto Sans',
+  sans-serif;
+
+  // Colors
+  $lighter-1: #f9f7f7;
+  $lighter-2: #eeeeee;
+  $light-1  : #dbe2ef;
+  $light-2  : #eaeaea;
+  $gray-1   : #323232;
+  $gray-2   : #393e46;
+  $dark-1   : #112d4e;
+  $dark-2   : #0d7377;
+  $darkest-1: #252a34;
+  $darkest-2: #222831;
+  //
+  $cold-1   : #3f72af;
+  $cold-2   : #00adb5;
+  //
+  $mint     : #08d9d6;
+  $red      : #ff2e63;
+
+  $primary   : $cold-1;
+  //
+  $bg-light  : $light-1;
+  $bg-dark   : $darkest-1;
+  //
+  $text-light: $lighter-1;
+  $text-dark : $darkest-2;
