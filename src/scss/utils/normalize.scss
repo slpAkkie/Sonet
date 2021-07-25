@@ -25,32 +25,50 @@ body {
   font-size  : $body-font-size;
 }
 
+ul,
+li {
+  list-style-type: none;
+}
+
 a {
   position       : relative;
   //
   color          : inherit;
   text-decoration: none;
 
-  &::after {
-    content         : '';
-    //
-    position        : absolute;
-    left            : 0;
-    right           : 0;
-    bottom          : -.2rem;
-    //
-    width           : 80%;
-    height          : .1rem;
-    margin          : 0 auto;
-    //
-    background-color: $primary;
-    //
-    @include transition(.15s, ease, width)
+  &:not(.link_static) {
+    opacity: .75;
+
+    &::after {
+      content         : '';
+      //
+      position        : absolute;
+      left            : 0;
+      right           : 0;
+      bottom          : -.2rem;
+      //
+      width           : 25%;
+      height          : .1rem;
+      margin          : 0 auto;
+      //
+      background-color: $primary;
+      opacity         : 0;
+      //
+      @include transition(.15s, ease, width, opacity)
+    }
+
+    &:hover {
+
+      opacity: 1;
+
+      &::after {
+        width  : 100%;
+        opacity: 1;
+      }
+    }
   }
 
-  &:hover::after {
-    width: 100%;
-  }
+  @include transition(.15s, ease, opacity)
 }
 
 input,

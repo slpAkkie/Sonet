@@ -1,0 +1,23 @@
+block vars
+  -
+    let title = null
+    let body_classes = ''
+    let bg_dark = false
+
+block includes
+
+doctype html
+html(lang="ru")
+  head
+    //- Meta
+    meta(charset="UTF-8")
+    meta(http-equiv="X-UA-Compatible", content="IE=edge")
+    meta(name="viewport", content="width=device-width, initial-scale=1.0")
+
+    //- CSS
+    link(rel="stylesheet", href="./assets/css/main.css")
+
+    //- Title
+    title= `SkyNotes${title ? ' | ' + title : ''}`
+  body(class=bg_dark ? 'bg_dark' : '')
+    block content

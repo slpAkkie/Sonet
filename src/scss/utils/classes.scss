@@ -2,6 +2,10 @@
   max-width: 120rem;
   padding  : 0 3rem;
   margin   : 0 auto;
+
+  &_large {
+    max-width: 140rem;
+  }
 }
 
 .d {
@@ -140,6 +144,10 @@
 .text {
   &_center {
     text-align: center;
+  }
+
+  &_bold {
+    font-weight: bold;
   }
 }
 

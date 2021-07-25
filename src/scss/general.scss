@@ -3,3 +3,25 @@ body.bg_dark {
   //
   background-color: $bg-dark;
 }
+
+.main-container {
+  display        : flex;
+  flex-direction : row;
+  justify-content: center;
+  align-items    : flex-start;
+  //
+  margin-top     : 10rem;
+}
+
+.page-view {
+  flex-grow: 1;
+
+  &__header {
+    font-size  : 3.4rem;
+    font-weight: bold;
+  }
+
+  &__content {
+    margin-top: 2.5rem;
+  }
+}
