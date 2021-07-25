@@ -12,4 +12,8 @@
     height: .2rem;
     margin: 2.5em 0;
   }
+
+  &_muted {
+    background-color: desaturate($color: $primary, $amount: 25%);
+  }
 }
