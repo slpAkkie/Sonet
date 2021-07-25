@@ -284,6 +284,8 @@ body.bg_dark {
     margin: 3.2rem 0; }
     .sidebar__menu-item + .sidebar__menu-item {
       margin-top: 1.6rem; }
+  .sidebar__exit {
+    margin-top: 1.6rem; }
 
 .note {
   width: calc(50% - 3rem);

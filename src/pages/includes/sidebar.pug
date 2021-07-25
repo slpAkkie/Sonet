@@ -1,3 +1,10 @@
+-
+  let exit = {
+    text: 'Выйти',
+    fluid: true,
+    classes: 'sidebar__exit'
+  }
+
 aside.sidebar
   //-
   .sidebar__nickname.text_bold Nickname
@@ -9,4 +16,7 @@ aside.sidebar
     li.sidebar__menu-item
       a(href="#") Доступные мне
   .sidebar__separator.separator.separator_horizontal.separator_muted
+  ul
+    li
+      a(href="#") Настройки
   +button(exit)
