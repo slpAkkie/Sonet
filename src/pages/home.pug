@@ -1,0 +1,59 @@
+extends ./layouts/general
+
+block vars
+  -
+    let title = 'Home'
+    let bg_dark = true
+
+    let exit = {
+      text: 'Выйти',
+      fluid: true,
+    }
+
+    let notes = [
+      {
+        title: 'Заголовок 1',
+        content: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Similique, qui?',
+        color: '#efda20',
+        created_at: '01.01.2021',
+        author: { nickname: 'Nickname' },
+      },
+      {
+        title: 'Заголовок 2',
+        content: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Similique, qui?',
+        color: '#daef20',
+        created_at: '01.01.2021',
+        author: { nickname: 'Nickname' },
+      },
+      {
+        title: 'Заголовок 3',
+        content: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Similique, qui?',
+        color: '#20daef',
+        created_at: '01.01.2021',
+        author: { nickname: 'Nickname' },
+      },
+      {
+        title: 'Заголовок 4',
+        content: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Similique, qui?',
+        color: '#ef20da',
+        created_at: '01.01.2021',
+        author: { nickname: 'Nickname' },
+      },
+    ]
+
+block includes
+  include components/button
+  include components/note
+
+block content
+  .main-container.container.container_large
+      include includes/sidebar
+      main.page-view.page-view_home
+        .page-view__header Мои ноуты
+        .page-view__content
+          .notes
+            .notes__add-form
+            .notes__control-panel
+            .notes__container
+              each note in notes
+                +note(note)
