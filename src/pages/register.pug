@@ -1,0 +1,52 @@
+extends layouts/auth
+
+block vars
+  -
+    let title = 'Регистрация'
+    let bg_dark = true
+
+    let fields = [
+      {
+        id: 'email',
+        name: 'email',
+        label: 'Почта:',
+        placeholder: 'Email',
+      },
+      {
+        id: 'nickname',
+        name: 'nickname',
+        label: 'Никнейм:',
+        placeholder: 'Nickname',
+      },
+      {
+        id: 'login',
+        name: 'login',
+        label: 'Логин:',
+        placeholder: 'Login',
+      },
+      {
+        id: 'password',
+        name: 'password',
+        type: 'password',
+        label: 'Пароль:',
+        placeholder: 'Password',
+      },
+      {
+        id: 'password_confirmation',
+        name: 'password_confirmation',
+        type: 'password',
+        label: 'Повторите пароль:',
+        placeholder: 'Password',
+      },
+    ]
+
+    let submit = {
+      text: 'Зарегистрироваться',
+      classes: 'mt-4'
+    }
+
+block form
+  form.login__form(action="#")
+      each field in fields
+        +field-row(field)
+      +button(submit)

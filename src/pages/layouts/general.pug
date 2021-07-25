@@ -1,3 +1,7 @@
+block consts
+  -
+    const site_name = 'SkyNotes'
+
 block vars
   -
     let title = null
@@ -18,6 +22,6 @@ html(lang="ru")
     link(rel="stylesheet", href="./assets/css/main.css")
 
     //- Title
-    title= `SkyNotes${title ? ' | ' + title : ''}`
+    title= title ? `${site_name} | ${title}` : site_name
   body(class=bg_dark ? 'bg_dark' : '')
     block content

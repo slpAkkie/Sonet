@@ -1,4 +1,4 @@
-extends layouts/general
+extends layouts/auth
 
 block vars
   -
@@ -20,30 +20,15 @@ block vars
         placeholder: 'Password',
       },
     ]
+
     let submit = {
       type: 'submit',
       text: 'Войти',
       classes: 'mt-4'
     }
 
-block includes
-  include components/field-row
-  include components/button
-
-block content
-  .login__container.container.content_center
-    .login
-
-      //- Left side
-      .py-5
-        h1.my-0 SkyNotes
-
-      .login__separator.separator.separator_vertical
-
-      //- Right side
-      .py-5
-        h3.mt-0.text_center Вход
-        form.login__form(action="#")
-            each field in fields
-              +field-row(field)
-            +button(submit)
+block form
+  form.login__form(action="#")
+    each field in fields
+      +field-row(field)
+    +button(submit)

@@ -1,3 +1,6 @@
 mixin button(props)
-  - if (props.fluid) props.classes = (props.classes || '') + ' button_fluid'
+  -
+    props.classes || (props.classes = '')
+    if (props.fluid) props.classes += ' button_fluid'
+
   input.button(class=props.classes.trim(), type=props.type || 'button', value=props.text)

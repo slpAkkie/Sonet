@@ -1,0 +1,20 @@
+extends general
+
+block includes
+  include ../components/field-row
+  include ../components/button
+
+block content
+  .login__container.container.content_center
+    .login
+
+      //- Left side
+      .py-5
+        h1.my-0= site_name
+
+      .login__separator.separator.separator_vertical
+
+      //- Right side
+      .py-5
+        h3.mt-0.text_center= title
+        block form
