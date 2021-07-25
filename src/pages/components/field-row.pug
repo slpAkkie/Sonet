@@ -1,0 +1,4 @@
+mixin field-row(props)
+  .field-row
+    label.field-row__label(for=props.id)=props.label
+    input.field-row__input.input.input_text(type=props.type || 'text', id=props.id, name=props.name || props.id, placeholder=props.placeholder)

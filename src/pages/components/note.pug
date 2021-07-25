@@ -1,0 +1,11 @@
+mixin note(props)
+  .note
+    .note__header
+      .note__title
+        a.note__title-link.link_static(href="#")= props.title
+      .note__color(style="background-color: " + (props.color || '#fefefe'))
+    .note__content= props.content
+    .note__footer
+      .note__created-at= props.created_at
+      .note__author
+        a.note__author-link(href="#")= props.author.nickname
