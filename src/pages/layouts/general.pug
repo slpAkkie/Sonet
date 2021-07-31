@@ -2,6 +2,8 @@ block consts
   -
     const site_name = 'SkyNotes'
 
+block view-vars
+
 block vars
   -
     let title = null
@@ -20,6 +22,9 @@ html(lang="ru")
 
     //- CSS
     link(rel="stylesheet", href="./assets/css/main.css")
+
+    //- JS
+    script(defer, type="module", src="./assets/js/general.js")
 
     //- Title
     title= title ? `${site_name} | ${title}` : site_name

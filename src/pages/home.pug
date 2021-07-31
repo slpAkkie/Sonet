@@ -1,54 +1,95 @@
 extends layouts/general
 
-block vars
+block view-vars
   -
-    let title = 'Home'
-    let bg_dark = true
+    const view_title = 'Мои ноуты'
+
+    let mls = Date.now()
 
     let notes = [
       {
         title: 'Заголовок 1',
         content: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Similique, qui?',
         color: '#efda20',
-        created_at: '01.01.2021',
+        created_at: (new Date(mls - 10**8)).toLocaleDateString(),
         author: { nickname: 'Nickname' },
       },
       {
         title: 'Заголовок 2',
         content: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Similique, qui?',
         color: '#daef20',
-        created_at: '01.01.2021',
+        created_at: (new Date(mls - 3 * 10**8)).toLocaleDateString(),
         author: { nickname: 'Nickname' },
       },
       {
         title: 'Заголовок 3',
         content: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Similique, qui?',
         color: '#20daef',
-        created_at: '01.01.2021',
+        created_at: (new Date(mls - 5 * 10**8)).toLocaleDateString(),
         author: { nickname: 'Nickname' },
       },
       {
         title: 'Заголовок 4',
         content: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Similique, qui?',
         color: '#ef20da',
-        created_at: '01.01.2021',
+        created_at: (new Date(mls - 10 * 10**8)).toLocaleDateString(),
         author: { nickname: 'Nickname' },
       },
     ]
 
+block vars
+  -
+    let title = 'Мои ноуты'
+    let bg_dark = true
+
+    let color_select = {
+      classes: 'notes__color-select',
+      items: [
+        {
+          title: 'Любой'
+        },
+        {
+          title: 'Желтый',
+          color: '#efda20'
+        },
+        {
+          title: 'Лаймовый',
+          color: '#daef20'
+        },
+        {
+          title: 'Бирюзовый',
+          color: '#20daef'
+        },
+        {
+          title: 'Розовый',
+          color: '#ef20da'
+        },
+      ]
+    }
+
 block includes
   include components/button
   include components/note
+  include components/color-select
 
 block content
   .main-container.container.container_large
       include includes/sidebar
       main.page-view.page-view_home
-        .page-view__header Мои ноуты
+        .page-view__header= view_title
         .page-view__content
           .notes
             .notes__add-form
-            .notes__control-panel
-            .notes__container
-              each note in notes
-                +note(note)
+            if notes
+              .notes__control-panel
+                .notes__search-box.notes__control
+                  input#js-search-query.notes__search-input.input.input_text.input_sm(type="text", name="query", placeholder="Что вам найти?")
+                  input.notes__search-button.button.button_sm(type="submit", value="Найти")
+                .notes__color-filter.notes__control
+                  span.notes__color-filter-label Цвет:
+                  +color-select(color_select)
+              .notes__container
+                each note in notes
+                  +note(note)
+            else
+              h5.page-view__sub-title Ноутов нет, но вы можете создать их

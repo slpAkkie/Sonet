@@ -1,7 +1,53 @@
 .notes {
   &__add-form {}
 
-  &__control-panel {}
+  &__control-panel {
+    display         : flex;
+    align-items     : center;
+    flex-wrap       : wrap;
+    //
+    padding         : 1.5rem 0 0;
+    margin          : 2rem 0;
+    //
+    background-color: $darkest-2;
+    border-radius   : 0.4rem;
+  }
+
+  &__control {
+    margin: 0 1.7rem 1.5rem;
+  }
+
+  &__search-box {
+    display: flex;
+    //
+    width  : 35rem;
+
+    @media screen and (max-width: 444px) {
+      flex-direction: column;
+      //
+      width         : 100%;
+    }
+  }
+
+  &__search-input {
+    flex-grow   : 1;
+    //
+    min-width   : 20rem;
+    margin-right: 1rem;
+
+    @media screen and (max-width: 444px) {
+      margin-bottom: .5rem;
+    }
+  }
+
+  &__color-filter {
+    display    : flex;
+    align-items: center;
+  }
+
+  &__color-filter-label {
+    line-height: 1em;
+  }
 
   &__container {
     display        : flex;

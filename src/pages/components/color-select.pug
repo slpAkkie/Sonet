@@ -1,0 +1,13 @@
+mixin color-select(props)
+  -
+    props.items || (props.items = [])
+  .color-select(class=props.classes)
+    .color-select__selected-value(data-id='0')
+      .color-select__selected-color(data-no-color=!props.items[0].color ? '' : null, style=props.items[0].color ? `background-color: ${props.items[0].color}` : null)
+      .color-select__selected-text=props.items[0].title
+    .color-select__drop-down
+      ul.color-select__list
+        each color in props.items
+          li.color-select__item
+            .color-select__marker(style=color.color ? `background-color: ${color.color}` : null)
+            .color-select__item-text= color.title

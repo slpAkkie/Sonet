@@ -20,4 +20,10 @@
   &:active {
     background-color: darken($color: $primary, $amount: 15%);
   }
+
+  &_sm {
+    padding  : .7rem 4rem;
+    //
+    font-size: 1.4rem;
+  }
 }
