@@ -1,9 +1,11 @@
 .note {
-  width           : calc(50% - 3rem);
+  flex-grow       : 1;
+  width           : clamp(375px, calc(50% - 3rem), 100%);
   margin          : 0 1.5rem 2rem;
   padding         : 2rem;
   //
   background-color: $darkest-2;
+  border-radius   : .4rem;
 
   &__header {
     display        : flex;
