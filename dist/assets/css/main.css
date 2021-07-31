@@ -414,7 +414,7 @@ body.bg_dark {
   .color-select__item {
     display: flex;
     align-items: center;
-    margin: .8rem 0;
+    padding: .4rem 0;
     opacity: .8;
     cursor: pointer;
     transition-property: opacity;
