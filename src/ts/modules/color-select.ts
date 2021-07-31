@@ -1,3 +1,17 @@
+interface ItemData {
+  color: string
+  title: string
+  id: string
+}
+
+interface SelectElements {
+  selectedValue: HTMLElement
+  selectedValueText: HTMLElement
+  selectedValueColor: HTMLElement
+}
+
+
+
 export class ColorSelect {
   static openedDropDown?: HTMLElement = null
 
@@ -8,6 +22,7 @@ export class ColorSelect {
    */
   static init(): void {
     document.addEventListener('click', this.selectedValue_click.bind(this))
+    document.addEventListener('click', this.listItem_click.bind(this))
   }
 
   /**
@@ -18,8 +33,8 @@ export class ColorSelect {
    */
   static selectedValue_click(evt): void {
     // Check if click was dispatched on the selected value
-    const isSelectedValue = (<HTMLElement>evt.target).closest('.color-select__selected-value')
-    if (!isSelectedValue) {
+    const selectedValue = (<HTMLElement>evt.target).closest('.color-select__selected-value')
+    if (!selectedValue) {
       if (!this.openedDropDown) return
 
       // If we have opened drop-down menu close it
@@ -36,6 +51,59 @@ export class ColorSelect {
   }
 
   /**
+   * Hanle click on color select list item
+   *
+   * @param {Event} evt
+   * @returns {void}
+   */
+  static listItem_click(evt): void {
+    const listItem = <HTMLElement>(<HTMLElement>evt.target).closest('.color-select__item')
+    if (!listItem) return
+
+    this.#setData(this.#getDataFromItem(listItem), this.#getSelectElements(listItem))
+  }
+
+  static #setData(props, { selectedValue, selectedValueText, selectedValueColor }) {
+    if (!props.color) {
+      selectedValueColor.dataset.noColor = ''
+    } else {
+      delete selectedValueColor.dataset.noColor
+      selectedValueColor.style.backgroundColor = props.color
+    }
+
+    selectedValueText.innerText = props.title
+    selectedValue.dataset.id = props.id
+  }
+
+  /**
+   * Extract data from item dataset
+   *
+   * @param {HTMLElement} item
+   * @returns {ItemData}
+   */
+  static #getDataFromItem(item): ItemData {
+    return (({ color, title, id }) => ({
+      color, title, id
+    }))(item.dataset)
+  }
+
+  /**
+   * Get color-select elements by list item
+   *
+   * @param {HTMLElement} listItem
+   * @returns {SelectElements}
+   */
+  static #getSelectElements(listItem): SelectElements {
+    const selectedValue = <HTMLElement>(<HTMLElement>listItem.closest('.color-select')).querySelector('.color-select__selected-value')
+
+    return {
+      selectedValue,
+      selectedValueText: <HTMLElement>selectedValue.querySelector('.color-select__selected-text'),
+      selectedValueColor: <HTMLElement>selectedValue.querySelector('.color-select__selected-color'),
+    }
+  }
+
+  /**,
    * Close all opened drop-down menus
    *
    * @returns {void}
