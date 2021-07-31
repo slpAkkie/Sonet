@@ -5,7 +5,8 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="./assets/css/main.css">
-    <title>SkyNotes | Home</title>
+    <script defer type="module" src="./assets/js/general.js"></script>
+    <title>SkyNotes | Мои ноуты</title>
   </head>
   <body class="bg_dark">
     <div class="main-container container container_large">
@@ -13,8 +14,8 @@
         <div class="sidebar__nickname text_bold">Nickname</div>
         <div class="sidebar__separator separator separator_horizontal"></div>
         <ul class="sidebar__menu">
-          <li class="sidebar__menu-item"><a href="#">Мои ноуты</a></li>
-          <li class="sidebar__menu-item"><a href="#">Доступные мне</a></li>
+          <li class="sidebar__menu-item"><a href="./home.html">Мои ноуты</a></li>
+          <li class="sidebar__menu-item"><a href="./shared-to-me.html">Доступные мне</a></li>
         </ul>
         <div class="sidebar__separator separator separator_horizontal separator_muted"></div>
         <ul>
@@ -27,7 +28,44 @@
         <div class="page-view__content">
           <div class="notes">
             <div class="notes__add-form"></div>
-            <div class="notes__control-panel"></div>
+            <div class="notes__control-panel">
+              <div class="notes__search-box notes__control">
+                <input class="notes__search-input input input_text input_sm" id="js-search-query" type="text" name="query" placeholder="Что вам найти?">
+                <input class="notes__search-button button button_sm" type="submit" value="Найти">
+              </div>
+              <div class="notes__color-filter notes__control"><span class="notes__color-filter-label">Цвет:</span>
+                <div class="color-select notes__color-select">
+                  <div class="color-select__selected-value" data-id="0">
+                    <div class="color-select__selected-color" data-no-color=""></div>
+                    <div class="color-select__selected-text">Любой</div>
+                  </div>
+                  <div class="color-select__drop-down">
+                    <ul class="color-select__list">
+                      <li class="color-select__item">
+                        <div class="color-select__marker"></div>
+                        <div class="color-select__item-text">Любой</div>
+                      </li>
+                      <li class="color-select__item">
+                        <div class="color-select__marker" style="background-color: #efda20"></div>
+                        <div class="color-select__item-text">Желтый</div>
+                      </li>
+                      <li class="color-select__item">
+                        <div class="color-select__marker" style="background-color: #daef20"></div>
+                        <div class="color-select__item-text">Лаймовый</div>
+                      </li>
+                      <li class="color-select__item">
+                        <div class="color-select__marker" style="background-color: #20daef"></div>
+                        <div class="color-select__item-text">Бирюзовый</div>
+                      </li>
+                      <li class="color-select__item">
+                        <div class="color-select__marker" style="background-color: #ef20da"></div>
+                        <div class="color-select__item-text">Розовый</div>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </div>
             <div class="notes__container">
               <div class="note">
                 <div class="note__header">
@@ -36,7 +74,7 @@
                 </div>
                 <div class="note__content">Lorem ipsum dolor sit amet consectetur adipisicing elit. Similique, qui?</div>
                 <div class="note__footer">
-                  <div class="note__created-at">01.01.2021</div>
+                  <div class="note__created-at">30.07.2021</div>
                   <div class="note__author"><a class="note__author-link" href="#">Nickname</a></div>
                 </div>
               </div>
@@ -47,7 +85,7 @@
                 </div>
                 <div class="note__content">Lorem ipsum dolor sit amet consectetur adipisicing elit. Similique, qui?</div>
                 <div class="note__footer">
-                  <div class="note__created-at">01.01.2021</div>
+                  <div class="note__created-at">28.07.2021</div>
                   <div class="note__author"><a class="note__author-link" href="#">Nickname</a></div>
                 </div>
               </div>
@@ -58,7 +96,7 @@
                 </div>
                 <div class="note__content">Lorem ipsum dolor sit amet consectetur adipisicing elit. Similique, qui?</div>
                 <div class="note__footer">
-                  <div class="note__created-at">01.01.2021</div>
+                  <div class="note__created-at">25.07.2021</div>
                   <div class="note__author"><a class="note__author-link" href="#">Nickname</a></div>
                 </div>
               </div>
@@ -69,7 +107,7 @@
                 </div>
                 <div class="note__content">Lorem ipsum dolor sit amet consectetur adipisicing elit. Similique, qui?</div>
                 <div class="note__footer">
-                  <div class="note__created-at">01.01.2021</div>
+                  <div class="note__created-at">20.07.2021</div>
                   <div class="note__author"><a class="note__author-link" href="#">Nickname</a></div>
                 </div>
               </div>

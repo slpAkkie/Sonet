@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./assets/css/main.css">
+    <script defer type="module" src="./assets/js/general.js"></script>
+    <title>SkyNotes | Мои ноуты</title>
+  </head>
+  <body class="bg_dark">
+    <div class="main-container container container_large">
+      <aside class="sidebar">
+        <div class="sidebar__nickname text_bold">Nickname</div>
+        <div class="sidebar__separator separator separator_horizontal"></div>
+        <ul class="sidebar__menu">
+          <li class="sidebar__menu-item"><a href="./home.html">Мои ноуты</a></li>
+          <li class="sidebar__menu-item"><a href="./shared-to-me.html">Доступные мне</a></li>
+        </ul>
+        <div class="sidebar__separator separator separator_horizontal separator_muted"></div>
+        <ul>
+          <li><a href="#">Настройки</a></li>
+        </ul>
+        <input class="button sidebar__exit button_fluid" type="button" value="Выйти"/>
+      </aside>
+      <main class="page-view page-view_home">
+        <div class="page-view__header">Доступные мне ноуты</div>
+        <div class="page-view__content">
+          <div class="notes">
+            <div class="notes__add-form"></div>
+            <h5 class="page-view__sub-title">Ноутов нет, но вы можете создать их</h5>
+          </div>
+        </div>
+      </main>
+    </div>
+  </body>
+</html>
