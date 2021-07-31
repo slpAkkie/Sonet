@@ -26,8 +26,10 @@ function compilePug() {
 }
 
 function compileTypescript() {
-  return gulp.src( config.src + '/ts/*.ts' )
-    .pipe( typescriptCompiler() )
+  return gulp.src( config.src + '/ts/**/*.ts' )
+    .pipe( typescriptCompiler( {
+      target: 'es6'
+    } ) )
     .pipe( gulp.dest( config.distAssets + '/js' ) )
 }
 
