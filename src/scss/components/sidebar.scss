@@ -27,4 +27,12 @@
   &__exit {
     margin-top: 1.6rem;
   }
+
+  @media screen and (max-width: 709px) {
+    width        : 100%;
+    margin-right : 0;
+    margin-bottom: 6rem;
+    //
+    text-align   : center;
+  }
 }

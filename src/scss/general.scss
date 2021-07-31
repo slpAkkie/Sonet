@@ -11,14 +11,28 @@ body.bg_dark {
   align-items    : flex-start;
   //
   margin-top     : 10rem;
+
+  @media screen and (max-width: 709px) {
+    flex-direction: column;
+  }
 }
 
 .page-view {
   flex-grow: 1;
+  //
+  width    : 100%;
 
   &__header {
     font-size  : 3.4rem;
     font-weight: bold;
+  }
+
+  &__header,
+  &__title,
+  &__sub-title {
+    @media screen and (max-width: 709px) {
+      text-align: center;
+    }
   }
 
   &__content {
