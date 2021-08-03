@@ -1,34 +1,3 @@
-### Node ###
-# Logs
-logs
-*.log
-npm-debug.log*
-
-# Runtime data
-pids
-*.pid
-*.seed
-
-# Dependency directory
-node_modules
-
-# Optional npm cache directory
-.npm
-
-# Optional REPL history
-.node_repl_history
-
-
-### Bower ###
-bower_components
-.bower-cache
-.bower-registry
-.bower-tmp
-
-# Thumbnails
-._*
-
-
 ### Windows ###
 # Windows image file caches
 Thumbs.db
@@ -44,10 +13,13 @@ $RECYCLE.BIN
 *.lnk
 
 
-### Sass ###
-.sass-cache
-*.css.map
-
-
 ### Visual Studio Code ###
 .vscode/
+
+
+### PHPStorm ###
+.idea/
+
+
+### env file ###
+.env

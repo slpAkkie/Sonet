@@ -1,0 +1,17 @@
+FROM php:8.0-apache
+
+RUN apt-get update
+RUN curl -sL https://deb.nodesource.com/setup_14.x | bash -
+RUN apt-get install -y nodejs
+
+RUN docker-php-ext-install \
+  pdo_mysql \
+  && a2enmod \
+  rewrite
+
+ARG CONFIG_PATH
+
+COPY ${CONFIG_PATH}/php /usr/local/etc/php
+COPY ${CONFIG_PATH}/apache /etc/apache2
+
+EXPOSE 80
