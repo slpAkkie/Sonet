@@ -97,4 +97,5 @@ const build = gulp.parallel( compilePug, compileStyle, compileTypescript, copyIm
 
 module.exports.serve = gulp.series( watcher, serve )
 module.exports.build = build
+module.exports.watcher = watcher
 module.exports.dev = gulp.series( clear, build, watcher, serve )
