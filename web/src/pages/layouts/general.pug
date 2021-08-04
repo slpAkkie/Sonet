@@ -12,6 +12,8 @@ block vars
 
 block includes
 
+include ../mixins/page-js
+
 doctype html
 html(lang="ru")
   head
@@ -25,6 +27,10 @@ html(lang="ru")
 
     //- JS
     script(defer, type="module", src="./assets/js/general.js")
+    block js
+
+    //- Favicon
+    link(rel="shortcut icon", href="../favicon.ico", type="image/x-icon")
 
     //- Title
     title= title ? `${site_name} | ${title}` : site_name

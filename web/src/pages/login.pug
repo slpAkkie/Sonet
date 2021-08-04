@@ -27,8 +27,11 @@ block vars
       classes: 'mt-4'
     }
 
+block js
+  +page-js('login', true)
+
 block form
-  form.login__form(action="#")
+  form.login__form(action="#", method="POST")
     each field in fields
       +field-row(field)
     +button(submit)
