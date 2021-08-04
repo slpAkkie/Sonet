@@ -60,7 +60,7 @@ function copyFonts() {
 
 
 function copyStatic() {
-  return gulp.src( config.src + '/static/**/*.*' )
+  return gulp.src( config.src + '/static/**/*.*', { dot: true } )
     .pipe( gulp.dest( config.dist ) )
 }
 
