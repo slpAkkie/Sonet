@@ -8,6 +8,20 @@
     margin-bottom: .5em;
   }
 
+  &__error {
+    display       : none;
+    //
+    margin-top    : .5rem;
+    //
+    color         : $red;
+    font-size     : .85em;
+    letter-spacing: .05em;
+
+    &_shown {
+      display: block;
+    }
+  }
+
   &+& {
     margin-top: 2rem;
   }
