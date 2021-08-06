@@ -91,11 +91,11 @@ function serve( cb ) {
 
 
 
-const build = gulp.parallel( compilePug, compileStyle, compileTypescript, copyImages, copyFonts, copyStatic )
+const build = gulp.parallel( clear, compilePug, compileStyle, compileTypescript, copyImages, copyFonts, copyStatic )
 
 
 
 module.exports.serve = gulp.series( watcher, serve )
 module.exports.build = build
 module.exports.watcher = watcher
-module.exports.dev = gulp.series( clear, build, watcher, serve )
+module.exports.dev = gulp.series( build, watcher, serve )
