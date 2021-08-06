@@ -11,7 +11,7 @@
 @import './general';
 
 // Section
-@import './pages/sections/login/login-form';
+@import './pages/sections/auth/auth-form';
 
 // Components
 @import './components/separator';
@@ -23,5 +23,5 @@
 @import './components/color-select';
 
 // Pages
-@import './pages/login';
+@import './pages/sections/auth';
 @import './pages/home';

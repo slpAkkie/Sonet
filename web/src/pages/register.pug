@@ -41,12 +41,17 @@ block vars
     ]
 
     let submit = {
+      type: 'submit',
       text: 'Зарегистрироваться',
       classes: 'mt-4'
     }
 
+block js
+  +page-js('register')
+
 block form
-  form.login__form(action="#")
+  form.auth__form(action="#")
       each field in fields
         +field-row(field)
       +button(submit)
+  p.mt-2.auth__post-text Если у вас уже есть аккаунт <a href="/login">войдите</a> в него
