@@ -12,7 +12,7 @@ interface SelectElements {
 
 
 
-export class ColorSelect {
+export default class ColorSelect {
   static openedDropDown?: HTMLElement = null
 
   /**

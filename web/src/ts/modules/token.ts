@@ -1,6 +1,6 @@
-import { Store } from './store.js'
+import Store from './store.js'
 
-export class Token {
+export default class Token {
   static storeKey = 'api_token'
 
   static token?: string = null
