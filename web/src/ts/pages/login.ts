@@ -5,18 +5,20 @@ import _ from '../modules/queryLight.js'
 
 _('.auth__form').on('submit', tryLogin)
 
+const loginLoader = _('#login-loader')
+
 
 
 function tryLogin(evt) {
   evt.preventDefault()
   FieldRow.clearAllErrors()
 
-  this.addClass('auth__form_loading')
+  loginLoader.dataset.shown = true
   ApiReq.send('login', 'post', this.formData()).then(handleResponse.bind(this))
 }
 
 function handleResponse(response) {
-  this.removeClass('auth__form_loading')
+  delete loginLoader.dataset.shown
 
   if (response.error) loginFailed(response.error)
   else loginSuccess(response.data)

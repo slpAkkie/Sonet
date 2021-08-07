@@ -42,6 +42,14 @@ block vars
     let title = 'Мои ноуты'
     let bg_dark = true
 
+    let logoutLoader = {
+      id: 'logout-loader'
+    }
+
+    let notesLoader = {
+      id: 'notes-loader'
+    }
+
     let color_select = {
       classes: 'notes__color-select',
       items: [
@@ -76,7 +84,7 @@ block js
   +page-js('home', true)
 
 block content
-  +loader()
+  +loader(logoutLoader)
   .main-container.container.container_large
       include includes/sidebar
       main.page-view.page-view_home
@@ -92,7 +100,8 @@ block content
                 .notes__color-filter.notes__control
                   span.notes__color-filter-label Цвет:
                   +color-select(color_select)
-              .notes__container
+              .notes__container.loader-box
+                +loader(notesLoader)
                 each note in notes
                   +note(note)
             else

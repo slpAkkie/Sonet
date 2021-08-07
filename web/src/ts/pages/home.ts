@@ -7,7 +7,7 @@ ColorSelect.init()
 
 _('.sidebar__exit').on('click', exit)
 
-const pageLoader = _('.loader')
+const pageLoader = _('#logout-loader')
 const pageBody = _('body')
 
 function exit() {

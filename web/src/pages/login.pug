@@ -5,6 +5,10 @@ block vars
     let title = 'Login'
     let bg_dark = true
 
+    let loginLoader = {
+      id: 'login-loader'
+    }
+
     let fields = [
       {
         id: 'login',
@@ -31,7 +35,8 @@ block js
   +page-js('login', true)
 
 block form
-  form.auth__form(action="#", method="POST")
+  form.auth__form.loader-box(action="#", method="POST")
+    +loader(loginLoader)
     each field in fields
       +field-row(field)
     +button(submit)
