@@ -1,4 +1,5 @@
 #!/bin/ash
+#
 
 if [ ! -d $PWD/node_modules ]; then
   npm install

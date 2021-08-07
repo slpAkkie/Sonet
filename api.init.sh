@@ -1,4 +1,5 @@
 #!/bin/ash
+#
 
 if [ ! -d $PWD/vendor ]; then
   composer install
