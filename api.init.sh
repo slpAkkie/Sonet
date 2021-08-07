@@ -11,4 +11,6 @@ if [ ! -d $PWD/vendor ]; then
   php artisan migrate
 fi
 
+chown -R apache:apache ./
+
 /usr/sbin/httpd -D FOREGROUND -f /etc/apache2/httpd.conf

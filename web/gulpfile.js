@@ -82,7 +82,7 @@ function serve( cb ) {
       baseDir: './dist'
     },
     watch: true,
-    open: true,
+    open: false,
     tunnel: null,
   } )
 
