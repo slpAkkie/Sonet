@@ -1,7 +1,0 @@
-FROM node:14.17.0
-
-RUN mkdir -p /var/proj
-ADD ./npm.start.sh /
-
-WORKDIR /var/proj
-ENTRYPOINT ["sh", "/npm.start.sh"]

@@ -1,14 +1,22 @@
-FROM php:8.0-apache
+FROM alpine:3.14.1
 
-RUN apt-get update
-RUN curl -sL https://deb.nodesource.com/setup_14.x | bash -
-RUN apt-get install -y nodejs
+# Update apk repositories
+RUN touch /etc/apk/repositories
+RUN printf "http://dl-cdn.alpinelinux.org/alpine/v3.14/main\n" >> /etc/apk/repositories
+RUN printf "http://dl-cdn.alpinelinux.org/alpine/v3.14/community\n" >> /etc/apk/repositories
 
-RUN docker-php-ext-install pdo_mysql && a2enmod rewrite
+RUN apk update
 
-ARG CONFIG_PATH
+# Install Apache and PHP8
+RUN apk add \
+  apache2 \
+  nodejs \
+  npm
 
-COPY ${CONFIG_PATH}/php /usr/local/etc/php
-COPY ${CONFIG_PATH}/apache /etc/apache2
+COPY ./conf.d/web/ /etc/
+COPY ./web.init.sh /
+RUN chmod +x /web.init.sh
 
-EXPOSE 80
+# Define workdir and start apache daemon
+WORKDIR "/var/www/localhost/htdocs"
+CMD ["/web.init.sh"]

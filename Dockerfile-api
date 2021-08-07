@@ -1,19 +1,41 @@
-FROM php:8.0-apache
+FROM alpine:3.14.1
 
-RUN apt-get update
-RUN apt-get install -y unzip git
+# Update apk repositories
+RUN touch /etc/apk/repositories
+RUN printf "http://dl-cdn.alpinelinux.org/alpine/v3.14/main\n" >> /etc/apk/repositories
+RUN printf "http://dl-cdn.alpinelinux.org/alpine/v3.14/community\n" >> /etc/apk/repositories
 
-RUN docker-php-ext-install pdo_mysql && a2enmod rewrite
+RUN apk update
 
-ARG CONFIG_PATH
+# Install Apache and PHP
+RUN apk add \
+  apache2 \
+  php8 \
+  php8-curl \
+  php8-apache2 \
+  php8-pdo_mysql \
+  php8-mbstring \
+  php8-iconv \
+  php8-dom \
+  php8-xml \
+  php8-xmlwriter \
+  php8-fileinfo \
+  php8-tokenizer \
+  php8-phar \
+  php8-session
 
-COPY ${CONFIG_PATH}/php /usr/local/etc/php
-COPY ${CONFIG_PATH}/apache /etc/apache2
+RUN mv /usr/bin/php8 /usr/bin/php
 
-RUN php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');"
-RUN php -r "if (hash_file('sha384', 'composer-setup.php') === '756890a4488ce9024fc62c56153228907f1545c228516cbf63f885e036d37e9a59d27d63f46af1d4d07ee0f76181c7d3') { echo 'Installer verified'; } else { echo 'Installer corrupt'; unlink('composer-setup.php'); } echo PHP_EOL;"
-RUN php composer-setup.php
-RUN php -r "unlink('composer-setup.php');"
-RUN mv composer.phar /usr/local/bin/composer
+RUN mkdir /var/tmp/composer-installer \
+  && cd /var/tmp/composer-installer \
+  && php -r "readfile('https://getcomposer.org/installer');" \
+  | php -- --install-dir=/usr/local/bin --filename=composer
+RUN chmod +x /usr/local/bin/composer
 
-EXPOSE 80
+COPY ./conf.d/api/ /etc/
+COPY ./api.init.sh /
+RUN chmod +x /api.init.sh
+
+# Define workdir and start apache daemon
+WORKDIR "/var/www/localhost/htdocs"
+CMD ["/api.init.sh"]

@@ -1,8 +1,8 @@
 {
     "name": "sky-notes/sky-notes",
     "type": "project",
-    "description": "Simple note web-app",
-    "license": "MIT",
+    "description": "Web application for making notes",
+    "license": "Apache-2.0 License",
     "require": {
         "php": "^8.0",
         "fideloper/proxy": "^4.4",
