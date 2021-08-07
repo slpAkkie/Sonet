@@ -1,41 +1,7 @@
 extends layouts/general
 
 block view-vars
-  -
-    const view_title = 'Мои ноуты'
-
-    let mls = Date.now()
-
-    let notes = [
-      {
-        title: 'Заголовок 1',
-        content: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Similique, qui?',
-        color: '#efda20',
-        created_at: (new Date(mls - 10**8)).toLocaleDateString(),
-        author: { nickname: 'Nickname' },
-      },
-      {
-        title: 'Заголовок 2',
-        content: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Similique, qui?',
-        color: '#daef20',
-        created_at: (new Date(mls - 3 * 10**8)).toLocaleDateString(),
-        author: { nickname: 'Nickname' },
-      },
-      {
-        title: 'Заголовок 3',
-        content: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Similique, qui?',
-        color: '#20daef',
-        created_at: (new Date(mls - 5 * 10**8)).toLocaleDateString(),
-        author: { nickname: 'Nickname' },
-      },
-      {
-        title: 'Заголовок 4',
-        content: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Similique, qui?',
-        color: '#ef20da',
-        created_at: (new Date(mls - 10 * 10**8)).toLocaleDateString(),
-        author: { nickname: 'Nickname' },
-      },
-    ]
+  - const view_title = 'Мои ноуты'
 
 block vars
   -
@@ -47,7 +13,8 @@ block vars
     }
 
     let notesLoader = {
-      id: 'notes-loader'
+      id: 'notes-loader',
+      shown: true
     }
 
     let color_select = {
@@ -92,17 +59,13 @@ block content
         .page-view__content
           .notes
             .notes__add-form
-            if notes
-              .notes__control-panel
-                .notes__search-box.notes__control
-                  input#js-search-query.notes__search-input.input.input_text.input_sm(type="text", name="query", placeholder="Что вам найти?")
-                  input.notes__search-button.button.button_sm(type="submit", value="Найти")
-                .notes__color-filter.notes__control
-                  span.notes__color-filter-label Цвет:
-                  +color-select(color_select)
-              .notes__container.loader-box
-                +loader(notesLoader)
-                each note in notes
-                  +note(note)
-            else
-              h5.page-view__sub-title Ноутов нет, но вы можете создать их
+            .notes__control-panel
+              .notes__search-box.notes__control
+                input#js-search-query.notes__search-input.input.input_text.input_sm(type="text", name="query", placeholder="Что вам найти?")
+                input.notes__search-button.button.button_sm(type="submit", value="Найти")
+              .notes__color-filter.notes__control
+                span.notes__color-filter-label Цвет:
+                +color-select(color_select)
+            .notes__items-wrapper.loader-box
+              +loader(notesLoader)
+              .notes__container
