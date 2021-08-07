@@ -7,7 +7,8 @@ class StoreNoteRequest extends ApiRequest
     public function messages()
     {
         return [
-            'title.required' => 'Вы забыли указать название'
+            'title.required' => 'Вы забыли указать название',
+            'meta.array' => 'Мета данные должны быть массивом',
         ];
     }
 
@@ -15,6 +16,7 @@ class StoreNoteRequest extends ApiRequest
     {
         return [
             'title' => 'required',
+            'meta' => 'nullable|array',
         ];
     }
 }

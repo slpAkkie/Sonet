@@ -10,8 +10,6 @@ class Note extends Model
 {
     use HasFactory;
 
-    public $withAuthor = false;
-
     private $allowed_metas = [
         'color'
     ];
@@ -43,9 +41,16 @@ class Note extends Model
         $data['author'] = Auth::user();
 
         $note = Note::createWith($data);
-        $note->withAuthor = true;
 
         return $note;
+    }
+
+    public function updateFrom($request)
+    {
+        $this->update($request->all());
+        if ($request->get('meta')) $this->updateMetas($request->get('meta'));
+
+        return $this;
     }
 
     private static function usersForMeta($note, $users)
@@ -73,6 +78,8 @@ class Note extends Model
         $metas = array_filter($metas, function ($cur) { return $cur && !!count($cur); });
 
         NoteMeta::insert($metas);
+
+        $props['meta'] && $note->updateMetas($props['meta']);
 
         return $note;
     }

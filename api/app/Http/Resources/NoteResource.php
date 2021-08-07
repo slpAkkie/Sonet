@@ -22,10 +22,12 @@ class NoteResource extends JsonResource
 
     public function toArray($request)
     {
-        return array_merge([
-            'title' => $this->title,
-            'content' => $this->content,
-            'meta' => $this->getAllowedMetas()
-        ], $this->withAuthor ? ['author' => UserResource::make($this->author)] : []);
+        return [
+          'id' => $this->id,
+          'title' => $this->title,
+          'content' => $this->content,
+          'author' => UserResource::make($this->author),
+          'meta' => $this->getAllowedMetas()
+        ];
     }
 }

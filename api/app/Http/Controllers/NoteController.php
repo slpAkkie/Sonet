@@ -88,10 +88,7 @@ class NoteController extends Controller
      */
     public function update(UpdateNoteRequest $request, Note $note)
     {
-        $note->update($request->all());
-        if ($request->get('meta')) $note->updateMetas($request->get('meta'));
-
-        return NoteResource::make($note);
+        return NoteResource::make($note->updateFrom($request));
     }
 
     /**
