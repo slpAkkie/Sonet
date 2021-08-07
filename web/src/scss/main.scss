@@ -6,6 +6,7 @@
 @import './utils/vars';
 @import './utils/normalize';
 @import './utils/classes';
+@import './utils/animations';
 
 // General
 @import './general';
@@ -21,7 +22,8 @@
 @import './components/sidebar';
 @import './components/note';
 @import './components/color-select';
+@import './components/loader';
 
 // Pages
-@import './pages/sections/auth';
+@import './pages/auth';
 @import './pages/home';
