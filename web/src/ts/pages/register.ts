@@ -26,5 +26,5 @@ function registerFailed(error) {
 }
 
 function registerSuccess(data) {
-  if (data) location.href = '/login'
+  if (data) location.href = '/login.html'
 }

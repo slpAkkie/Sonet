@@ -28,5 +28,5 @@ function loginFailed(error) {
 
 function loginSuccess(data) {
   Token.set(data.token)
-  location.href = '/home'
+  location.href = '/home.html'
 }
