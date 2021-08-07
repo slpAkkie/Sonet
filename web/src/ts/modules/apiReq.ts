@@ -26,13 +26,13 @@ export default class ApiReq {
    * @param {boolean} need_token
    * @returns {Promise}
    */
-  static send(api_method: string, request_method: string = 'get', body: BodyInit = <BodyInit>{}, need_token: boolean = false) {
+  static send(api_method: string, request_method: string = 'get', body: BodyInit = '', need_token: boolean = false) {
     let opt: RequestInit = {
       method: request_method,
       headers: {
         'Content-Type': 'application/json'
       },
-      body: JSON.stringify(body)
+      body: body && JSON.stringify(body)
     }
 
     if (need_token) opt.headers['Authorization'] = `Bearer ${Token.get()}`
