@@ -1,7 +1,13 @@
-body.bg_dark {
-  color           : $text-light;
-  //
-  background-color: $bg-dark;
+body {
+  &.scroll-fix {
+    overflow: hidden;
+  }
+
+  &.bg_dark {
+    color           : $text-light;
+    //
+    background-color: $bg-dark;
+  }
 }
 
 .main-container {
