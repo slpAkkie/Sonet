@@ -19,6 +19,9 @@ function exit() {
       if (response.data) {
         Token.clear()
         location.href = '/login.html'
-      } else delete pageLoader.dataset.shown
+      } else {
+        delete pageLoader.dataset.shown
+        pageBody.removeClass('scroll-fix')
+      }
     })
 }
