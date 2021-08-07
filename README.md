@@ -33,6 +33,13 @@ Web приложение для ведения заметок
   docker compose up
 ```
 
+На вашем компьютере по адресам будут открыты:
+
+- localhost (localhost:80) - Клиентская часть приложения
+- localhost:8000 - API
+- localhost:8080 - Adminer
+- localhost:3306 - MariaDB
+
 Для остановки и удаления контейнеров
 
 ```bash
