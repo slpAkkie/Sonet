@@ -1,7 +1,5 @@
 .color-select {
   position: relative;
-  //
-  z-index : 10;
 
   &__selected {
     &-value {
@@ -47,6 +45,8 @@
     //
     background-color: darken($color: $darkest-2, $amount: 5%);
     border-radius   : .4rem;
+    //
+    z-index         : 99;
 
     &::before {
       content            : '';
@@ -63,6 +63,16 @@
 
     &[data-shown] {
       display: block;
+    }
+
+    &_to-left {
+      left : unset;
+      right: calc(100% - 3.2rem);
+    }
+
+    &_to-left::before {
+      left : unset;
+      right: .4rem;
     }
   }
 
