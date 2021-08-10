@@ -14,7 +14,7 @@ function tryLogin(evt) {
   FieldRow.clearAllErrors()
 
   loginLoader.dataset.shown = true
-  ApiReq.send('login', 'post', this.formData()).then(handleResponse.bind(this))
+  ApiReq.send('login', 'post', <BodyInit>_(this).formData()).then(handleResponse.bind(this))
 }
 
 function handleResponse(response) {

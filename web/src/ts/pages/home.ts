@@ -36,7 +36,7 @@ function exit() {
 function handleSuccessNoteLoading(data: Array<Object>) {
   delete notesLoader.dataset.shown
   notesContainer.clear()
-  if (data.length) notes = data.map(noteData => (new Note(noteData)).render(notesContainer))
+  if (data.length) notes = data.map(noteData => (new Note(noteData)).render(<HTMLElement>notesContainer.get()))
   else notesContainer.appendChild(createTemplate('<h5 class="page-view__sub-title mx-3">Ноутов нет, но вы можете создать их</h5>'))
 }
 
