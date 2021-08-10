@@ -1,6 +1,4 @@
 .notes {
-  &__add-form {}
-
   &__control-panel {
     display         : flex;
     align-items     : center;
@@ -18,9 +16,10 @@
   }
 
   &__search-box {
-    display: flex;
+    flex-grow: 1;
+    display  : flex;
     //
-    width  : 35rem;
+    width    : 35rem;
 
     @media screen and (max-width: 444px) {
       flex-direction: column;
@@ -56,5 +55,40 @@
     flex-wrap      : wrap;
     //
     margin         : 0 -1.5rem;
+  }
+}
+
+.add-form {
+  padding-top     : 1.5rem;
+  //
+  background-color: $darkest-2;
+
+  &__color {
+    display       : flex;
+    flex-direction: row;
+    align-items   : center;
+  }
+
+  &__row-item {
+    margin: 0 1.7rem 1.5rem
+  }
+
+  &__title {
+    flex-grow: 1;
+  }
+
+  &__content {
+    flex-grow : 1;
+    //
+    min-height: 7rem;
+    //
+    resize    : vertical;
+  }
+
+  &__footer {
+    display        : flex;
+    flex-direction : row;
+    justify-content: space-between;
+    align-items    : center;
   }
 }

@@ -27,6 +27,10 @@
     &-around {
       justify-content: space-around;
     }
+
+    &-end {
+      justify-content: flex-end;
+    }
   }
 
   &_align {

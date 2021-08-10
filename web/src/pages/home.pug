@@ -17,7 +17,7 @@ block vars
       shown: true
     }
 
-    let color_select = {
+    let filter_color_select = {
       classes: 'notes__color-select',
       items: [
         {
@@ -42,6 +42,39 @@ block vars
       ]
     }
 
+    let add_form_color_select = {
+      items: [
+        {
+          title: 'Нет'
+        },
+        {
+          title: 'Желтый',
+          color: '#efda20'
+        },
+        {
+          title: 'Лаймовый',
+          color: '#daef20'
+        },
+        {
+          title: 'Бирюзовый',
+          color: '#20daef'
+        },
+        {
+          title: 'Розовый',
+          color: '#ef20da'
+        },
+      ]
+    }
+
+    let add_form_loader = {
+      id: 'add-form-loader'
+    }
+
+    let add_form_button = {
+      text: 'Создать',
+      classes: 'button_sm add-form__row-item'
+    }
+
 block includes
   include components/button
   include components/note
@@ -58,14 +91,24 @@ block content
         .page-view__header= view_title
         .page-view__content
           .notes
-            .notes__add-form
+            .notes__add-form.add-form.loader-box
+              +loader(add_form_loader)
+              .d-flex
+                input.add-form__row-item.add-form__title.input.input_text(placeholder="Название ноута")
+              .d-flex
+                textarea.add-form__content.add-form__row-item.input.input_text(placeholder="Контент ноута")
+              .add-form__footer
+                .add-form__row-item.add-form__color
+                  span.add-form__color-label Цвет:
+                  +color-select(add_form_color_select)
+                +button(add_form_button)
             .notes__control-panel
               .notes__search-box.notes__control
                 input#js-search-query.notes__search-input.input.input_text.input_sm(type="text", name="query", placeholder="Что вам найти?")
                 input.notes__search-button.button.button_sm(type="submit", value="Найти")
               .notes__color-filter.notes__control
                 span.notes__color-filter-label Цвет:
-                +color-select(color_select)
+                +color-select(filter_color_select)
             .notes__items-wrapper.loader-box
               +loader(notesLoader)
               .notes__container
