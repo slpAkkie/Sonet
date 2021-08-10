@@ -71,14 +71,24 @@ block vars
     }
 
     let add_form_button = {
+      type: 'submit',
       text: 'Создать',
-      classes: 'button_sm add-form__row-item'
+      classes: 'button_sm add-form__row-item add-form__submit'
+    }
+
+    let titleField = {
+      withoutLabel: true,
+      id: 'title',
+      name: 'title',
+      placeholder: 'Название ноута',
+      classes: 'add-form__row-item add-form__title',
     }
 
 block includes
   include components/button
   include components/note
   include components/color-select
+  include components/field-row
 
 block js
   +page-js('home', true)
@@ -91,12 +101,12 @@ block content
         .page-view__header= view_title
         .page-view__content
           .notes
-            .notes__add-form.add-form.loader-box
+            form.notes__add-form.add-form.loader-box(action="#", method="POST")
               +loader(add_form_loader)
               .d-flex
-                input.add-form__row-item.add-form__title.input.input_text(placeholder="Название ноута")
+                +field-row(titleField)
               .d-flex
-                textarea.add-form__content.add-form__row-item.input.input_text(placeholder="Контент ноута")
+                textarea.add-form__content.add-form__row-item.input.input_text(name="content", placeholder="Контент ноута")
               .add-form__footer
                 .add-form__row-item.add-form__color
                   span.add-form__color-label Цвет:
