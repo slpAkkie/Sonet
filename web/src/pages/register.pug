@@ -5,6 +5,10 @@ block vars
     let title = 'Регистрация'
     let bg_dark = true
 
+    let registerLoader = {
+      id: 'register-loader'
+    }
+
     let fields = [
       {
         id: 'email',
@@ -50,8 +54,9 @@ block js
   +page-js('register')
 
 block form
-  form.auth__form(action="#")
-      each field in fields
-        +field-row(field)
-      +button(submit)
+  form.auth__form.loader-box(action="#", method="POST")
+    +loader(registerLoader)
+    each field in fields
+      +field-row(field)
+    +button(submit)
   p.mt-2.auth__post-text Если у вас уже есть аккаунт <a href="/login.html">войдите</a> в него
