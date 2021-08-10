@@ -3,11 +3,11 @@ mixin color-select(props)
 
   .color-select(class=props.classes)
     .color-select__selected-value(data-id='0')
-      .color-select__selected-color(data-no-color=!props.items[0].color ? '' : null, style=props.items[0].color ? `background-color: ${props.items[0].color}` : null)
+      .color-select__selected-color(data-no-color=!props.items[0].color, style=`background-color: ${props.items[0].color || 'transparent'}`, data-color=props.items[0].color)
       .color-select__selected-text=props.items[0].title
     .color-select__drop-down
       ul.color-select__list
         each color, id in props.items
           li.color-select__item(data-id=id, data-color=color.color, data-title=color.title)
-            .color-select__marker(style=color.color ? `background-color: ${color.color}` : null)
+            .color-select__marker(style=`background-color: ${color.color || 'transparent'}`, data-no-color=!color.color, data-color=color.color)
             .color-select__item-text= color.title

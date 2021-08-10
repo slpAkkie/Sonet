@@ -64,10 +64,13 @@ export default class ColorSelect {
 
   static #setData(props, { selectedValue, selectedValueText, selectedValueColor }) {
     if (!props.color) {
-      selectedValueColor.dataset.noColor = ''
+      selectedValueColor.dataset.noColor = 'true'
+      selectedValueColor.style.backgroundColor = 'transparent'
+      selectedValueColor.dataset.color = 'transparent'
     } else {
       delete selectedValueColor.dataset.noColor
       selectedValueColor.style.backgroundColor = props.color
+      selectedValueColor.dataset.color = props.color
     }
 
     selectedValueText.innerText = props.title
