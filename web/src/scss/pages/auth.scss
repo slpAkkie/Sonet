@@ -6,7 +6,11 @@
   &__container {
     min-height: 100vh;
     //
-    margin: 2.5rem auto;
+    margin    : 2.5rem auto;
+  }
+
+  &__form {
+    min-width: 35rem;
   }
 
   &__post-text {
