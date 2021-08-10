@@ -38,7 +38,6 @@ services:
       dockerfile: Dockerfile-web
     ports:
       - 80:80
-      - 3000:3000
     volumes:
       - ./web:/var/www/localhost/htdocs
     depends_on:

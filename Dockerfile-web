@@ -7,7 +7,7 @@ RUN printf "http://dl-cdn.alpinelinux.org/alpine/v3.14/community\n" >> /etc/apk/
 
 RUN apk update
 
-# Install Apache and PHP8
+# Install Apache and NodeJS
 RUN apk add \
   apache2 \
   nodejs \
