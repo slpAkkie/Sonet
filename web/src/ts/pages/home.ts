@@ -4,22 +4,22 @@ import Token from '../modules/token.js'
 import Note from '../modules/note.js'
 import createTemplate from '../modules/template.js'
 import FieldRow from '../modules/field-row.js'
-import _ from '../modules/queryLight.js'
+import q from '../modules/queryLight.js'
 
 ColorSelect.init()
 
-const addForm = _('.add-form')
+const addForm = q('.add-form')
 
-_('.sidebar__exit').on('click', exit)
+q('.sidebar__exit').on('click', exit)
 addForm.on('submit', tryCreate)
 
-const logoutLoader = _('#logout-loader')
-const pageBody = _('body')
+const logoutLoader = q('#logout-loader')
+const pageBody = q('body')
 
-const notesLoader = _('#notes-loader')
-const notesContainer = _('.notes__container')
+const notesLoader = q('#notes-loader')
+const notesContainer = q('.notes__container')
 
-const addFormLoader = _('#add-form-loader')
+const addFormLoader = q('#add-form-loader')
 
 let notes = []
 
@@ -29,7 +29,7 @@ function exit() {
   ApiReq
     .send('logout', 'delete', null, true)
     .then(response => {
-      if (response.data) {
+      if (response.data || response.error.code === 401) {
         Token.clear()
         location.href = '/login.html'
       } else {
@@ -44,10 +44,10 @@ function tryCreate(evt) {
 
   addFormLoader.dataset.shown = 'true'
   let formData = Object.assign(
-    _(this).formData(),
+    q(this).formData(),
     {
       meta: {
-        color: _('.color-select__selected-color', this).dataset.color || 'transparent'
+        color: q('.color-select__selected-color', this).dataset.color || 'transparent'
       }
     }
   )
@@ -57,33 +57,36 @@ function tryCreate(evt) {
     .then(response => {
       delete addFormLoader.dataset.shown
 
-      if (response.data) handleCreatedNote(response.data)
-      else if (response.error) handleCreatingError(response.error)
+      if (response.data) handleSuccessNoteCreating(response.data)
+      else if (response.error) handleNoteCreatingError(response.error)
     })
 }
 
 function handleSuccessNoteLoading(data: Array<Object>) {
-  delete notesLoader.dataset.shown
   notesContainer.clear()
   if (data.length) notes = data.map(noteData => new Note(noteData).render(notesContainer))
   else notesContainer.appendChild(createTemplate('<h5 class="page-view__sub-title mx-3">Ноутов нет, но вы можете создать их</h5>'))
 }
 
-function handleCreatedNote(data: Object) {
+function handleSuccessNoteCreating(data: Object) {
   notesContainer.child('.page-view__sub-title')?.remove()
   addForm.reset()
   new Note(data).render(notesContainer)
 }
 
-function handleCreatingError(error) {
-  error.code === 422 && Object.keys(error.errors).forEach(key => FieldRow.setError(key, error.errors[key]))
+function handleNoteCreatingError(error) {
+  if (error.code === 422) Object.keys(error.errors).forEach(key => FieldRow.setError(key, error.errors[key]))
+  else if (error.code === 401) exit()
 }
 
 function loadNotes() {
   ApiReq
     .send('notes', 'get', null, true)
     .then(response => {
+      delete notesLoader.dataset.shown
+
       if (response.data) handleSuccessNoteLoading(response.data)
+      else if (response.error.code === 401) exit()
     })
 }
 
