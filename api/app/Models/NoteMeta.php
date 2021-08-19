@@ -9,28 +9,34 @@ class NoteMeta extends Model
 {
     use HasFactory;
 
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var string[]
+     */
     protected $fillable = [
         'meta_key',
         'meta_value'
     ];
 
-    public function note()
+    /**
+     * The note pertaining to this meta
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function note(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
         return $this->belongsTo(Note::class);
     }
 
-    public function updateValue($value)
+    /**
+     * Update meta
+     *
+     * @param $value
+     * @return bool
+     */
+    public function updateValue($value): bool
     {
-        return $this->update([
-            'meta_value' => $value
-        ]);
-    }
-
-    public static function getFor(Note $note, $key)
-    {
-        return self::where([
-            'note_id' => $note->id,
-            'meta_key' => $key
-        ])->get();
+        return $this->update(['meta_value' => $value]);
     }
 }

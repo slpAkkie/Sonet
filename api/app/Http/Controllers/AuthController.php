@@ -9,11 +9,16 @@ use App\Http\Resources\TokenResource;
 use App\Http\Resources\ValidationFailedResource;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Request;
 
 class AuthController extends Controller
 {
-    public function register(RegisterRequest $request)
+    /**
+     * Try to register new user with provided data
+     *
+     * @param RegisterRequest $request
+     * @return NoContentResource
+     */
+    public function register(RegisterRequest $request): NoContentResource
     {
         (new User($request->all()))
             ->setPassword($request->get('password'))
@@ -22,16 +27,29 @@ class AuthController extends Controller
         return new NoContentResource();
     }
 
-    public function login(LoginRequest $request)
+    /**
+     * Try to login user by provided data
+     *
+     * @param LoginRequest $request
+     * @return TokenResource|ValidationFailedResource
+     */
+    public function login(LoginRequest $request): TokenResource|ValidationFailedResource
     {
-        if ($user = User::FindAndCheck($request->get('login'), $request->get('password'))) return new TokenResource($user->generateToken());
-
-        return new ValidationFailedResource([
+        /** @var User|bool $user */
+        $user = User::FindAndCheckPassword($request->get('login'), $request->get('password'));
+        if (!$user) return new ValidationFailedResource([
             'password' => ['Вы не правильно указали пароль']
         ]);
+
+        return new TokenResource($user->generateToken());
     }
 
-    public function logout(Request $request)
+    /**
+     * Try to logout user
+     *
+     * @return NoContentResource
+     */
+    public function logout(): NoContentResource
     {
         Auth::user()->removeToken();
         return new NoContentResource();

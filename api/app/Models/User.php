@@ -12,12 +12,22 @@ class User extends Authenticatable
 {
     use HasFactory;
 
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var string[]
+     */
     protected $fillable = [
         'email',
         'nickname',
         'login',
     ];
 
+    /**
+     * The attributes that should be hidden for serialization.
+     *
+     * @var array
+     */
     protected $hidden = [
         'created_at',
         'updated_at',
@@ -26,7 +36,13 @@ class User extends Authenticatable
         'password'
     ];
 
-    public function setPassword($password)
+    /**
+     * Set password for the user and save it
+     *
+     * @param string $password
+     * @return $this
+     */
+    public function setPassword(string $password): User
     {
         $this->salt = Hash::make(Str::random(32) . $this->login);
         $this->password = Hash::make($password . $this->salt);
@@ -34,34 +50,73 @@ class User extends Authenticatable
         return $this;
     }
 
-    public function checkPassword($password)
+    /**
+     * Check if provided and user's passwords are equal
+     *
+     * @param string $password
+     * @return bool
+     */
+    public function checkPassword(string $password): bool
     {
         return Hash::check($password . $this->salt, $this->password);
     }
 
-    public static function FindAndCheck($login, $password)
+    /**
+     * Find user by the login and check if the password is correct
+     *
+     * @param $login
+     * @param $password
+     * @return User|bool
+     */
+    public static function FindAndCheckPassword($login, $password): User|bool
     {
         return (($user = self::where('login', $login)->first()) && $user->checkPassword($password)) ? $user : false;
     }
 
-    public function generateToken()
+    /**
+     * Set user's token to the value
+     *
+     * @param string|null $value
+     * @return string|null
+     */
+    private function setToken(string|null $value): string|null
     {
-        $this->token = Hash::make(Str::random(32) . $this->salt . Carbon::now());
+        $this->token = $value;
         $this->save();
 
-        return $this->token;
+        return $value;
     }
 
-    public function removeToken()
+    /**
+     * Generate new token for user and save it
+     *
+     * @return string
+     */
+    public function generateToken(): string
     {
-        $this->token = null;
-        $this->save();
+        return $this->setToken(Hash::make(Str::random(32) . $this->salt . Carbon::now()));
+    }
+
+    /**
+     * Remove user's token
+     *
+     * @return User
+     */
+    public function removeToken(): User
+    {
+        $this->setToken(null);
 
         return $this;
     }
 
-    public static function getByToken($token)
+    /**
+     * Find user by the token
+     *
+     * @param $token
+     * @return User|null
+     */
+    public static function findByToken($token): User|null
     {
-        return $token ? User::where('token', $token)->first() : null;
+        return $token ? self::where('token', '=', $token)->first() : null;
     }
 }

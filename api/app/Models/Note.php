@@ -10,81 +10,62 @@ class Note extends Model
 {
     use HasFactory;
 
-    private $allowed_metas = [
-        'color'
-    ];
-
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var string[]
+     */
     protected $fillable = [
         'title',
         'content'
     ];
 
-    public function author()
+    /**
+     * The metas that are mass assignable and allowed for the serialization
+     *
+     * @var string[]
+     */
+    private array $allowed_metas = [
+        'color'
+    ];
+
+    /**
+     * The note author
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function author(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
         return $this->belongsTo(User::class);
     }
 
-    public function metas()
+    /**
+     * The note metas
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function metas(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
         return $this->hasMany(NoteMeta::class);
     }
 
-    private function isAllowedMeta($meta)
+    /**
+     * Check if the meta one of allowed
+     *
+     * @param NoteMeta|string $meta
+     * @return bool
+     */
+    private function isAllowedMeta(NoteMeta|string $meta): bool
     {
         return in_array($meta instanceof NoteMeta ? $meta->meta_key : $meta, $this->allowed_metas);
     }
 
-    public static function createFrom($request)
-    {
-        $data = $request->all();
-        $data['users'] = array_unique(gettype($request->get('users')) === 'array' ? $request->get('users') : []);
-        $data['author'] = Auth::user();
-
-        $note = Note::createWith($data);
-
-        return $note;
-    }
-
-    public function updateFrom($request)
-    {
-        $this->update($request->all());
-        if ($request->get('meta')) $this->updateMetas($request->get('meta'));
-
-        return $this;
-    }
-
-    private static function usersForMeta($note, $users)
-    {
-        $carry = [];
-        foreach ($users as $user) {
-            $carry[] = [
-                'note_id' => $note->id,
-                'meta_key' => 'user_id',
-                'meta_value' => $user
-            ];
-        }
-
-        return $carry;
-    }
-
-    private static function createWith($props)
-    {
-        $note = new Note($props);
-        $note->author_id = $props['author']->id;
-        $note->save();
-
-        $metas = [];
-        $metas = array_merge($metas, self::usersForMeta($note, $props['users']));
-        $metas = array_filter($metas, function ($cur) { return $cur && !!count($cur); });
-
-        NoteMeta::insert($metas);
-
-        $props['meta'] && $note->updateMetas($props['meta']);
-
-        return $note;
-    }
-
-    public function getAllowedMetas()
+    /**
+     * Get the note allowed metas
+     *
+     * @return array
+     */
+    public function getAllowedMetas(): array
     {
         return $this->metas->reduce(function ($carry, $cur) {
             if ($this->isAllowedMeta($cur)) $carry[$cur->meta_key] = $cur->meta_value;
@@ -93,9 +74,64 @@ class Note extends Model
         }, []);
     }
 
-    public function setMeta($key, $value, $override = false)
+    /**
+     * Create note from the data
+     *
+     * @param array $data
+     * @return Note
+     */
+    static function createFrom(array $data): Note
     {
-        if (($meta = NoteMeta::getFor($this, $key))->count()) {
+        $note = new Note($data);
+        $note->author_id = Auth::id();
+        $note->save();
+
+        $data['meta'] && $note->setMetas($data['meta'], true);
+
+        return $note;
+    }
+
+    /**
+     * Update the note from the request
+     *
+     * @param array $data
+     * @return Note
+     */
+    public function updateFrom(array $data): Note
+    {
+        $this->update($data);
+        if ($data['meta']) $this->setMetas($data['meta'], true);
+
+        return $this;
+    }
+
+    /**
+     * Get the note meta
+     *
+     * @param string $key
+     * @return \Illuminate\Database\Eloquent\Collection
+     */
+    public function getMeta(string $key): \Illuminate\Database\Eloquent\Collection
+    {
+        return NoteMeta::where([
+            'note_id' => $this->id,
+            'meta_key' => $key
+        ])->get();
+    }
+
+    /**
+     * Set meta for the note
+     *
+     * @param string $key
+     * @param string $value
+     * @param bool $override
+     * @return string
+     */
+    public function setMeta(string $key, string $value, bool $override = false): string
+    {
+        if (!$this->isAllowedMeta($key)) return $value;
+
+        if (($meta = $this->getMeta($key))->count()) {
             if ($override) $meta->map(function ($cur) use ($value) {
                 $cur->updateValue($value);
             });
@@ -111,9 +147,14 @@ class Note extends Model
         return $value;
     }
 
-    public function updateMetas($metas)
+    /**
+     * Update the note metas
+     *
+     * @param array $metas
+     * @param bool $override
+     */
+    public function setMetas(array $metas, bool $override = false): void
     {
-        foreach ($metas as $key => $value)
-            if ($this->isAllowedMeta($key)) $this->setMeta($key, $value, true);
+        foreach ($metas as $key => $value) $this->setMeta($key, $value, $override);
     }
 }

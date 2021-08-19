@@ -21,9 +21,11 @@ class TokenAuth
      */
     public function handle(Request $request, Closure $next)
     {
-        if ($user = User::getByToken($request->bearerToken())) {
-            Auth::login($user);
-            return $next($request);
-        } else throw new UnauthorizedException();
+        /** @var User|null $user */
+        $user = User::findByToken($request->bearerToken());
+        if (!$user) throw new UnauthorizedException();
+
+        Auth::login($user);
+        return $next($request);
     }
 }

@@ -4,21 +4,18 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreNoteRequest;
 use App\Http\Requests\UpdateNoteRequest;
-use App\Http\Resources\CreatedResource;
 use App\Http\Resources\NoteResource;
 use App\Models\Note;
-use App\Models\User;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 class NoteController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * Get the user's own notes
      *
      * @return \Illuminate\Http\Resources\Json\AnonymousResourceCollection
      */
-    public function index()
+    public function own(): \Illuminate\Http\Resources\Json\AnonymousResourceCollection
     {
         $notes = Note::whereHas('author', function ($query) {
             $query->where('id', Auth::id());
@@ -26,8 +23,12 @@ class NoteController extends Controller
 
         return NoteResource::collection($notes);
     }
-
-    public function index_shared()
+    /**
+     * Get the user's notes shared with him
+     *
+     * @return \Illuminate\Http\Resources\Json\AnonymousResourceCollection
+     */
+    public function shared(): \Illuminate\Http\Resources\Json\AnonymousResourceCollection
     {
         $notes = Note::whereHas('metas', function ($query) {
             $query->where('meta_key', 'user_id')->where('meta_value', Auth::id());
@@ -37,68 +38,25 @@ class NoteController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
+     * Create new note for the user
      *
      * @param StoreNoteRequest $request
      * @return NoteResource
      */
-    public function store(StoreNoteRequest $request)
+    public function create(StoreNoteRequest $request): NoteResource
     {
-        return NoteResource::make(Note::createFrom($request), 201);
+        return NoteResource::make(Note::createFrom($request->all()), 201);
     }
 
     /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Note  $note
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Note $note)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Note  $note
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Note $note)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
+     * Update the user's specified note
      *
      * @param UpdateNoteRequest $request
-     * @param \App\Models\Note $note
+     * @param Note $note
      * @return NoteResource
      */
-    public function update(UpdateNoteRequest $request, Note $note)
+    public function update(UpdateNoteRequest $request, Note $note): NoteResource
     {
-        return NoteResource::make($note->updateFrom($request));
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\Note  $note
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Note $note)
-    {
-        //
+        return NoteResource::make($note->updateFrom($request->all()));
     }
 }
