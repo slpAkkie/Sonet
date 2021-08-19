@@ -1,11 +1,11 @@
 import ApiReq from '../modules/apiReq.js'
 import FieldRow from '../modules/field-row.js'
 import Token from '../modules/token.js'
-import _ from '../modules/queryLight.js'
+import q from '../modules/queryLight.js'
 
-_('.auth__form').on('submit', tryLogin)
+q('.auth__form').on('submit', tryLogin)
 
-const loginLoader = _('#login-loader')
+const loginLoader = q('#login-loader')
 
 
 
@@ -14,7 +14,7 @@ function tryLogin(evt) {
   FieldRow.clearAllErrors()
 
   loginLoader.dataset.shown = true
-  ApiReq.send('login', 'post', <BodyInit>_(this).formData()).then(handleResponse)
+  ApiReq.send('login', 'post', <BodyInit>q(this).formData()).then(handleResponse)
 }
 
 function handleResponse(response) {

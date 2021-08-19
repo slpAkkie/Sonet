@@ -1,10 +1,10 @@
 import ApiReq from '../modules/apiReq.js'
 import FieldRow from '../modules/field-row.js'
-import _ from '../modules/queryLight.js'
+import q from '../modules/queryLight.js'
 
-_('.auth__form').on('submit', tryRegister)
+q('.auth__form').on('submit', tryRegister)
 
-const loginLoader = _('#register-loader')
+const loginLoader = q('#register-loader')
 
 
 
@@ -13,7 +13,7 @@ function tryRegister(evt) {
   FieldRow.clearAllErrors()
 
   loginLoader.dataset.shown = true
-  ApiReq.send('register', 'post', <BodyInit>_(this).formData()).then(handleResponse)
+  ApiReq.send('register', 'post', <BodyInit>q(this).formData()).then(handleResponse)
 }
 
 function handleResponse(response) {
