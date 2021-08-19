@@ -37,12 +37,12 @@ export default class ApiReq {
 
     if (need_token) opt.headers['Authorization'] = `Bearer ${Token.get()}`
 
-    return fetch(this.#getMethodURI(api_method), opt).then(response => {
-      if (response.status === 204) return {
-        data: true
-      }
-      return response.json()
-    })
+    return fetch(this.#getMethodURI(api_method), opt)
+      .then(response => {
+        if (response.status === 204) return { data: true }
+
+        return response.json()
+      })
   }
 
 }
