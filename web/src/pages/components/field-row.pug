@@ -1,6 +1,6 @@
 mixin field-row(props)
-  .field-row(class=props.classes)
-    if !props.withoutLabel
-      label.field-row__label(for=props.id)=props.label
-    input.field-row__input.input.input_text(type=props.type || 'text', id=props.id, name=props.name || props.id, placeholder=props.placeholder)
-    p.field-row__error(data-for=props.id)
+  .o-field-row(class=props.classes)
+    if props.label
+      label.o-field-row__label(for=props.id)=props.label
+    input.o-field-row__input.o-input.o-input_text(type=props.type || 'text', id=props.id, name=props.name || props.id, placeholder=props.placeholder)
+    p.o-field-row__error(data-for=props.id)

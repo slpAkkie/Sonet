@@ -12,12 +12,12 @@ function tryRegister(evt) {
   evt.preventDefault()
   FieldRow.clearAllErrors()
 
-  loginLoader.dataset.shown = true
+  loginLoader.addClass('c-loader--shown')
   ApiReq.send('register', 'post', <BodyInit>q(this).formData()).then(handleResponse)
 }
 
 function handleResponse(response) {
-  delete loginLoader.dataset.shown
+  loginLoader.removeClass('c-loader--shown')
 
   if (response.error) registerFailed(response.error)
   else registerSuccess(response.data)

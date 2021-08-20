@@ -1,4 +1,4 @@
-.field-row {
+.o-field-row {
   display       : flex;
   flex-direction: column;
   //
@@ -17,7 +17,7 @@
     font-size     : .85em;
     letter-spacing: .05em;
 
-    &_shown {
+    &--shown {
       display: block;
     }
   }

@@ -1,16 +1,13 @@
 extends layouts/general
 
-block vars
-  - let bg_dark = true
-
 block content
-  .p-5
+  .u-padding-5
     h1 Главной страницы пока что нет
     p Но есть другие страницы, на которые вы можете взглянуть
-    ul.mt-3
-      li.mb-1
-        a(href="./login.html") Вход
-      li.mb-1
-        a(href="./register.html") Регистрация
-      li.mb-1
-        a(href="./home.html") Домашняя страница пользователя
+    ul.u-margin-t-3
+      li.u-margin-b-1
+        a(href='./login.html') Вход
+      li.u-margin-b-1
+        a(href='./register.html') Регистрация
+      li.u-margin-b-1
+        a(href='./home.html') Домашняя страница пользователя

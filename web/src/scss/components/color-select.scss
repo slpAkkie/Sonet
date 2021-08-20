@@ -1,4 +1,4 @@
-.color-select {
+.o-color-select {
   position: relative;
 
   &__selected {
@@ -61,22 +61,20 @@
       border-bottom-color: darken($color: $darkest-2, $amount: 5%);
     }
 
-    &[data-shown] {
+    &--shown {
       display: block;
     }
 
-    &_to-left {
+    &--to-left {
       left : unset;
       right: calc(100% - 3.2rem);
     }
 
-    &_to-left::before {
+    &--to-left::before {
       left : unset;
       right: .4rem;
     }
   }
-
-  &__list {}
 
   &__item {
     display    : flex;

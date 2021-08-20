@@ -1,124 +1,47 @@
 extends layouts/general
 
-block view-vars
-  - const view_title = 'Мои ноуты'
-
 block vars
   -
     let title = 'Мои ноуты'
-    let bg_dark = true
 
-    let logoutLoader = {
-      id: 'logout-loader'
-    }
+    let colorItems = [
+      { title: 'Любой' },
+      { title: 'Желтый', color: '#efda20' },
+      { title: 'Лаймовый', color: '#daef20' },
+      { title: 'Бирюзовый', color: '#20daef' },
+      { title: 'Розовый', color: '#ef20da' },
+    ]
 
-    let notesLoader = {
-      id: 'notes-loader',
-      shown: true
-    }
-
-    let filter_color_select = {
-      classes: 'notes__color-select',
-      items: [
-        {
-          title: 'Любой'
-        },
-        {
-          title: 'Желтый',
-          color: '#efda20'
-        },
-        {
-          title: 'Лаймовый',
-          color: '#daef20'
-        },
-        {
-          title: 'Бирюзовый',
-          color: '#20daef'
-        },
-        {
-          title: 'Розовый',
-          color: '#ef20da'
-        },
-      ]
-    }
-
-    let add_form_color_select = {
-      items: [
-        {
-          title: 'Нет'
-        },
-        {
-          title: 'Желтый',
-          color: '#efda20'
-        },
-        {
-          title: 'Лаймовый',
-          color: '#daef20'
-        },
-        {
-          title: 'Бирюзовый',
-          color: '#20daef'
-        },
-        {
-          title: 'Розовый',
-          color: '#ef20da'
-        },
-      ]
-    }
-
-    let add_form_loader = {
-      id: 'add-form-loader'
-    }
-
-    let add_form_button = {
-      type: 'submit',
-      text: 'Создать',
-      classes: 'button_sm add-form__row-item add-form__submit'
-    }
-
-    let titleField = {
-      withoutLabel: true,
-      id: 'title',
-      name: 'title',
-      placeholder: 'Название ноута',
-      classes: 'add-form__row-item add-form__title',
-    }
-
-block includes
-  include components/button
-  include components/note
-  include components/color-select
-  include components/field-row
-
-block js
-  +page-js('home', true)
+block head-js
+  script(type='module', src='./assets/js/pages/home.force.js')
+  script(type='module', src='./assets/js/pages/home.js', defer)
 
 block content
-  +loader(logoutLoader)
-  .main-container.container.container_large
+  +loader({ id: 'logout-loader' })
+  .main-container.u-container.u-container_large
       include includes/sidebar
-      main.page-view.page-view_home
-        .page-view__header= view_title
-        .page-view__content
+      main.page.page_home
+        .page__header= 'Мои ноуты'
+        .page__content
           .notes
-            form.notes__add-form.add-form.loader-box(action="#", method="POST")
-              +loader(add_form_loader)
-              .d-flex
-                +field-row(titleField)
-              .d-flex
-                textarea.add-form__content.add-form__row-item.input.input_text(name="content", placeholder="Контент ноута")
+            form.notes__add-form.add-form.c-loader-box(action='#', method='POST')
+              +loader({ id: 'add-form-loader' })
+              .u-display-flex
+                +field-row({ id: 'title', placeholder: 'Название ноута', classes: 'add-form__row-item add-form__title', })
+              .u-display-flex
+                textarea.add-form__content.add-form__row-item.o-input.o-input_text(name='content', placeholder='Контент ноута')
               .add-form__footer
                 .add-form__row-item.add-form__color
                   span.add-form__color-label Цвет:
-                  +color-select(add_form_color_select)
-                +button(add_form_button)
+                  +color-select({ items: colorItems })
+                +button({ type: 'submit', text: 'Создать', classes: 'o-btn--sm add-form__row-item add-form__submit' })
             .notes__control-panel
               .notes__search-box.notes__control
-                input#js-search-query.notes__search-input.input.input_text.input_sm(type="text", name="query", placeholder="Что вам найти?")
-                input.notes__search-button.button.button_sm(type="submit", value="Найти")
+                input#js-search-query.notes__search-input.o-input.o-input_text.o-input_sm(type='text', name='query', placeholder='Что вам найти?')
+                input.notes__search-button.o-btn.o-btn--sm(type='submit', value='Найти')
               .notes__color-filter.notes__control
                 span.notes__color-filter-label Цвет:
-                +color-select(filter_color_select)
-            .notes__items-wrapper.loader-box
-              +loader(notesLoader)
+                +color-select({ classes: 'notes__color-select', items: colorItems })
+            .notes__items-wrapper.c-loader-box
+              +loader({ id: 'notes-loader', shown: true })
               .notes__container

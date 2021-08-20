@@ -23,15 +23,15 @@ export default class Note {
   }
 
   render(container) {
-    container.insertFirst(createTemplate(`<div class="note">
-      <div class="note__header">
-        <div class="note__title"><a class="note__title-link link_static" href="#">${this.data.title}</a></div>
-        <div class="note__color" style="background-color: ${this.data.meta.color || 'transparent'}"></div>
+    container.insertFirst(createTemplate(`<div class='o-note'>
+      <div class='o-note__header'>
+        <div class='o-note__title'><a class='o-note__title-link link_static' href='#'>${this.data.title}</a></div>
+        <div class='o-note__color' style='background-color: ${this.data.meta.color || 'transparent'}'></div>
       </div>
-      <div class="note__content">${this.data.content || ''}</div>
-      <div class="note__footer">
-        <div class="note__created-at">${this.data.created_at}</div>
-        <div class="note__author"><a class="note__author-link" href="#">${this.data.author.nickname}</a></div>
+      <div class='o-note__content'>${this.data.content || ''}</div>
+      <div class='o-note__footer'>
+        <div class='o-note__created-at'>${this.data.created_at}</div>
+        <div class='o-note__author'><a class='o-note__author-link' href='#'>${this.data.author.nickname}</a></div>
       </div>
     </div>`))
 

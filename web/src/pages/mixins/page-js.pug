@@ -1,5 +1,0 @@
-mixin page-js(page, force = false, common = true)
-  if force
-    script(type="module", src='./assets/js/pages/' + page + '.force.js')
-  if common
-    script(defer='', type="module", src='./assets/js/pages/' + page + '.js')

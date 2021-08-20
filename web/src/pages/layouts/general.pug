@@ -1,39 +1,31 @@
-block consts
-  -
-    const site_name = 'SkyNotes'
+include ../components/loader
+include ../components/button
+include ../components/field-row
+include ../components/color-select
 
-block view-vars
+block consts
+  - const siteName = 'SkyNotes'
 
 block vars
-  -
-    let title = null
-    let body_classes = ''
-    let bg_dark = false
-
-block includes
-
-include ../mixins/page-js
-include ../components/loader
+  - let title = null
 
 doctype html
-html(lang="ru")
+html(lang='ru')
   head
     //- Meta
-    meta(charset="UTF-8")
-    meta(http-equiv="X-UA-Compatible", content="IE=edge")
-    meta(name="viewport", content="width=device-width, initial-scale=1.0")
+    meta(charset='UTF-8')
+    meta(name='viewport', content='width=device-width, initial-scale=1.0')
 
     //- CSS
-    link(rel="stylesheet", href="./assets/css/main.css")
+    link(rel='stylesheet', href='./assets/css/main.css')
 
     //- JS
-    script(defer, type="module", src="./assets/js/general.js")
-    block js
+    block head-js
 
     //- Favicon
-    link(rel="shortcut icon", href="../favicon.ico", type="image/x-icon")
+    link(rel='shortcut icon', href='../favicon.ico', type='image/x-icon')
 
     //- Title
-    title= title ? `${site_name} | ${title}` : site_name
-  body(class=bg_dark ? 'bg_dark' : '')
+    title= siteName + (title && ` | ${title}`)
+  body
     block content

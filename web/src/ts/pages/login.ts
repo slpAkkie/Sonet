@@ -13,12 +13,12 @@ function tryLogin(evt) {
   evt.preventDefault()
   FieldRow.clearAllErrors()
 
-  loginLoader.dataset.shown = true
+  loginLoader.addClass('c-loader--shown')
   ApiReq.send('login', 'post', <BodyInit>q(this).formData()).then(handleResponse)
 }
 
 function handleResponse(response) {
-  delete loginLoader.dataset.shown
+  loginLoader.removeClass('c-loader--shown')
 
   if (response.error) loginFailed(response.error)
   else loginSuccess(response.data)

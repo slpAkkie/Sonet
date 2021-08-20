@@ -1,12 +1,10 @@
 body {
+  color           : $text-light;
+  //
+  background-color: $bg-dark;
+
   &.scroll-fix {
     overflow: hidden;
-  }
-
-  &.bg_dark {
-    color           : $text-light;
-    //
-    background-color: $bg-dark;
   }
 }
 
@@ -23,7 +21,7 @@ body {
   }
 }
 
-.page-view {
+.page {
   flex-grow: 1;
   //
   width    : 100%;

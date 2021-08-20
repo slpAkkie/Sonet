@@ -1,13 +1,13 @@
 mixin color-select(props)
   - props.items || (props.items = [])
 
-  .color-select(class=props.classes)
-    .color-select__selected-value(data-id='0')
-      .color-select__selected-color(data-no-color=!props.items[0].color, style=`background-color: ${props.items[0].color || 'transparent'}`, data-color=props.items[0].color)
-      .color-select__selected-text=props.items[0].title
-    .color-select__drop-down
-      ul.color-select__list
+  .o-color-select(class=props.classes)
+    .o-color-select__selected-value(data-id='0')
+      .o-color-select__selected-color(data-no-color=!props.items[0].color, style=`background-color: ${props.items[0].color || 'transparent'}`, data-color=props.items[0].color)
+      .o-color-select__selected-text=props.items[0].title
+    .o-color-select__drop-down
+      ul.o-color-select__list
         each color, id in props.items
-          li.color-select__item(data-id=id, data-color=color.color, data-title=color.title)
-            .color-select__marker(style=`background-color: ${color.color || 'transparent'}`, data-no-color=!color.color, data-color=color.color)
-            .color-select__item-text= color.title
+          li.o-color-select__item(data-id=id, data-color=color.color, data-title=color.title)
+            .o-color-select__marker(style=`background-color: ${color.color || 'transparent'}`, data-no-color=!color.color, data-color=color.color)
+            .o-color-select__item-text= color.title

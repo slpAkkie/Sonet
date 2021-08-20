@@ -3,41 +3,23 @@ extends layouts/auth
 block vars
   -
     let title = 'Login'
-    let bg_dark = true
-
-    let loginLoader = {
-      id: 'login-loader'
-    }
 
     let fields = [
-      {
-        id: 'login',
-        name: 'login',
-        label: 'Ваш логин:',
-        placeholder: 'Login',
-      },
-      {
-        id: 'password',
-        name: 'password',
-        type: 'password',
-        label: 'Ваш пароль:',
-        placeholder: 'Password',
-      },
+      { id: 'login', label: 'Ваш логин:',  placeholder: 'Login' },
+      { id: 'password', type: 'password', label: 'Ваш пароль:', placeholder: 'Password' },
     ]
 
-    let submit = {
-      type: 'submit',
-      text: 'Войти',
-      classes: 'mt-4'
-    }
-
-block js
-  +page-js('login', true)
+block head-js
+  script(type='module', src='./assets/js/pages/login.force.js')
+  script(type='module', src='./assets/js/pages/login.js', defer)
 
 block form
-  form.auth__form.loader-box(action="#", method="POST")
-    +loader(loginLoader)
+  form.auth__form.c-loader-box(action='#', method='POST')
+    +loader({ id: 'login-loader' })
     each field in fields
       +field-row(field)
-    +button(submit)
-  p.mt-2.auth__post-text Если у вас еще нет аккаунта, можете <a href="/register.html">создать</a> его
+    +button({ type: 'submit', text: 'Войти', classes: 'o-btn--fluid u-margin-t-4' })
+  p.u-margin-t-2.auth__post-text
+    | Если у вас еще нет аккаунта, можете&nbsp;
+    a(href='/register.html') создать
+    | &nbsp;его

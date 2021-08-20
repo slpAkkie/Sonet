@@ -3,60 +3,25 @@ extends layouts/auth
 block vars
   -
     let title = 'Регистрация'
-    let bg_dark = true
-
-    let registerLoader = {
-      id: 'register-loader'
-    }
 
     let fields = [
-      {
-        id: 'email',
-        name: 'email',
-        label: 'Почта:',
-        placeholder: 'Email',
-      },
-      {
-        id: 'nickname',
-        name: 'nickname',
-        label: 'Никнейм:',
-        placeholder: 'Nickname',
-      },
-      {
-        id: 'login',
-        name: 'login',
-        label: 'Логин:',
-        placeholder: 'Login',
-      },
-      {
-        id: 'password',
-        name: 'password',
-        type: 'password',
-        label: 'Пароль:',
-        placeholder: 'Password',
-      },
-      {
-        id: 'password_confirmation',
-        name: 'password_confirmation',
-        type: 'password',
-        label: 'Повторите пароль:',
-        placeholder: 'Password',
-      },
+      { id: 'email', label: 'Почта:', placeholder: 'Email' },
+      { id: 'nickname', label: 'Никнейм:', placeholder: 'Nickname' },
+      { id: 'login', label: 'Логин:', placeholder: 'Login' },
+      { id: 'password', type: 'password', label: 'Пароль:', placeholder: 'Password' },
+      { id: 'password_confirmation', type: 'password', label: 'Повторите пароль:', placeholder: 'Password' },
     ]
 
-    let submit = {
-      type: 'submit',
-      text: 'Зарегистрироваться',
-      classes: 'mt-4'
-    }
-
-block js
-  +page-js('register')
+block head-js
+  script(type='module', src='./assets/js/pages/register.js', defer)
 
 block form
-  form.auth__form.loader-box(action="#", method="POST")
-    +loader(registerLoader)
+  form.auth__form.c-loader-box(action='#', method='POST')
+    +loader({ id: 'register-loader' })
     each field in fields
       +field-row(field)
-    +button(submit)
-  p.mt-2.auth__post-text Если у вас уже есть аккаунт <a href="/login.html">войдите</a> в него
+    +button({ type: 'submit', text: 'Зарегистрироваться', classes: 'o-btn--fluid u-margin-t-4' })
+  p.u-margin-t-2.auth__post-text
+    | Если у вас уже есть аккаунт&nbsp;
+    a(href='/login.html') войдите
+    | &nbsp;в него

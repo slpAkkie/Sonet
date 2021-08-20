@@ -33,7 +33,7 @@ export default class ColorSelect {
    */
   static displayedValue_click(evt): void {
     // Check if click was dispatched on the selected value
-    const selectedValue = (<HTMLElement>evt.target).closest('.color-select__selected-value')
+    const selectedValue = (<HTMLElement>evt.target).closest('.o-color-select__selected-value')
     if (!selectedValue)
       if (!this.openedDropDown) return
       else {
@@ -43,8 +43,8 @@ export default class ColorSelect {
 
     // Find color select element and the drop-down menu
     // and then toggle it's state
-    const colorSelect = (<HTMLElement>evt.target).closest('.color-select')
-    const dropDown = (<HTMLElement>colorSelect.querySelector('.color-select__drop-down'))
+    const colorSelect = (<HTMLElement>evt.target).closest('.o-color-select')
+    const dropDown = (<HTMLElement>colorSelect.querySelector('.o-color-select__drop-down'))
 
     this.#toggleDropDown(dropDown)
   }
@@ -56,7 +56,7 @@ export default class ColorSelect {
    * @returns {void}
    */
   static listItem_click(evt): void {
-    const listItem = <HTMLElement>(<HTMLElement>evt.target).closest('.color-select__item')
+    const listItem = <HTMLElement>(<HTMLElement>evt.target).closest('.o-color-select__item')
     if (!listItem) return
 
     this.#setData(this.#getDataFromItem(listItem), this.#getSelectorElements(listItem))
@@ -96,12 +96,12 @@ export default class ColorSelect {
    * @returns {SelectElements}
    */
   static #getSelectorElements(listItem: HTMLElement): SelectElements {
-    const selectedValue = <HTMLElement>(<HTMLElement>listItem.closest('.color-select')).querySelector('.color-select__selected-value')
+    const selectedValue = <HTMLElement>(<HTMLElement>listItem.closest('.o-color-select')).querySelector('.o-color-select__selected-value')
 
     return {
       selectedValue,
-      selectedValueText: <HTMLElement>selectedValue.querySelector('.color-select__selected-text'),
-      selectedValueColor: <HTMLElement>selectedValue.querySelector('.color-select__selected-color'),
+      selectedValueText: <HTMLElement>selectedValue.querySelector('.o-color-select__selected-text'),
+      selectedValueColor: <HTMLElement>selectedValue.querySelector('.o-color-select__selected-color'),
     }
   }
 
@@ -111,7 +111,7 @@ export default class ColorSelect {
    * @returns {void}
    */
   static #closeAllDropDown(): void {
-    delete this.openedDropDown.dataset.shown
+    this.openedDropDown.classList.remove('o-color-select__drop-down--shown')
     this.openedDropDown = null
   }
 
@@ -123,8 +123,8 @@ export default class ColorSelect {
    */
   static #checkPosition(dropDown: HTMLElement): void {
     document.documentElement.getBoundingClientRect().right < dropDown.getBoundingClientRect().right
-      ? dropDown.classList.add('color-select__drop-down_to-left')
-      : dropDown.classList.remove('color-select__drop-down_to-left')
+      ? dropDown.classList.add('o-color-select__drop-down--to-left')
+      : dropDown.classList.remove('o-color-select__drop-down--to-left')
   }
 
   /**
@@ -135,7 +135,7 @@ export default class ColorSelect {
    */
   static #open(dropDown: HTMLElement): void {
     this.openedDropDown = dropDown
-    this.openedDropDown.dataset.shown = 'true'
+    this.openedDropDown.classList.add('o-color-select__drop-down--shown')
   }
 
   /**
@@ -146,7 +146,7 @@ export default class ColorSelect {
    */
   static #toggleDropDown(dropDown: HTMLElement): void {
     if (this.openedDropDown) {
-      delete this.openedDropDown.dataset.shown
+      this.openedDropDown.classList.remove('o-color-select__drop-down--shown')
 
       if (dropDown.isEqualNode(this.openedDropDown)) return this.openedDropDown = null
       else this.#open(dropDown)

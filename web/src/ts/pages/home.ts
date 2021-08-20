@@ -10,7 +10,7 @@ ColorSelect.init()
 
 const addForm = q('.add-form')
 
-q('.sidebar__exit').on('click', exit)
+q('.c-sidebar__exit').on('click', exit)
 addForm.on('submit', tryCreate)
 
 const logoutLoader = q('#logout-loader')
@@ -24,7 +24,7 @@ const addFormLoader = q('#add-form-loader')
 let notes = []
 
 function exit() {
-  logoutLoader.dataset.shown = true
+  logoutLoader.addClass('c-loader--shown')
   pageBody.addClass('scroll-fix')
   ApiReq
     .send('logout', 'delete', null, true)
@@ -33,7 +33,7 @@ function exit() {
         Token.clear()
         location.href = '/login.html'
       } else {
-        delete logoutLoader.dataset.shown
+        logoutLoader.removeClass('c-loader--shown')
         pageBody.removeClass('scroll-fix')
       }
     })
@@ -42,12 +42,12 @@ function exit() {
 function tryCreate(evt) {
   evt.preventDefault()
 
-  addFormLoader.dataset.shown = 'true'
+  addFormLoader.addClass('c-loader--shown')
   let formData = Object.assign(
     q(this).formData(),
     {
       meta: {
-        color: q('.color-select__selected-color', this).dataset.color || 'transparent'
+        color: q('.o-color-select__selected-color', this).dataset.color || 'transparent'
       }
     }
   )
@@ -55,7 +55,7 @@ function tryCreate(evt) {
   ApiReq
     .send('notes', 'post', <BodyInit>formData, true)
     .then(response => {
-      delete addFormLoader.dataset.shown
+      addFormLoader.removeClass('c-loader--shown')
 
       if (response.data) handleSuccessNoteCreating(response.data)
       else if (response.error) handleNoteCreatingError(response.error)
@@ -65,11 +65,11 @@ function tryCreate(evt) {
 function handleSuccessNoteLoading(data: Array<Object>) {
   notesContainer.clear()
   if (data.length) notes = data.map(noteData => new Note(noteData).render(notesContainer))
-  else notesContainer.appendChild(createTemplate('<h5 class="page-view__sub-title mx-3">Ноутов нет, но вы можете создать их</h5>'))
+  else notesContainer.appendChild(createTemplate(`<h5 class='page__sub-title u-margin-x-3'>Ноутов нет, но вы можете создать их</h5>`))
 }
 
 function handleSuccessNoteCreating(data: Object) {
-  notesContainer.child('.page-view__sub-title')?.remove()
+  notesContainer.child('.page__sub-title')?.remove()
   addForm.reset()
   new Note(data).render(notesContainer)
 }
@@ -83,7 +83,7 @@ function loadNotes() {
   ApiReq
     .send('notes', 'get', null, true)
     .then(response => {
-      delete notesLoader.dataset.shown
+      notesLoader.removeClass('c-loader--shown')
 
       if (response.data) handleSuccessNoteLoading(response.data)
       else if (response.error.code === 401) exit()

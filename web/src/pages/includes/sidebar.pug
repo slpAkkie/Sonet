@@ -1,22 +1,19 @@
--
-  let exit = {
-    text: 'Выйти',
-    fluid: true,
-    classes: 'sidebar__exit'
-  }
+aside.c-sidebar
 
-aside.sidebar
-  //-
-  .sidebar__nickname.text_bold Nickname
-  .sidebar__separator.separator.separator_horizontal
-  //-
-  ul.sidebar__menu
-    li.sidebar__menu-item
-      a(href="./home.html") Мои ноуты
-    li.sidebar__menu-item
-      a(href="./home.html") Доступные мне
-  .sidebar__separator.separator.separator_horizontal.separator_muted
+  .c-sidebar__nickname.u-text_bold Nickname
+
+  .c-sidebar__separator.o-separator.o-separator_horizontal
+
+  ul.c-sidebar__menu
+    li.c-sidebar__menu-item
+      a(href='./home.html') Мои ноуты
+    li.c-sidebar__menu-item
+      a(href='./home.html') Доступные мне
+
+  .c-sidebar__separator.o-separator.o-separator_horizontal.o-separator_muted
+
   ul
     li
-      a(href="#") Настройки
-  +button(exit)
+      a(href='#') Настройки
+
+  +button({ text: 'Выйти', classes: 'c-sidebar__exit o-btn_fluid' })

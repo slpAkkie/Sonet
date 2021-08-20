@@ -1,6 +1,2 @@
-mixin button(props = {})
-  -
-    props.classes || (props.classes = '')
-    if (props.fluid) props.classes += ' button_fluid'
-
-  input.button(class=props.classes.trim(), type=props.type || 'button', value=props.text)
+mixin button(props)
+  input.o-btn(class=props.classes || '', type=props.type || 'button', value=props.text)

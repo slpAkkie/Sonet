@@ -1,20 +1,16 @@
 extends general
 
-block includes
-  include ../components/field-row
-  include ../components/button
-
 block content
-  .auth__container.container.content_center
+  .auth__container.u-container.u-content_center
     .auth
 
       //- Left side
-      .py-5
-        h1.my-0= site_name
+      .u-padding-y-5
+        h1.u-margin-y-0= siteName
 
-      .auth__separator.separator.separator_vertical
+      .auth__separator.o-separator.o-separator_vertical
 
       //- Right side
-      .py-5
-        h3.mt-0.text_center= title
+      .u-padding-y-5
+        h3.u-margin-t-0.u-text_center= title
         block form

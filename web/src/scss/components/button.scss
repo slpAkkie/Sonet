@@ -1,4 +1,4 @@
-.button {
+.o-btn {
   padding         : 1rem 5rem;
   //
   text-align      : center;
@@ -21,7 +21,7 @@
     background-color: darken($color: $primary, $amount: 15%);
   }
 
-  &_sm {
+  &--sm {
     padding  : .7rem 4rem;
     //
     font-size: 1.4rem;
