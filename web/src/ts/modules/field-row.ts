@@ -1,6 +1,6 @@
 import q from './queryLight.js'
 
-export default class FieldRow {
+export class FieldRow {
   static setError(field_ID: string, error_message: Array<string>): void {
     q(`.o-field-row__error[data-for=${field_ID}]`)?.addClass('o-field-row__error--shown').text(error_message.join(', '))
   }

@@ -1,9 +1,9 @@
-import ColorSelect from '../modules/color-select.js'
-import ApiReq from '../modules/apiReq.js'
-import Token from '../modules/token.js'
-import Note from '../modules/note.js'
+import { ColorSelect } from '../modules/color-select.js'
+import { ApiReq } from '../modules/apiReq.js'
+import { Token } from '../modules/token.js'
+import { Note } from '../modules/note.js'
+import { FieldRow } from '../modules/field-row.js'
 import createTemplate from '../modules/template.js'
-import FieldRow from '../modules/field-row.js'
 import q from '../modules/queryLight.js'
 
 ColorSelect.init()

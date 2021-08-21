@@ -1,5 +1,5 @@
-import ApiReq from '../modules/apiReq.js'
-import FieldRow from '../modules/field-row.js'
+import { ApiReq } from '../modules/apiReq.js'
+import { FieldRow } from '../modules/field-row.js'
 import q from '../modules/queryLight.js'
 
 q('.auth__form').on('submit', tryRegister)

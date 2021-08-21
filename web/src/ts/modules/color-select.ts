@@ -1,10 +1,10 @@
-interface ItemData {
+export interface ItemData {
   color: string
   title: string
   id: string
 }
 
-interface SelectElements {
+export interface SelectElements {
   selectedValue: HTMLElement
   selectedValueText: HTMLElement
   selectedValueColor: HTMLElement
@@ -12,7 +12,7 @@ interface SelectElements {
 
 
 
-export default class ColorSelect {
+export class ColorSelect {
   static openedDropDown?: HTMLElement = null
 
   /**

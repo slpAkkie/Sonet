@@ -1,4 +1,4 @@
-export default class Store {
+export class Store {
   /**
    * Set value to the localStorage
    * with specified key and returns it back

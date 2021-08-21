@@ -1,6 +1,6 @@
-import ApiReq from '../modules/apiReq.js'
-import FieldRow from '../modules/field-row.js'
-import Token from '../modules/token.js'
+import { ApiReq } from '../modules/apiReq.js'
+import { FieldRow } from '../modules/field-row.js'
+import { Token } from '../modules/token.js'
 import q from '../modules/queryLight.js'
 
 q('.auth__form').on('submit', tryLogin)

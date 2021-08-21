@@ -26,4 +26,17 @@
     //
     font-size: 1.4rem;
   }
+
+  &--danger {
+    background-color: $red;
+    color           : $light-1;
+
+    &:hover {
+      background-color: darken($color: $red, $amount: 5%);
+    }
+
+    &:active {
+      background-color: darken($color: $red, $amount: 15%);
+    }
+  }
 }

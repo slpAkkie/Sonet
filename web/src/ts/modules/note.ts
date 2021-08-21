@@ -1,12 +1,11 @@
 import createTemplate from './template.js'
-import q from './queryLight.js'
 
-interface noteAuthorData {
+export interface noteAuthorData {
   id: number
   nickname: string
 }
 
-interface noteData {
+export interface noteData {
   id: number
   title: string
   content?: string
@@ -15,7 +14,7 @@ interface noteData {
   created_at: string
 }
 
-export default class Note {
+export class Note {
   data: noteData
 
   constructor(data: Object) {

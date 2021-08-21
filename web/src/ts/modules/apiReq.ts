@@ -1,6 +1,6 @@
-import Token from './token.js'
+import { Token } from './token.js'
 
-export default class ApiReq {
+export class ApiReq {
 
   static #api_origin?: string = null
   static #api_port: string = '8000'
