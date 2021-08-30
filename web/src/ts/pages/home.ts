@@ -3,8 +3,8 @@ import { ApiReq } from '../modules/apiReq.js'
 import { Token } from '../modules/token.js'
 import { Note } from '../modules/note.js'
 import { FieldRow } from '../modules/field-row.js'
+import { q } from '../modules/queryLight.js'
 import createTemplate from '../modules/template.js'
-import q from '../modules/queryLight.js'
 
 ColorSelect.init()
 

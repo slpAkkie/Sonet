@@ -1,4 +1,4 @@
-import q from './queryLight.js'
+import { q } from './queryLight.js'
 
 export class FieldRow {
   static setError(field_ID: string, error_message: Array<string>): void {

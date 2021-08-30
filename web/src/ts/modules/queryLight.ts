@@ -10,22 +10,22 @@
 
 
 //
-interface qlWrapper { [key: string]: any }
+export interface qlWrapper { [key: string]: any }
 //
-type qlElement = HTMLElement | HTMLDocument
+export type qlElement = HTMLElement | HTMLDocument
 //
-type qlCommonElement = HTMLElement | qlWrapper
+export type qlCommonElement = HTMLElement | qlWrapper
 //
-type qlCollection = Array<qlElement>
+export type qlCollection = Array<qlElement>
 //
-type qlInput = string | Array<Node> | qlElement | qlWrapper
+export type qlInput = string | Array<Node> | qlElement | qlWrapper
 
 
 
 
 
 //
-class qlWrapper {
+export class qlWrapper {
 
   /**
    * @property {qlCollection}
@@ -154,6 +154,11 @@ class qlWrapper {
   clear(): qlWrapper { return this.each(el => el.innerHTML = '') }
 
   /**
+   * @returns {void}
+   */
+  rm(): void { this.each(el => el.remove()) }
+
+  /**
    * @param {number} index
    * @param {boolean} wrap
    * @returns {qlElement | qlWrapper}
@@ -264,7 +269,7 @@ class qlWrapper {
  * @param {qlInput} parent
  * @returns {qlWrapper}
  */
-export default function q(input: qlInput | Function, parent?: qlInput): qlWrapper {
+export function q(input: qlInput | Function, parent?: qlInput): qlWrapper {
 
   if (input instanceof Function) return q(document).on('DOMContentLoaded', input)
   else if (input instanceof qlWrapper) return input
