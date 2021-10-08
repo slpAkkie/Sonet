@@ -2,8 +2,11 @@
 
 namespace App\Models;
 
+use App\Exceptions\ApiTokenAuthorizationException;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Str;
 
 class User extends Authenticatable
 {
@@ -19,16 +22,6 @@ class User extends Authenticatable
         'last_name',
         'login',
         'email'
-    ];
-
-    /**
-     * The attributes that should be hidden for serialization.
-     *
-     * @var array
-     */
-    protected $hidden = [
-        'password',
-        'remember_token',
     ];
 
     public function notes() {
@@ -54,6 +47,52 @@ class User extends Authenticatable
 
 
     public static function findByToken($api_token) {
-        return User::where('api_token', $api_token)->firstOrFail();
+        return User::where('api_token', $api_token)->firstOr(/**
+         * @throws ApiTokenAuthorizationException
+         */ function () {
+            return throw new ApiTokenAuthorizationException();
+        });
+    }
+
+    public static function findByLogin($login) {
+        return User::where('login', $login)->first();
+    }
+
+    public function checkPassword($password) {
+        return Hash::check($password . $this->password_salt, $this->password);
+    }
+
+    public function setPassword($password) {
+        $this->generateSalt();
+        $this->password = Hash::make($password . $this->password_salt);
+        $this->save();
+
+        return $this;
+    }
+
+    private function generateSalt() {
+        $salt = Str::random(128);
+        while (!!static::where('password_salt', $salt)->count())
+            $salt = Str::random(128);
+
+        $this->password_salt = $salt;
+
+        return $this;
+    }
+
+    public function generateToken() {
+        $api_token = Str::random(64);
+        while (!!static::where('api_token', $api_token)->count())
+            $api_token = Str::random(64);
+
+        $this->api_token = $api_token;
+        $this->save();
+
+        return $this;
+    }
+
+    public function removeToken() {
+        $this->api_token = null;
+        $this->save();
     }
 }

@@ -14,6 +14,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('api-token')->group(function () {
-    Route::post('/user', [\App\Http\Controllers\AuthController::class, 'register']);
-});
+// Auth routes
+Route::post('/register', [\App\Http\Controllers\AuthController::class, 'register'])->name('register');
+Route::post('/login', [\App\Http\Controllers\AuthController::class, 'login'])->name('login');
+Route::middleware(['api-token'])->delete('/logout', [\App\Http\Controllers\AuthController::class, 'logout'])->name('logout');

@@ -6,6 +6,6 @@ class NotFoundHttpResource extends ApiErrorResource
 {
     public function __construct()
     {
-        parent::__construct('По запросу ничего не найдено', 404);
+        parent::__construct('Ничего не найдено', 404);
     }
 }
