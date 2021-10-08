@@ -15,9 +15,10 @@ class User extends Authenticatable
      * @var string[]
      */
     protected $fillable = [
-        'name',
-        'email',
-        'password',
+        'first_name',
+        'last_name',
+        'login',
+        'email'
     ];
 
     /**
@@ -48,5 +49,11 @@ class User extends Authenticatable
 
     public function comments() {
         return $this->hasMany(Comment::class, 'user_id', 'id');
+    }
+
+
+
+    public static function findByToken($api_token) {
+        return User::where('api_token', $api_token)->firstOrFail();
     }
 }
