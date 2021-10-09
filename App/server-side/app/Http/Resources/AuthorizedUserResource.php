@@ -2,17 +2,17 @@
 
 namespace App\Http\Resources;
 
-class AuthorizedUserResource extends ApiResource
+class AuthorizedUserResource extends CommonResource
 {
-    public function __construct($user)
+    public function toArray($request)
     {
-        parent::__construct([
-            'id' => $user->id,
-            'first_name' => $user->first_name,
-            'last_name' => $user->last_name,
-            'login' => $user->login,
-            'email' => $user->email,
-            'api_token' => $user->api_token,
-        ]);
+        return [
+            'id' => $this->id,
+            'first_name' => $this->first_name,
+            'last_name' => $this->last_name,
+            'login' => $this->login,
+            'email' => $this->email,
+            'api_token' => $this->api_token,
+        ];
     }
 }

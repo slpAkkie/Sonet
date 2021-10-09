@@ -2,10 +2,7 @@
 
 namespace App\Http\Resources;
 
-class LoginResource extends ApiResource
+class LoginResource extends AuthorizedUserResource
 {
-    public function __construct($user)
-    {
-        parent::__construct(AuthorizedUserResource::make($user)->resource);
-    }
+    //
 }

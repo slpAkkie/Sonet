@@ -2,7 +2,7 @@
 
 namespace App\Http\Resources;
 
-class NotFoundHttpResource extends ApiErrorResource
+class NotFoundHttpResource extends CommonErrorResource
 {
     public function __construct()
     {

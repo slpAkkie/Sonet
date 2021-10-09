@@ -2,7 +2,7 @@
 
 namespace App\Http\Resources;
 
-class ApiTokenAuthorizationResource extends ApiErrorResource
+class ApiTokenAuthorizationResource extends CommonErrorResource
 {
     public function __construct()
     {

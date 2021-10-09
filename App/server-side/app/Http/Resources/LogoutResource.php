@@ -2,7 +2,7 @@
 
 namespace App\Http\Resources;
 
-class LogoutResource extends ApiResource
+class LogoutResource extends CommonResource
 {
     public function __construct()
     {

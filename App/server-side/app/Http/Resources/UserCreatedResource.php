@@ -2,10 +2,7 @@
 
 namespace App\Http\Resources;
 
-class UserCreatedResource extends ApiResource
+class UserCreatedResource extends UserResource
 {
-    public function __construct($user)
-    {
-        parent::__construct(UserResource::make($user)->resource, 201);
-    }
+    protected $response_code = 201;
 }
