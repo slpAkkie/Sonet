@@ -11,6 +11,7 @@ use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 use Illuminate\Support\Collection;
 use Illuminate\Validation\ValidationException;
+use Symfony\Component\HttpKernel\Exception\MethodNotAllowedHttpException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Throwable;
 
@@ -51,6 +52,7 @@ class Handler extends ExceptionHandler
     public function render($request, Throwable $e)
     {
         if ($e instanceof NotFoundHttpException) return NotFoundHttpResource::make();
+        elseif ($e instanceof MethodNotAllowedHttpException) return NotFoundHttpResource::make();
         elseif ($e instanceof ModelNotFoundException) return ModelNotFoundResource::make($e->getModel());
         elseif ($e instanceof ApiTokenAuthorizationException) return ApiTokenAuthorizationResource::make();
         elseif ($e instanceof UserNotFoundException || $e instanceof PasswordIncorrectException) return LoginFailedResource::make();
