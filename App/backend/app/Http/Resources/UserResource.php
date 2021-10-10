@@ -12,6 +12,7 @@ class UserResource extends CommonResource
             'last_name' => $this->last_name,
             'login' => $this->login,
             'email' => $this->email,
+            'api_token' => $this->when($this->resourceWithToken, $this->api_token)
         ];
     }
 }

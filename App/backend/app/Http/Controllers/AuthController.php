@@ -6,9 +6,9 @@ use App\Exceptions\PasswordIncorrectException;
 use App\Exceptions\UserNotFoundException;
 use App\Http\Requests\LoginRequest;
 use App\Http\Requests\RegisterRequest;
-use App\Http\Resources\LoginResource;
 use App\Http\Resources\LogoutResource;
 use App\Http\Resources\UserCreatedResource;
+use App\Http\Resources\UserResource;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 
@@ -33,7 +33,7 @@ class AuthController extends Controller
 
         $user->generateToken();
 
-        return LoginResource::make($user);
+        return UserResource::make($user->withToken());
     }
 
     public function logout() {
