@@ -1,4 +1,4 @@
-# app
+# sonet
 
 ## Project setup
 ```
