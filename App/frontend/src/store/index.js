@@ -8,7 +8,10 @@ export default createStore({
     //
   },
   actions: {
-    //
+    checkToken() {
+      let token = localStorage.getItem('api_token')
+      return !!token
+    }
   },
   modules: {
     //

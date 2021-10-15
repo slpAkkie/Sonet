@@ -6,6 +6,11 @@ const routes = [
     name: 'MainView',
     component: () => import('../views/MainView')
   },
+  {
+    path: '/login',
+    name: 'LoginView',
+    component: () => import('../views/LoginView')
+  },
 ]
 
 const router = createRouter({
