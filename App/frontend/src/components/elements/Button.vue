@@ -27,5 +27,10 @@ export default {
   border-radius: .4rem;
   //
   cursor: pointer;
+  transition: background-color .1s ease;
+  
+  &:hover {
+    background-color: #cecece;
+  }
 }
 </style>

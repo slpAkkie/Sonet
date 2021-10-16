@@ -17,8 +17,8 @@
 </template>
 
 <script>
-import Input from "../components/general/Input";
-import Button from "../components/general/Button";
+import Input from "../components/elements/Input";
+import Button from "../components/elements/Button";
 
 export default {
   name: 'RegisterView',
