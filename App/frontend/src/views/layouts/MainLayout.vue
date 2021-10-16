@@ -1,14 +1,13 @@
 <template>
-  <div>Main</div>
   <router-view/>
 </template>
 
 <script>
 export default {
-  name: "MainLayout"
+  name: "MainLayout",
 }
 </script>
 
-<style scoped>
+<style lang="scss">
 
 </style>
