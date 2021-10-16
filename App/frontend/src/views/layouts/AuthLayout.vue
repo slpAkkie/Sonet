@@ -1,12 +1,13 @@
 <template>
   <div class="auth-form__wrapper">
-    <router-view/>
+    <router-view @login="$emit('login')" />
   </div>
 </template>
 
 <script>
 export default {
   name: "AuthLayout",
+  emits: [ 'login' ],
 }
 </script>
 

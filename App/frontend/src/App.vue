@@ -20,7 +20,7 @@ export default {
     changeLayout(layout, url = null) {
       this.layout = layout
       url && this.$router.push(url)
-    }
+    },
   },
   beforeCreate() {
     this.$store.dispatch('checkToken').then(response => {

@@ -1,6 +1,6 @@
 <template>
   <form action="#" method="post" class="auth-form" @submit.prevent="tryLogin">
-    <Input type="email" name="email" placeholder="Ваш логин" v-model="postData.login" />
+    <Input type="text" name="login" placeholder="Ваш логин" v-model="postData.login" />
     <p class="auth-form__error-message" v-if="formErrors.login">{{ formErrors.login }}</p>
     <Input type="password" name="password" placeholder="Ваш пароль" v-model="postData.password" />
     <p class="auth-form__error-message" v-if="formErrors.password">{{ formErrors.password }}</p>
@@ -15,6 +15,7 @@ import Button from "../components/general/Button";
 
 export default {
   name: 'LoginView',
+  emits: [ 'login' ],
   components: {
     Input,
     Button,
@@ -41,7 +42,8 @@ export default {
         .catch(error => this.handleResponseError(error.response.data))
     },
     handleResponse(response) {
-      console.log(response.data.api_token)
+      this.$store.commit('setToken', response.data.api_token)
+      this.$emit('login')
     },
     handleResponseError(response) {
       if (response.code === 422) this.formErrors = response.error.errors
