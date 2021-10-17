@@ -25,6 +25,7 @@ Route::middleware(['api-token'])->group(function () {
     // Note routes
     Route::get('/notes', [\App\Http\Controllers\NoteController::class, 'index']);
     Route::get('/notes/{note}', [\App\Http\Controllers\NoteController::class, 'show']);
+    Route::post('/notes', [\App\Http\Controllers\NoteController::class, 'store']);
 
 });
 

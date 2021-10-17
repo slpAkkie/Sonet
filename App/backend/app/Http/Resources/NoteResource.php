@@ -3,6 +3,7 @@
 namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
+use Illuminate\Support\Carbon;
 
 class NoteResource extends JsonResource
 {
@@ -12,12 +13,21 @@ class NoteResource extends JsonResource
             'id' => $this->id,
             'title' => $this->title,
             'body' => $this->body,
-            'category_id' => $this->category_id,
-            'created_at' => $this->created_at,
+            'category' => $this->when($this->category, function () {
+                return $this->category->title;
+            }),
+
             $this->mergeWhen($this->withFullResource(), [
-                'folder_id' => $this->folder_id,
-                'updated_at' => $this->updated_at
-            ])
+                'folder' => $this->when($this->folder, function () {
+                    return $this->folder->title;
+                }),
+                'attachments' => $this->when($this->attachments->count(), function () {
+                    return AttachmentResource::collection($this->attachments);
+                }),
+            ]),
+
+            'created_at' => Carbon::parse($this->created_at)->toDateTimeLocalString(),
+            'updated_at' => Carbon::parse($this->updated_at)->toDateTimeLocalString(),
         ];
     }
 }

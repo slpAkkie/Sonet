@@ -2,14 +2,44 @@
 
 namespace App\Models;
 
+use App\Exceptions\ModelNotSavedException;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Auth;
 
 class Note extends Model
 {
     use HasFactory;
 
+    protected $fillable = [
+        'title',
+        'body',
+        'category_id',
+        'folder_id',
+        'user_id',
+    ];
+
     private $fullResource = false;
+
+    public function __construct(array $attributes = [])
+    {
+        $attributes['user_id'] = Auth::id();
+        parent::__construct($attributes);
+    }
+
+    /**
+     * @throws ModelNotSavedException
+     */
+    public function addAttachments($attachmentsData) {
+        if (!$this->id) throw new ModelNotSavedException();
+
+        $attachments = [];
+
+        foreach ($attachmentsData as $attachment)
+            $attachments[] = new Attachment($attachment);
+
+        $this->attachments()->saveMany($attachments);
+    }
 
     public function withFullResource() {
         return $this->fullResource;
@@ -24,11 +54,11 @@ class Note extends Model
     }
 
     public function folder() {
-        return $this->hasOne(Folder::class, 'folder_id', 'id');
+        return $this->belongsTo(Folder::class, 'folder_id', 'id');
     }
 
-    public function categories() {
-        return $this->hasOne(Category::class, 'category_id', 'id');
+    public function category() {
+        return $this->belongsTo(Category::class, 'category_id', 'id');
     }
 
     public function author() {

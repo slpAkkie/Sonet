@@ -9,6 +9,11 @@ class Attachment extends Model
 {
     use HasFactory;
 
+    protected $fillable = [
+        'title',
+        'path',
+    ];
+
     public function note() {
         return $this->belongsTo(Note::class, 'note_id', 'id');
     }
