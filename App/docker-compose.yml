@@ -20,10 +20,9 @@ services:
     container_name: mariadb
     environment:
       MYSQL_ROOT_PASSWORD: root
-      MYSQL_DATABASE: sonet
     volumes:
+      - ./docker/db/dumps:/docker-entrypoint-initdb.d
       - ./docker/db/data:/var/lib/mysql
-      - ./docker/db/my.cnf:/etc/mysql/my.cnf
 
   fpm:
     build: ./docker/php/

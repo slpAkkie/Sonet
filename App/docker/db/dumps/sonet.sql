@@ -12,8 +12,8 @@ CREATE TABLE `users` (
   `password` varchar(64) NOT NULL,
   `password_salt` varchar(128) NOT NULL,
   `api_token` varchar(64) DEFAULT NULL,
-  `created_at` timestamp DEFAULT NULL,
-  `updated_at` timestamp DEFAULT NULL,
+  `created_at` timestamp NULL,
+  `updated_at` timestamp NULL,
 
   -- INDEXES
   CONSTRAINT `UserID` PRIMARY KEY (`id`),
@@ -28,8 +28,8 @@ CREATE TABLE `folders` (
   `title` varchar(255) NOT NULL,
   `order` int DEFAULT 0 NOT NULL ,
   `user_id` bigint UNSIGNED NOT NULL,
-  `created_at` timestamp DEFAULT NULL,
-  `updated_at` timestamp DEFAULT NULL,
+  `created_at` timestamp NULL,
+  `updated_at` timestamp NULL,
 
   -- INDEXES
   CONSTRAINT `FolderID` PRIMARY KEY (`id`),
@@ -45,8 +45,8 @@ CREATE TABLE `categories` (
   `title` varchar(255) NOT NULL,
   `order` int DEFAULT 0 NOT NULL,
   `user_id` bigint UNSIGNED NOT NULL,
-  `created_at` timestamp DEFAULT NULL,
-  `updated_at` timestamp DEFAULT NULL,
+  `created_at` timestamp NULL,
+  `updated_at` timestamp NULL,
 
   -- INDEXES
   CONSTRAINT `CategoryID` PRIMARY KEY (`id`),
@@ -64,8 +64,8 @@ CREATE TABLE `notes` (
   `folder_id` bigint UNSIGNED DEFAULT NULL,
   `category_id` bigint UNSIGNED DEFAULT NULL,
   `user_id` bigint UNSIGNED NOT NULL,
-  `created_at` timestamp DEFAULT NULL,
-  `updated_at` timestamp DEFAULT NULL,
+  `created_at` timestamp NULL,
+  `updated_at` timestamp NULL,
 
   -- INDEXES
   CONSTRAINT `NoteID` PRIMARY KEY (`id`),
@@ -89,8 +89,8 @@ CREATE TABLE `attachments` (
   `title` varchar(255) NOT NULL,
   `note_id` bigint UNSIGNED NOT NULL,
   `path` varchar(255) NOT NULL,
-  `created_at` timestamp DEFAULT NULL,
-  `updated_at` timestamp DEFAULT NULL,
+  `created_at` timestamp NULL,
+  `updated_at` timestamp NULL,
 
   -- INDEXES
   CONSTRAINT `AttachmentID` PRIMARY KEY (`id`),
@@ -107,8 +107,8 @@ CREATE TABLE `comments` (
   `user_id` bigint UNSIGNED NOT NULL,
   `note_id` bigint UNSIGNED NOT NULL,
   `body` text NOT NULL,
-  `created_at` timestamp DEFAULT NULL,
-  `updated_at` timestamp DEFAULT NULL,
+  `created_at` timestamp NULL,
+  `updated_at` timestamp NULL,
 
   -- INDEXES
   CONSTRAINT `CommentID` PRIMARY KEY (`id`),
@@ -127,8 +127,8 @@ CREATE TABLE `access_levels` (
   `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT,
   `title` varchar(128) NOT NULL,
   `readonly` tinyint NOT NULL,
-  `created_at` timestamp DEFAULT NULL,
-  `updated_at` timestamp DEFAULT NULL,
+  `created_at` timestamp NULL,
+  `updated_at` timestamp NULL,
 
   -- INDEXES
   CONSTRAINT `AccessLevelID` PRIMARY KEY (`id`),
@@ -141,8 +141,8 @@ CREATE TABLE `note_users` (
   `note_id` bigint UNSIGNED NOT NULL,
   `user_id` bigint UNSIGNED NOT NULL,
   `access_level_id` bigint UNSIGNED NOT NULL,
-  `created_at` timestamp DEFAULT NULL,
-  `updated_at` timestamp DEFAULT NULL,
+  `created_at` timestamp NULL,
+  `updated_at` timestamp NULL,
 
   -- INDEXES
   CONSTRAINT `NoteUsersID` PRIMARY KEY (`id`),
