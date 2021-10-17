@@ -19,6 +19,16 @@ Route::post('/register', [\App\Http\Controllers\AuthController::class, 'register
 Route::post('/login', [\App\Http\Controllers\AuthController::class, 'login'])->name('login');
 Route::middleware(['api-token'])->delete('/logout', [\App\Http\Controllers\AuthController::class, 'logout'])->name('logout');
 
+// Routes with authorization
+Route::middleware(['api-token'])->group(function () {
+
+    // Note routes
+    Route::get('/notes', [\App\Http\Controllers\NoteController::class, 'index']);
+    Route::get('/notes/{note}', [\App\Http\Controllers\NoteController::class, 'show']);
+
+});
 
 
+
+// Test route
 Route::get('/test', [\App\Http\Controllers\Controller::class, 'test'])->name('test');

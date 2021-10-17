@@ -3,10 +3,12 @@
 namespace App\Exceptions;
 
 use App\Http\Resources\ApiTokenAuthorizationResource;
+use App\Http\Resources\AuthorizationExceptionResource;
 use App\Http\Resources\LoginFailedResource;
 use App\Http\Resources\ModelNotFoundResource;
 use App\Http\Resources\NotFoundHttpResource;
 use App\Http\Resources\ValidationFailedResource;
+use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 use Illuminate\Support\Collection;
@@ -53,9 +55,10 @@ class Handler extends ExceptionHandler
     {
         if ($e instanceof NotFoundHttpException) return NotFoundHttpResource::make();
         elseif ($e instanceof MethodNotAllowedHttpException) return NotFoundHttpResource::make();
-        elseif ($e instanceof ModelNotFoundException) return ModelNotFoundResource::make($e->getModel());
+        elseif ($e instanceof ModelNotFoundException) return ModelNotFoundResource::make($e->getModel())->getAsResponse(); // HACK: It want to Response instance
         elseif ($e instanceof ApiTokenAuthorizationException) return ApiTokenAuthorizationResource::make();
         elseif ($e instanceof UserNotFoundException || $e instanceof PasswordIncorrectException) return LoginFailedResource::make();
+        elseif ($e instanceof AuthorizationException) return AuthorizationExceptionResource::make();
         elseif ($e instanceof ValidationException) return ValidationFailedResource::make(
             Collection::make($e->errors())
                 ->map(function ($i) {

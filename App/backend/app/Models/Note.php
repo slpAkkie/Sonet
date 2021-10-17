@@ -9,20 +9,30 @@ class Note extends Model
 {
     use HasFactory;
 
+    private $fullResource = false;
+
+    public function withFullResource() {
+        return $this->fullResource;
+    }
+
+    public function setWithFullResource() {
+        $this->fullResource = true;
+    }
+
     public function attachments() {
         return $this->hasMany(Attachment::class, 'note_id', 'id');
     }
 
     public function folder() {
-        return $this->hasOne(Folder::class, 'id', 'folder_id');
+        return $this->hasOne(Folder::class, 'folder_id', 'id');
     }
 
     public function categories() {
-        return $this->hasOne(Category::class, 'id', 'category_id');
+        return $this->hasOne(Category::class, 'category_id', 'id');
     }
 
-    public function owner() {
-        return $this->belongsTo(User::class, 'id', 'user_id');
+    public function author() {
+        return $this->belongsTo(User::class, 'user_id', 'id');
     }
 
     public function comments() {

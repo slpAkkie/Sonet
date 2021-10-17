@@ -14,4 +14,9 @@ class ModelNotFoundResource extends CommonErrorResource
             )->last()
         ]);
     }
+
+    // HACK: In Handler.php it waiting for Response instance so transform it
+    public function getAsResponse() {
+        return $this->toResponse($this->resource);
+    }
 }
