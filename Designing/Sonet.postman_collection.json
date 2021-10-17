@@ -9,7 +9,7 @@
 			"name": "User",
 			"item": [
 				{
-					"name": "New",
+					"name": "Register",
 					"request": {
 						"auth": {
 							"type": "noauth"
@@ -18,7 +18,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"first_name\": \"Test-name\",\r\n    \"last_name\": \"Test-last-name\",\r\n    \"login\": \"test-login\",\r\n    \"email\": \"test@email.com\",\r\n    \"password\": \"test-password\",\r\n    \"password_confirmation\": \"test-password\"\r\n}",
+							"raw": "{\r\n    \"first_name\": \"Administartor\",\r\n    \"last_name\": \"IT\",\r\n    \"login\": \"root\",\r\n    \"email\": \"root@email.com\",\r\n    \"password\": \"root\",\r\n    \"password_confirmation\": \"root\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -114,6 +114,72 @@
 			]
 		},
 		{
+			"name": "Notes",
+			"item": [
+				{
+					"name": "Index",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/notes",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"notes"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Show",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/notes/2",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"notes",
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Store",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"title\": \"Название заметки\",\r\n    \"body\": \"Тут какое-то тело\",\r\n    \"category_id\": null,\r\n    \"folder_id\": null,\r\n    \"attachments\": [\r\n        {\r\n            \"title\": \"Название файла\",\r\n            \"path\": \"/storage/files/file.ext\"\r\n        }\r\n    ]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/notes",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"notes"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
 			"name": "Test request",
 			"request": {
 				"method": "GET",
@@ -164,7 +230,7 @@
 	"variable": [
 		{
 			"key": "host",
-			"value": "localhost:8000/api"
+			"value": "api.localhost"
 		},
 		{
 			"key": "api_token",
