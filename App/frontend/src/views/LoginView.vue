@@ -15,7 +15,7 @@ import Button from "../components/elements/Button";
 
 export default {
   name: 'LoginView',
-  emits: [ 'login' ],
+  emits: [ 'authEvent' ],
   components: {
     Input,
     Button,
@@ -43,7 +43,7 @@ export default {
     },
     handleResponse(response) {
       this.$store.commit('setToken', response.data.api_token)
-      this.$emit('login')
+      this.$emit('authEvent', 'login')
     },
     handleResponseError(response) {
       if (response.code === 422) this.formErrors = response.error.errors

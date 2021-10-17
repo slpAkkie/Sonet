@@ -22,6 +22,7 @@ import Button from "../components/elements/Button";
 
 export default {
   name: 'RegisterView',
+  emits: [ 'authEvent' ],
   components: {
     Input,
     Button,
@@ -57,8 +58,8 @@ export default {
           .then(response => this.handleResponse(response.data))
           .catch(error => this.handleResponseError(error.response.data))
     },
-    handleResponse(response) {
-      console.log(response.data)
+    handleResponse() {
+      this.$emit('authEvent', 'register')
     },
     handleResponseError(response) {
       if (response.code === 422) this.formErrors = response.error.errors

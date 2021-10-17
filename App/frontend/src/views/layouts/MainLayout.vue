@@ -1,5 +1,5 @@
 <template>
-  <Nav @logout="$emit('logout')" />
+  <Nav @logout="$emit('authEvent', 'logout')" />
   <router-view />
 </template>
 
@@ -8,7 +8,7 @@ import Nav from "../../components/general/Nav";
 
 export default {
   name: "MainLayout",
-  emits: [ 'logout' ],
+  emits: [ 'authEvent' ],
   components: {
     Nav
   },

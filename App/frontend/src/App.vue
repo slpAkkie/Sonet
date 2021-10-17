@@ -1,6 +1,6 @@
 <template>
-  <MainLayout v-if="layout === 'main'" @logout="changeLayout('auth', 'login')" />
-  <AuthLayout v-else-if="layout === 'auth'" @login="changeLayout('main', '/')" />
+  <MainLayout v-if="layout === 'main'" @authEvent="handleAuthEvent" />
+  <AuthLayout v-else-if="layout === 'auth'" @authEvent="handleAuthEvent" />
 </template>
 
 <script>
@@ -20,6 +20,10 @@ export default {
     changeLayout(layout, url = null) {
       this.layout = layout
       url && this.$router.push(url)
+    },
+    handleAuthEvent(event) {
+      if (event === 'login') this.changeLayout('main', '/')
+      else if (['register', 'logout'].includes(event)) this.changeLayout('auth', 'login')
     },
   },
   beforeCreate() {
