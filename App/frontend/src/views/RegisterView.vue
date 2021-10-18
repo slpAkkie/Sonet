@@ -19,9 +19,9 @@
 </template>
 
 <script>
-import Input from '../components/elements/Input';
-import Button from '../components/elements/Button';
-import Preloader from '../components/general/Preloader';
+import Input from '../components/elements/Input'
+import Button from '../components/elements/Button'
+import Preloader from '../components/general/Preloader'
 
 export default {
   name: 'RegisterView',

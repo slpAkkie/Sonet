@@ -4,8 +4,8 @@
 </template>
 
 <script>
-import AuthLayout from './views/layouts/AuthLayout';
-import MainLayout from './views/layouts/MainLayout';
+import AuthLayout from './views/layouts/AuthLayout'
+import MainLayout from './views/layouts/MainLayout'
 
 export default {
   name: 'App',
@@ -35,3 +35,10 @@ export default {
   },
 }
 </script>
+
+<style lang="scss">
+@import '/assets/scss/vars';
+@import '/assets/scss/normalize';
+@import '/assets/scss/support';
+@import '/assets/scss/grid';
+</style>

@@ -5,17 +5,11 @@ import store from './store'
 import axios from 'axios';
 import vueAxios from 'vue-axios'
 
-import NormalizeSCSS from './assets/scss/normalize.scss'
-import SupportSCSS from './assets/scss/support.scss'
-import VarsSCSS from './assets/scss/vars.scss'
-
 const app = createApp(App)
 
 app
     // Modules
     .use(store).use(router).use(vueAxios, axios)
-    // Styles
-    .use(NormalizeSCSS).use(SupportSCSS).use(VarsSCSS)
     // Mount
     .mount('#app')
 
