@@ -46,16 +46,6 @@ class User extends Authenticatable
 
 
 
-    public $resourceWithToken = false;
-
-    public function withToken() {
-        $this->resourceWithToken = true;
-
-        return $this;
-    }
-
-
-
     public static function findByToken($api_token) {
         return User::where('api_token', $api_token)->firstOr(/**
          * @throws ApiTokenAuthorizationException

@@ -33,7 +33,7 @@ class AuthController extends Controller
 
         $user->generateToken();
 
-        return UserResource::make($user->withToken());
+        return UserResource::make($user);
     }
 
     public function logout() {
