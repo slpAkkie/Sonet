@@ -4,10 +4,10 @@
 </template>
 
 <script>
-import Nav from "../../components/general/Nav";
+import Nav from '../../components/general/Nav';
 
 export default {
-  name: "MainLayout",
+  name: 'MainLayout',
   emits: [ 'authEvent' ],
   components: {
     Nav

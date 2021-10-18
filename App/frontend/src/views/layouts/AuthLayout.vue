@@ -6,7 +6,7 @@
 
 <script>
 export default {
-  name: "AuthLayout",
+  name: 'AuthLayout',
   emits: [ 'authEvent' ],
   methods: {
     handleAuthEvent(event) {
