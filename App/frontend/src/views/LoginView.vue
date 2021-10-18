@@ -12,9 +12,9 @@
 </template>
 
 <script>
-import Input from '../components/elements/Input';
-import Button from '../components/elements/Button';
-import Preloader from '../components/general/Preloader';
+import Input from '../components/elements/Input'
+import Button from '../components/elements/Button'
+import Preloader from '../components/general/Preloader'
 
 export default {
   name: 'LoginView',
@@ -51,6 +51,7 @@ export default {
     },
     handleResponse(response) {
       this.$store.commit('setToken', response.data.api_token)
+      this.$store.commit('setUser', response.data)
       this.$emit('authEvent', 'login')
     },
     handleResponseError(response) {

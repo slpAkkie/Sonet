@@ -2,6 +2,7 @@ import { createStore } from 'vuex'
 
 export default createStore({
   state: {
+    user: {},
     api_token: null,
   },
   mutations: {
@@ -10,6 +11,9 @@ export default createStore({
       api_token
         ? localStorage.setItem('api_token', api_token)
         : localStorage.removeItem('api_token')
+    },
+    setUser(state, user) {
+      state.user = user
     },
   },
   actions: {
@@ -27,5 +31,7 @@ export default createStore({
   },
   getters: {
     api_token: state => state.api_token,
+    user: state => state.user,
+    isUserLoaded: state => !!state.user.api_token,
   },
 })
