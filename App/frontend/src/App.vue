@@ -37,6 +37,7 @@ export default {
 </script>
 
 <style lang="scss">
+@import '/assets/scss/fonts';
 @import '/assets/scss/vars';
 @import '/assets/scss/normalize';
 @import '/assets/scss/support';

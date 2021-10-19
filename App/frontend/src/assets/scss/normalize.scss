@@ -12,12 +12,12 @@
 }
 
 html {
-  font-family: 'Segoe UI', sans-serif;
+  font-family: OpenSans, sans-serif;
   font-size: 10px;
 }
 
 input {
-  font-family: 'Segoe UI', sans-serif;
+  font-family: OpenSans, sans-serif;
 }
 
 body {
@@ -26,6 +26,15 @@ body {
 
 img {
   max-width: 100%;
+}
+
+h1, h2, h3, h4, h5, h6, .style-header {
+  font-family: RobotoSlab, sans-serif;
+}
+
+h5 {
+  font-variation-settings: 'wght' 400;
+  font-size: 2rem;
 }
 
 p {
