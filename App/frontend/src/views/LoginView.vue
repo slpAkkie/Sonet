@@ -1,5 +1,5 @@
 <template>
-  <Preloader :play="isPreloader">
+  <Preloader :play="isWaitingResponse">
     <form action="#" method="post" class="auth-form" @submit.prevent="tryLogin">
       <Input type="text" name="login" placeholder="Ваш логин" v-model="postData.login" />
       <p class="auth-form__error-message" v-if="formErrors.login">{{ formErrors.login }}</p>
@@ -25,7 +25,7 @@ export default {
     Preloader,
   },
   data: () => ({
-    isPreloader: false,
+    isWaitingResponse: false,
     postData: {
       login: '',
       password: '',
@@ -37,7 +37,8 @@ export default {
   }),
   methods: {
     tryLogin() {
-      this.isPreloader = true
+      if (this.isWaitingResponse) return
+      this.isWaitingResponse = true
 
       this.formErrors = {
         login: '',
@@ -47,7 +48,7 @@ export default {
         .post('login', this.postData)
         .then(response => this.handleResponse(response.data))
         .catch(error => this.handleResponseError(error.response.data))
-        .finally(() => this.isPreloader = false)
+        .finally(() => this.isWaitingResponse = false)
     },
     handleResponse(response) {
       this.$store.commit('setToken', response.data.api_token)

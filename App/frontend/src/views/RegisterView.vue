@@ -1,5 +1,5 @@
 <template>
-  <Preloader :play="isPreloader">
+  <Preloader :play="isWaitingResponse">
     <form action="#" method="post" class="auth-form" @submit.prevent="tryRegister">
       <Input type="text" name="first_name" placeholder="Ваше имя" v-model="postData.first_name" />
       <p class="auth-form__error-message" v-if="formErrors.first_name">{{ formErrors.first_name }}</p>
@@ -32,7 +32,7 @@ export default {
     Preloader,
   },
   data: () => ({
-    isPreloader: false,
+    isWaitingResponse: false,
     postData: {
       first_name: '',
       last_name: '',
@@ -51,7 +51,8 @@ export default {
   }),
   methods: {
     tryRegister() {
-      this.isPreloader = true
+      if (this.isWaitingResponse) return
+      this.isWaitingResponse = true
 
       this.formErrors = {
         first_name: '',
@@ -64,7 +65,7 @@ export default {
         .post('register', this.postData)
         .then(response => this.handleResponse(response.data))
         .catch(error => this.handleResponseError(error.response.data))
-        .finally(() => this.isPreloader = false)
+        .finally(() => this.isWaitingResponse = false)
     },
     handleResponse() {
       this.$emit('authEvent', 'register')
