@@ -14,7 +14,10 @@ class NoteResource extends JsonResource
             'title' => $this->title,
             'body' => $this->body,
             'category' => $this->when($this->category, function () {
-                return $this->category->title;
+                return [
+                    'title' => $this->category->title,
+                    'color' => $this->category->color,
+                ];
             }),
 
             $this->mergeWhen($this->withFullResource(), [
