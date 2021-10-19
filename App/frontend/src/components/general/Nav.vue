@@ -14,16 +14,17 @@
 </template>
 
 <script>
-import Button from "../elements/Button"
+import Button from '../elements/Button'
 
 export default {
   name: 'Nav',
-  emits: [ 'logout' ],
+  emits: [ 'startLogout', 'logout' ],
   components: {
     Button,
   },
   methods: {
     tryLogout() {
+      this.$emit('startLogout')
       this.axios.delete('/logout', {
         headers: {
           Authorization: `Bearer ${this.$store.getters.api_token}`

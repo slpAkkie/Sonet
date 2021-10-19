@@ -1,6 +1,6 @@
 <template>
 
-  <div class="preloader">
+  <div v-if="!fullScreen || fullScreen && play" class="preloader" :class="fullScreen && 'preloader_full-screen'">
     <slot></slot>
     <div v-if="play" class="preloader__overlay"></div>
     <div v-if="play" class="preloader__inner">
@@ -20,6 +20,10 @@ export default {
       type: Boolean,
       default: false,
     },
+    fullScreen: {
+      type: Boolean,
+      default: false,
+    },
   },
 }
 </script>
@@ -29,6 +33,14 @@ export default {
   --dot-color: var(--blue-50);
 
   position: relative;
+
+  &_full-screen {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+  }
 
   &__overlay {
     position: absolute;
