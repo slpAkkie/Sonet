@@ -1,8 +1,8 @@
 <template>
 
-  <div v-if="!fullScreen || fullScreen && play" class="preloader" :class="fullScreen && 'preloader_full-screen'">
+  <div v-if="!fullScreen || fullScreen && play" class="preloader" :class="wrapperClasses">
     <slot></slot>
-    <div v-if="play" class="preloader__overlay"></div>
+    <div v-if="play" class="preloader__overlay" :class="overlayClasses"></div>
     <div v-if="play" class="preloader__inner">
       <div class="preloader__dot top left"></div>
       <div class="preloader__dot top right"></div>
@@ -24,6 +24,27 @@ export default {
       type: Boolean,
       default: false,
     },
+    fullColor: {
+      type: Boolean,
+      default: false,
+    },
+    noColor: {
+      type: Boolean,
+      default: false,
+    },
+  },
+  computed: {
+    wrapperClasses() {
+      return {
+        'preloader_full-screen': this.fullScreen,
+      }
+    },
+    overlayClasses() {
+      return {
+        'preloader__overlay_full-color': this.fullColor,
+        'preloader__overlay_no-color': this.noColor,
+      }
+    },
   },
 }
 </script>
@@ -31,8 +52,10 @@ export default {
 <style lang="scss">
 .preloader {
   --dot-color: var(--blue-50);
-
+  //
   position: relative;
+  //
+  min-height: 14rem;
 
   &_full-screen {
     position: absolute;
@@ -49,7 +72,15 @@ export default {
     bottom: 0;
     left: 0;
     //
-    background-color: rgba(255, 255, 255, .75);
+    background-color: var(--white-25);
+
+    &_full-color {
+      background-color: var(--white);
+    }
+
+    &_no-color {
+      background-color: transparent;
+    }
   }
 
   &__inner {
