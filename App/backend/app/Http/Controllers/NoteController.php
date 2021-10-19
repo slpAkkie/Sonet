@@ -22,7 +22,7 @@ class NoteController extends Controller
         $note = new Note($request->all());
         $note->save();
 
-        $note->addAttachments($request->get('attachments'));
+        if ($request->get('attachments')) $note->addAttachments($request->get('attachments'));
 
         $note->setWithFullResource();
         return NoteResource::make($note);
