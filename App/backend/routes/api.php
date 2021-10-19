@@ -15,9 +15,10 @@ use Illuminate\Support\Facades\Route;
 */
 
 // Auth routes
-Route::post('/register', [\App\Http\Controllers\AuthController::class, 'register'])->name('register');
-Route::post('/login', [\App\Http\Controllers\AuthController::class, 'login'])->name('login');
-Route::middleware(['api-token'])->delete('/logout', [\App\Http\Controllers\AuthController::class, 'logout'])->name('logout');
+Route::post('/register', [\App\Http\Controllers\AuthController::class, 'register']);
+Route::post('/login', [\App\Http\Controllers\AuthController::class, 'login']);
+Route::middleware(['api-token'])->delete('/logout', [\App\Http\Controllers\AuthController::class, 'logout']);
+Route::middleware(['api-token'])->get('/user', [\App\Http\Controllers\AuthController::class, 'getUserByToken']);
 
 // Routes with authorization
 Route::middleware(['api-token'])->group(function () {
@@ -32,4 +33,4 @@ Route::middleware(['api-token'])->group(function () {
 
 
 // Test route
-Route::get('/test', [\App\Http\Controllers\Controller::class, 'test'])->name('test');
+Route::get('/test', [\App\Http\Controllers\Controller::class, 'test']);

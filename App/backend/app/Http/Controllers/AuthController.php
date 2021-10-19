@@ -41,4 +41,8 @@ class AuthController extends Controller
 
         return LogoutResource::make();
     }
+
+    public function getUserByToken() {
+        return UserResource::make(Auth::user());
+    }
 }
