@@ -5,13 +5,8 @@ import store from './store'
 import axios from 'axios';
 import vueAxios from 'vue-axios'
 
-const app = createApp(App)
-
-app
-    // Modules
-    .use(store).use(router).use(vueAxios, axios)
-    // Mount
-    .mount('#app')
+// Set baseURL for api requests
+axios.defaults.baseURL = 'http://api.localhost/'
 
 // Check authorization at some routes
 router.afterEach(to => {
@@ -23,5 +18,8 @@ router.afterEach(to => {
 
 })
 
-// Set baseURL for api requests
-app.axios.defaults.baseURL = 'http://api.localhost/'
+createApp(App)
+    // Modules
+    .use(store).use(router).use(vueAxios, axios)
+    // Mount
+    .mount('#app')

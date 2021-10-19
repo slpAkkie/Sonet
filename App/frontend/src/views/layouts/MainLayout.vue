@@ -15,14 +15,11 @@ export default {
   },
   methods: {
     loadUser(api_token) {
-      console.log(api_token)
-      console.log('Данные пользователя не были получены, надо их получить, но axios сбрасывает default.baseURL, а я не хочу писать хост каждый раз, когда отправляю запрос')
-      // TODO: Найти решение проблемы
-      // this.axios.get('user', {
-      //   headers: {
-      //     Authorization: `Bearer ${api_token}`,
-      //   },
-      // }).then(response => this.$store.commit('setUser', response.data))
+      this.axios.get('user', {
+        headers: {
+          Authorization: `Bearer ${api_token}`,
+        },
+      }).then(response => this.$store.commit('setUser', response.data.data))
     },
   },
   mounted() {
