@@ -1,10 +1,10 @@
 <template>
-  <input class="c-input" :type="type" :name="name" :id="id || name" :placeholder="placeholder" @input="$emit('update:modelValue', $event.target.value)">
+  <textarea class="c-textarea" :type="type" :name="name" :id="id || name" :placeholder="placeholder" @input="$emit('update:modelValue', $event.target.value)"></textarea>
 </template>
 
 <script>
 export default {
-  name: 'Input',
+  name: 'Textarea',
   props: {
     type: String,
     placeholder: String,
@@ -15,7 +15,8 @@ export default {
 </script>
 
 <style lang="scss">
-.c-input {
+.c-textarea {
+  max-width: 100%;
   width: 100%;
   padding: .5rem 1.5rem;
   //

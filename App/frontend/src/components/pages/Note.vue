@@ -23,7 +23,7 @@ export default {
   },
   computed: {
     body() {
-      return 'Lorem ipsum dolar set a met. Fish rid a figure test ta olip ra decit. Whe afetra tehotap a det o lar regul degonasto...'
+      return this.note.body
     },
     date() {
       return (new Date(this.note.created_at)).toLocaleDateString()

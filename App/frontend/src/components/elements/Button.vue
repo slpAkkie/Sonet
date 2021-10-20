@@ -24,9 +24,9 @@ export default {
 
 <style lang="scss">
 .c-button {
-  --border-color: var(--gray-30);
-  --background: var(--gray-10);
-  --text-color: var(--gray-90);
+  --border-color: var(--blue-10);
+  --background: var(--blue-10);
+  --text-color: var(--blue-50);
   //
   padding: .5rem 1.5rem;
   //
@@ -43,7 +43,8 @@ export default {
   transition-timing-function: ease;
   
   &:hover {
-    --background: var(--gray-15);
+    --background: var(--blue-50);
+    --text-color: var(--blue-10);
   }
 
   &_danger {
