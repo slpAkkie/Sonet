@@ -1,5 +1,5 @@
 <template>
-  <Preloader :play="isWaitingResponse">
+  <Preloader :play="isLoading">
     <form action="#" method="post" class="auth-form" @submit.prevent="tryRegister">
       <Input type="text" name="first_name" placeholder="Ваше имя" v-model="postData.first_name" />
       <p class="auth-form__error-message" v-if="formErrors.first_name">{{ formErrors.first_name }}</p>
@@ -14,8 +14,8 @@
       <Input type="password" name="password_confirmation" placeholder="Ваш пароль" v-model="postData.password_confirmation" />
       <Button type="submit" value="Зарегистрироваться" />
     </form>
+    <p class="text_center">Если у вас у же есть аккаунт, вы можете <router-link to="/login">войти</router-link> в него</p>
   </Preloader>
-  <p class="text_center">Если у вас у же есть аккаунт, вы можете <router-link to="login">войти</router-link> в него</p>
 </template>
 
 <script>
@@ -25,14 +25,14 @@ import Preloader from '../components/general/Preloader'
 
 export default {
   name: 'RegisterView',
-  emits: [ 'authEvent' ],
+  emits: [ 'auth' ],
   components: {
     Input,
     Button,
     Preloader,
   },
   data: () => ({
-    isWaitingResponse: false,
+    isLoading: false,
     postData: {
       first_name: '',
       last_name: '',
@@ -41,19 +41,10 @@ export default {
       password: '',
       password_confirmation: '',
     },
-    formErrors: {
-      first_name: '',
-      last_name: '',
-      login: '',
-      email: '',
-      password: '',
-    },
+    formErrors: null,
   }),
   methods: {
-    tryRegister() {
-      if (this.isWaitingResponse) return
-      this.isWaitingResponse = true
-
+    clearErrors() {
       this.formErrors = {
         first_name: '',
         last_name: '',
@@ -61,19 +52,33 @@ export default {
         email: '',
         password: '',
       }
+    },
+    tryRegister() {
+      if (this.isLoading) return
+      this.isLoading = true
+
+      this.clearErrors()
+
       this.axios
         .post('register', this.postData)
-        .then(response => this.handleResponse(response.data))
-        .catch(error => this.handleResponseError(error.response.data))
-        .finally(() => this.isWaitingResponse = false)
+        .then(this.handleResponse)
+        .catch(this.handleError)
+        .finally(this.afterRequest)
     },
     handleResponse() {
-      this.$emit('authEvent', 'register')
+      this.$emit('auth', 'register')
     },
-    handleResponseError(response) {
-      if (response.code === 422) this.formErrors = response.error.errors
+    handleError(error) {
+      const errorData = error.response.data
+      if (errorData.code === 422) this.formErrors = errorData.error.errors
       else alert('Произошла ошибка')
     },
+    afterRequest() {
+      this.isLoading = false
+    },
   },
+  created() {
+    this.clearErrors()
+  }
 }
 </script>

@@ -1,5 +1,5 @@
 <template>
-  <Preloader :play="isWaitingResponse">
+  <Preloader :play="isLoading">
     <form action="#" method="post" class="auth-form" @submit.prevent="tryLogin">
       <Input type="text" name="login" placeholder="Ваш логин" v-model="postData.login" />
       <p class="auth-form__error-message" v-if="formErrors.login">{{ formErrors.login }}</p>
@@ -7,8 +7,8 @@
       <p class="auth-form__error-message" v-if="formErrors.password">{{ formErrors.password }}</p>
       <Button type="submit" value="Войти" />
     </form>
+    <p class="text_center">Или вы можете <router-link to="/register">зарегистрироваться</router-link></p>
   </Preloader>
-  <p class="text_center">Или вы можете <router-link to="register">зарегистрироваться</router-link></p>
 </template>
 
 <script>
@@ -18,47 +18,55 @@ import Preloader from '../components/general/Preloader'
 
 export default {
   name: 'LoginView',
-  emits: [ 'authEvent' ],
+  emits: [ 'auth' ],
   components: {
     Input,
     Button,
     Preloader,
   },
   data: () => ({
-    isWaitingResponse: false,
+    isLoading: false,
     postData: {
       login: '',
       password: '',
     },
-    formErrors: {
-      login: '',
-      password: '',
-    }
+    formErrors: null
   }),
   methods: {
-    tryLogin() {
-      if (this.isWaitingResponse) return
-      this.isWaitingResponse = true
-
+    clearErrors() {
       this.formErrors = {
         login: '',
         password: '',
       }
+    },
+    tryLogin() {
+      if (this.isLoading) return
+      this.isLoading = true
+
+      this.clearErrors()
+
       this.axios
         .post('login', this.postData)
-        .then(response => this.handleResponse(response.data))
-        .catch(error => this.handleResponseError(error.response.data))
-        .finally(() => this.isWaitingResponse = false)
+        .then(this.handleResponse)
+        .catch(this.handleError)
+        .finally(this.afterRequest)
     },
     handleResponse(response) {
-      this.$store.commit('setToken', response.data.api_token)
-      this.$store.commit('setUser', response.data)
-      this.$emit('authEvent', 'login')
+      const user = response.data.data
+      this.$store.commit('setUser', user)
+      this.$emit('auth', 'login')
     },
-    handleResponseError(response) {
-      if (response.code === 422) this.formErrors = response.error.errors
+    handleError(error) {
+      const errorData = error.response.data
+      if (errorData.code === 422) this.formErrors = errorData.error.errors
       else alert('Произошла ошибка')
     },
+    afterRequest() {
+      this.isLoading = false
+    },
   },
+  created() {
+    this.clearErrors()
+  }
 }
 </script>

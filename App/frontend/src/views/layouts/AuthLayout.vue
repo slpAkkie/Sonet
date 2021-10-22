@@ -1,17 +1,16 @@
 <template>
   <div class="auth-form__wrapper">
-    <router-view @authEvent="handleAuthEvent" />
+    <router-view @auth="forwardAuthEvent" />
   </div>
 </template>
 
 <script>
 export default {
   name: 'AuthLayout',
-  emits: [ 'authEvent' ],
+  emits: [ 'auth' ],
   methods: {
-    handleAuthEvent(event) {
-      if (event === 'login') this.$emit('authEvent', 'login')
-      else if (event === 'register') this.$emit('authEvent', 'register')
+    forwardAuthEvent(...params) {
+      this.$emit('auth', ...params)
     },
   },
 }

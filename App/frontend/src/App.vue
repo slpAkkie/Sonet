@@ -1,6 +1,5 @@
 <template>
-  <MainLayout v-if="layout === 'main'" @authEvent="handleAuthEvent" />
-  <AuthLayout v-else-if="layout === 'auth'" @authEvent="handleAuthEvent" />
+  <component :is="layoutVariants[layoutKey].component" @auth="handleAuthEvent"></component>
 </template>
 
 <script>
@@ -14,24 +13,30 @@ export default {
     MainLayout,
   },
   data: () => ({
-    layout: 'main',
+    layoutKey: 'auth',
+    layoutVariants: {
+      auth: {
+        component: 'AuthLayout',
+        baseUrl: '/login',
+      },
+      main: {
+        component: 'MainLayout',
+        baseUrl: '/',
+      },
+    },
   }),
   methods: {
-    changeLayout(layout, url = null) {
-      this.layout = layout
-      url && this.$router.push(url)
+    setLayout(layoutKey, url = null) {
+      this.layoutKey = layoutKey
+      this.$router.push(url || this.layoutVariants[layoutKey].baseUrl)
     },
     handleAuthEvent(event) {
-      if (event === 'login') this.changeLayout('main', '/')
-      else if (['register', 'logout'].includes(event)) this.changeLayout('auth', 'login')
+      if (event === 'login') this.setLayout('main')
+      else if (['register', 'logout'].includes(event)) this.setLayout('auth')
     },
   },
-  beforeCreate() {
-    this.$store.dispatch('checkToken').then(response => {
-      !response
-        ? this.changeLayout('auth')
-        : this.changeLayout('main')
-    })
+  beforeMount() {
+    this.setLayout(this.$store.getters.isUser ? 'main' : 'auth')
   },
 }
 </script>

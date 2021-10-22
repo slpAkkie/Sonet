@@ -2,8 +2,8 @@ import { createStore } from 'vuex'
 
 export default createStore({
   state: {
-    user: {},
-    api_token: null,
+    user: null,
+    notes: null,
   },
   mutations: {
     setToken(state, api_token) {
@@ -14,6 +14,7 @@ export default createStore({
     },
     setUser(state, user) {
       state.user = user
+      localStorage.setItem('user', JSON.stringify(user))
     },
   },
   actions: {
@@ -30,8 +31,25 @@ export default createStore({
     //
   },
   getters: {
-    api_token: state => state.api_token,
+    // TOKEN
+    isUser: (state, getters) => {
+      if (getters.userLoaded) return true
+
+      let userSerialized = localStorage.getItem('user')
+      if (!userSerialized) return false
+
+      try {
+        return !!JSON.parse(userSerialized).api_token
+      } catch (e) {
+        return false
+      }
+    },
+    token: (state, getters) => getters.isUser ? state.user.api_token : null,
+    // USER
     user: state => state.user,
-    isUserLoaded: state => !!state.user.api_token,
+    userLoaded: state => state.user !== null,
+    // NOTES
+    notes: state => state.notes,
+    notesLoaded: state => state.notes !== null,
   },
 })
