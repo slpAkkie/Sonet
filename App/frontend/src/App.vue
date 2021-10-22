@@ -14,11 +14,11 @@ export default {
   },
   computed: {
     getLayoutComponent() {
-      return this.layoutVariants[this.layoutKey].component
+      return this.layoutKey ? this.layoutVariants[this.layoutKey].component : null
     },
   },
   data: () => ({
-    layoutKey: 'auth',
+    layoutKey: null,
     layoutVariants: {
       auth: {
         component: 'AuthLayout',
@@ -39,7 +39,7 @@ export default {
   methods: {
     async setLayout(layoutKey, url = null) {
       this.layoutVariants[layoutKey].beforeCallback(this)
-      await this.$router.push(url || this.layoutVariants[layoutKey].baseUrl)
+      await this.$router.replace(url || this.layoutVariants[layoutKey].baseUrl)
       this.layoutKey = layoutKey
     },
     handleAuthEvent(event) {

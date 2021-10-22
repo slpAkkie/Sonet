@@ -2,7 +2,7 @@
   <div class="user-menu__wrapper">
     <img class="nav__user-img" src="@/assets/img/icons/user--flat-colored.png" alt="UserMenu" @click="toggle">
     <div v-if="isOpen" class="nav__user-menu user-menu">
-      <div class="user-menu__first-name">{{ first_name }}</div>
+      <div class="user-menu__first-name">{{ $store.getters.user.first_name }}</div>
       <hr class="user-menu__separator">
       <Button value="Выход" @click="tryLogout" appearance="danger" />
     </div>
@@ -25,11 +25,6 @@ export default {
     isOpen: false,
     isLoading: false,
   }),
-  computed: {
-    first_name() {
-      return this.$store.getters.user ? this.$store.getters.user.first_name : null
-    },
-  },
   methods: {
     toggle() {
       this.isOpen = !this.isOpen

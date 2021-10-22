@@ -1,22 +1,21 @@
 <template>
   <div class="note-popup__overlay" @click="$emit('cancel')"></div>
   <div class="note-popup">
-    <Preloader :play="loading">
-      <div class="note-popup__close" @click="$emit('cancel')">Закрыть</div>
-      <form action="/" method="post" class="note-popup__form">
-        <Input v-model="data.title" />
-        <Textarea v-model="data.body" />
-        <Button value="Сохранить" @click="startSaving" />
-      </form>
-    </Preloader>
+    <Preloader :play="loading" />
+    <div class="note-popup__close" @click="$emit('cancel')">Закрыть</div>
+    <form action="/" method="post" class="note-popup__form">
+      <Input v-model="data.title" />
+      <Textarea v-model="data.body" />
+      <Button value="Сохранить" @click="startSaving" />
+    </form>
   </div>
 </template>
 
 <script>
-import Input from '../elements/Input'
-import Button from '../elements/Button'
-import Textarea from '../elements/Textarea'
-import Preloader from '../general/Preloader'
+import Input from '../../elements/Input'
+import Button from '../../elements/Button'
+import Textarea from '../../elements/Textarea'
+import Preloader from '../../general/Preloader'
 
 export default {
   name: 'NotePopup',

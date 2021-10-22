@@ -1,22 +1,17 @@
 <template>
-  <div class="control-panel">
-    <Button value="Добавить" @click="openNotePopup" />
+  <ControlPanel @displayMode:update="updateDisplayMode" />
+
+  <Preloader :play="isLoading" />
+  <div v-if="isNotes" class="note-wrapper" :class="displayModeClass">
+    <Note v-for="note in notes" :key="note.id" :note="note" @note:open="void 0" />
   </div>
-  <div v-if="!isLoadingNotes">
-    <div v-if="isNotes" class="note-wrapper" :class="classes">
-      <Note v-for="note in notes" :key="note.id" :note="note" @note:open="openNote" />
-    </div>
-    <p v-else>У вас нет заметок</p>
-  </div>
-  <Preloader v-else :play="true" :noColor="true" />
-  <NotePopup v-if="isPopup" :noteData="selectedNote" :loading="isPopupLoading" @close="saveNote" @cancel="closePopup" />
+  <p v-if="isNotNotes" class="text_center">У вас нет заметок</p>
 </template>
 
 <script>
 import Preloader from '../components/general/Preloader'
-import Note from '../components/pages/Note'
-import Button from '../components/elements/Button'
-import NotePopup from '../components/pages/NotePopup';
+import Note from '../components/pages/MainView/Note'
+import ControlPanel from '../components/pages/MainView/ControlPanel'
 
 export default {
   name: 'MainView',
@@ -24,65 +19,35 @@ export default {
   components: {
     Preloader,
     Note,
-    Button,
-    NotePopup,
+    ControlPanel,
   },
   data: () => ({
-    isLoadingNotes: false,
-    notes: [],
-    displayMode: 'grid',
-    isPopup: false,
-    isPopupLoading: false,
-    selectedNote: null,
+    displayMode: null,
   }),
   computed: {
-    isNotes() { return !!this.notes.length },
-    classes() {
-      return {
-        'note-wrapper_grid': this.displayMode === 'grid',
-        'note-wrapper_column': this.displayMode === 'column',
-      }
+    notes() {
+      return this.$store.getters.notes
+    },
+    isLoading() {
+      return !this.$store.getters.notesLoaded
+    },
+    isNotes() {
+      return !this.isLoading && !!this.$store.getters.notes.length
+    },
+    isNotNotes() {
+      return !this.isLoading && !this.$store.getters.notes.length
+    },
+    displayModeClass() {
+      return this.displayMode ? `note-wrapper_${this.displayMode.className}` : null
     },
   },
   methods: {
-    loadNotes() {
-      this.isLoadingNotes = true
-      this.axios
-        .get('notes')
-        .then(this.notesLoaded)
-    },
-    notesLoaded(response) {
-      this.isLoadingNotes = false
-      this.notes = response.data.data
-    },
-    openNote(note) {
-      this.selectedNote = note
-      this.openNotePopup()
-    },
-    openNotePopup() {
-      this.isPopup = true
-    },
-    closePopup() {
-      this.isPopup = false
-      this.isPopupLoading = false
-      this.selectedNote = null
-    },
-    saveNote(noteData) {
-      this.isPopupLoading = true
-      this.axios
-        .post('notes', noteData)
-        .then(this.noteSaved)
-        .catch(error => {
-          console.log(error.response.error)
-        })
-    },
-    noteSaved(response) {
-      this.notes.unshift(response.data.data)
-      this.closePopup()
-    },
+    updateDisplayMode(displayMode) {
+      this.displayMode = displayMode
+    }
   },
-  mounted() {
-    if (this.$store.getters.isUserLoaded) this.loadNotes()
+  beforeCreate() {
+    this.$store.dispatch('loadNotes')
   }
 }
 </script>
@@ -102,6 +67,11 @@ export default {
 }
 
 .control-panel {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 1.5rem;
+  //
   margin-bottom: 1.5rem;
 }
 </style>
