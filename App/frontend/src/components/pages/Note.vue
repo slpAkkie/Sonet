@@ -1,7 +1,7 @@
 <template>
   <div class="note">
     <header class="note__header">
-      <h5 class="note__title"><router-link :to="`/note?id=${note.id}`" class="note__title-link">{{ note.title }}</router-link></h5>
+      <h5 class="note__title like-link" @click="$emit('note:open', note)">{{ note.title }}</h5>
       <div class="note__category-color" :style="`--color: ${categoryColor}`"></div>
     </header>
     <main class="note__main">{{ body }}</main>
@@ -15,6 +15,7 @@
 <script>
 export default {
   name: 'Note',
+  emits: [ 'note:open' ],
   props: {
     note: {
       type: Object,
@@ -57,7 +58,9 @@ export default {
     //
   }
 
-  &__title-link {
+  &__title {
+    flex-grow: 1;
+    //
     color: inherit;
   }
 

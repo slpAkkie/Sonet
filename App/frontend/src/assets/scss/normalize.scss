@@ -41,11 +41,12 @@ p {
   margin: 1.5rem 0;
 }
 
-a {
+a, .like-link {
   color: #51b5d4;
   text-decoration: none;
   //
   transition: color .1s ease;
+  cursor: pointer;
 
   &:hover {
     color: #0983a2;

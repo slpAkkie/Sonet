@@ -1,8 +1,9 @@
 <template>
-  <div class="create-note-popup__overlay" @click="$emit('cancel')"></div>
-  <div class="create-note-popup">
+  <div class="note-popup__overlay" @click="$emit('cancel')"></div>
+  <div class="note-popup">
     <Preloader :play="loading">
-      <form action="/" method="post" class="create-note-popup__form">
+      <div class="note-popup__close" @click="$emit('cancel')">Закрыть</div>
+      <form action="/" method="post" class="note-popup__form">
         <Input v-model="data.title" />
         <Textarea v-model="data.body" />
         <Button value="Сохранить" @click="startSaving" />
@@ -18,7 +19,7 @@ import Textarea from '../elements/Textarea'
 import Preloader from "../general/Preloader";
 
 export default {
-  name: 'CreateNotePopup',
+  name: 'NotePopup',
   emits: [ 'close', 'cancel' ],
   components: {
     Input,
@@ -47,11 +48,14 @@ export default {
       this.$emit('close', this.data)
     },
   },
+  mounted() {
+    this.data = this.noteData
+  },
 }
 </script>
 
 <style lang="scss">
-.create-note-popup {
+.note-popup {
   position: absolute;
   top: 5rem;
   left: 0;
@@ -73,6 +77,14 @@ export default {
     left: 0;
     //
     background-color: var(--white-25);
+  }
+
+  &__close {
+    margin-bottom: 1rem;
+    //
+    text-align: right;
+    //
+    cursor: pointer;
   }
 
   &__form {

@@ -4,19 +4,19 @@
   </div>
   <div v-if="!isLoadingNotes">
     <div v-if="isNotes" class="note-wrapper" :class="classes">
-      <Note v-for="note in notes" :key="note.id" :note="note" />
+      <Note v-for="note in notes" :key="note.id" :note="note" @note:open="openNote" />
     </div>
     <p v-else>У вас нет заметок</p>
   </div>
   <Preloader v-else :play="true" :noColor="true" />
-  <CreateNotePopup v-if="isPopup" :noteData="selectedNote" :loading="isPopupLoading" @close="saveNote" @cancel="closePopup" />
+  <NotePopup v-if="isPopup" :noteData="selectedNote" :loading="isPopupLoading" @close="saveNote" @cancel="closePopup" />
 </template>
 
 <script>
 import Preloader from '../components/general/Preloader'
 import Note from '../components/pages/Note'
 import Button from '../components/elements/Button'
-import CreateNotePopup from "../components/pages/CreateNotePopup";
+import NotePopup from "../components/pages/NotePopup";
 
 export default {
   name: 'MainView',
@@ -24,7 +24,7 @@ export default {
     Preloader,
     Note,
     Button,
-    CreateNotePopup,
+    NotePopup,
   },
   data: () => ({
     isLoadingNotes: false,
@@ -53,6 +53,10 @@ export default {
     notesLoaded(response) {
       this.isLoadingNotes = false
       this.notes = response.data.data
+    },
+    openNote(note) {
+      this.selectedNote = note
+      this.openNotePopup()
     },
     openNotePopup() {
       this.isPopup = true
