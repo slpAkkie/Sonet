@@ -6,25 +6,15 @@ export default createStore({
     notes: null,
   },
   mutations: {
-    setToken(state, api_token) {
-      state.api_token = api_token
-      api_token
-        ? localStorage.setItem('api_token', api_token)
-        : localStorage.removeItem('api_token')
-    },
     setUser(state, user) {
       state.user = user
       localStorage.setItem('user', JSON.stringify(user))
     },
   },
   actions: {
-    checkToken({ state }) {
-      return state.api_token
-        ? true
-        : !!(state.api_token = localStorage.getItem('api_token'))
-    },
-    removeToken(context) {
-      context.commit('setToken', null)
+    removeUser({ state }) {
+      state.user = null
+      localStorage.removeItem('user')
     },
   },
   modules: {

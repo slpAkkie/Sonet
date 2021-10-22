@@ -16,7 +16,7 @@
 import Input from '../elements/Input'
 import Button from '../elements/Button'
 import Textarea from '../elements/Textarea'
-import Preloader from "../general/Preloader";
+import Preloader from '../general/Preloader'
 
 export default {
   name: 'NotePopup',

@@ -1,6 +1,6 @@
 <template>
   <Preloader :play="formDisabled" />
-  <form v-if="!formDisabled" action="#" method="post" class="auth-form" @submit.prevent="tryRegister">
+  <form v-show="!formDisabled" action="#" method="post" class="auth-form" @submit.prevent="tryRegister">
     <Input type="text" name="first_name" placeholder="Ваше имя" v-model="postData.first_name" />
     <p class="auth-form__error-message" v-if="formErrors.first_name">{{ formErrors.first_name }}</p>
     <Input type="text" name="last_name" placeholder="Ваша фамилия" v-model="postData.last_name" />
@@ -69,7 +69,11 @@ export default {
     },
     handleError(error) {
       const errorData = error.response.data
-      if (errorData.code === 422) this.formErrors = errorData.error.errors
+      if (errorData.code === 422) {
+        this.formErrors = errorData.error.errors
+        this.postData.password = ''
+        this.postData.password_confirmation = ''
+      }
       else {
         alert('Произошла не предвиденная ошибка ошибка (Более подробное описание ошибки смотрите в консоли)')
         console.log(error)

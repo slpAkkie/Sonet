@@ -1,10 +1,10 @@
 <template>
-  <component :is="layoutVariants[layoutKey].component" @auth:event="handleAuthEvent"></component>
+  <component :is="getLayoutComponent" @auth:event="handleAuthEvent"></component>
 </template>
 
 <script>
-import AuthLayout from './views/layouts/AuthLayout'
-import MainLayout from './views/layouts/MainLayout'
+import AuthLayout from './layouts/AuthLayout'
+import MainLayout from './layouts/MainLayout'
 
 export default {
   name: 'App',
@@ -12,23 +12,35 @@ export default {
     AuthLayout,
     MainLayout,
   },
+  computed: {
+    getLayoutComponent() {
+      return this.layoutVariants[this.layoutKey].component
+    },
+  },
   data: () => ({
     layoutKey: 'auth',
     layoutVariants: {
       auth: {
         component: 'AuthLayout',
         baseUrl: '/login',
+        beforeCallback: (vue) => {
+          vue.axios.defaults.headers.common['Authorization'] = undefined
+        },
       },
       main: {
         component: 'MainLayout',
         baseUrl: '/',
+        beforeCallback: (vue) => {
+          vue.axios.defaults.headers.common['Authorization'] = `Bearer ${vue.$store.getters.token}`
+        },
       },
     },
   }),
   methods: {
-    setLayout(layoutKey, url = null) {
+    async setLayout(layoutKey, url = null) {
+      this.layoutVariants[layoutKey].beforeCallback(this)
+      await this.$router.push(url || this.layoutVariants[layoutKey].baseUrl)
       this.layoutKey = layoutKey
-      this.$router.push(url || this.layoutVariants[layoutKey].baseUrl)
     },
     handleAuthEvent(event) {
       if (event === 'login') this.setLayout('main')

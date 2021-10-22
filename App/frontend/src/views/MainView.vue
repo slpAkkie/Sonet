@@ -20,6 +20,7 @@ import NotePopup from '../components/pages/NotePopup';
 
 export default {
   name: 'MainView',
+  emits: [ 'auth:event' ],
   components: {
     Preloader,
     Note,
