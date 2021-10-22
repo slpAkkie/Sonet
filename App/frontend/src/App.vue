@@ -1,5 +1,5 @@
 <template>
-  <component :is="layoutVariants[layoutKey].component" @auth="handleAuthEvent"></component>
+  <component :is="layoutVariants[layoutKey].component" @auth:event="handleAuthEvent"></component>
 </template>
 
 <script>

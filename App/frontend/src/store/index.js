@@ -39,7 +39,11 @@ export default createStore({
       if (!userSerialized) return false
 
       try {
-        return !!JSON.parse(userSerialized).api_token
+        let user = JSON.parse(userSerialized)
+        if (!user.api_token) return false
+        state.user = user
+
+        return true
       } catch (e) {
         return false
       }

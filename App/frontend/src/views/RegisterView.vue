@@ -1,21 +1,20 @@
 <template>
-  <Preloader :play="isLoading">
-    <form action="#" method="post" class="auth-form" @submit.prevent="tryRegister">
-      <Input type="text" name="first_name" placeholder="Ваше имя" v-model="postData.first_name" />
-      <p class="auth-form__error-message" v-if="formErrors.first_name">{{ formErrors.first_name }}</p>
-      <Input type="text" name="last_name" placeholder="Ваша фамилия" v-model="postData.last_name" />
-      <p class="auth-form__error-message" v-if="formErrors.last_name">{{ formErrors.last_name }}</p>
-      <Input type="text" name="login" placeholder="Ваш логин" v-model="postData.login" />
-      <p class="auth-form__error-message" v-if="formErrors.login">{{ formErrors.login }}</p>
-      <Input type="email" name="email" placeholder="Ваш email" v-model="postData.email" />
-      <p class="auth-form__error-message" v-if="formErrors.email">{{ formErrors.email }}</p>
-      <Input type="password" name="password" placeholder="Ваш пароль" v-model="postData.password" />
-      <p class="auth-form__error-message" v-if="formErrors.password">{{ formErrors.password }}</p>
-      <Input type="password" name="password_confirmation" placeholder="Ваш пароль" v-model="postData.password_confirmation" />
-      <Button type="submit" value="Зарегистрироваться" />
-    </form>
-    <p class="text_center">Если у вас у же есть аккаунт, вы можете <router-link to="/login">войти</router-link> в него</p>
-  </Preloader>
+  <Preloader :play="formDisabled" />
+  <form v-if="!formDisabled" action="#" method="post" class="auth-form" @submit.prevent="tryRegister">
+    <Input type="text" name="first_name" placeholder="Ваше имя" v-model="postData.first_name" />
+    <p class="auth-form__error-message" v-if="formErrors.first_name">{{ formErrors.first_name }}</p>
+    <Input type="text" name="last_name" placeholder="Ваша фамилия" v-model="postData.last_name" />
+    <p class="auth-form__error-message" v-if="formErrors.last_name">{{ formErrors.last_name }}</p>
+    <Input type="text" name="login" placeholder="Ваш логин" v-model="postData.login" />
+    <p class="auth-form__error-message" v-if="formErrors.login">{{ formErrors.login }}</p>
+    <Input type="email" name="email" placeholder="Ваш email" v-model="postData.email" />
+    <p class="auth-form__error-message" v-if="formErrors.email">{{ formErrors.email }}</p>
+    <Input type="password" name="password" placeholder="Ваш пароль" v-model="postData.password" />
+    <p class="auth-form__error-message" v-if="formErrors.password">{{ formErrors.password }}</p>
+    <Input type="password" name="password_confirmation" placeholder="Ваш пароль" v-model="postData.password_confirmation" />
+    <Button type="submit" value="Зарегистрироваться" />
+  </form>
+  <p class="text_center">Если у вас у же есть аккаунт, вы можете <router-link to="/login">войти</router-link> в него</p>
 </template>
 
 <script>
@@ -25,14 +24,14 @@ import Preloader from '../components/general/Preloader'
 
 export default {
   name: 'RegisterView',
-  emits: [ 'auth' ],
+  emits: [ 'auth:event' ],
   components: {
     Input,
     Button,
     Preloader,
   },
   data: () => ({
-    isLoading: false,
+    formDisabled: null,
     postData: {
       first_name: '',
       last_name: '',
@@ -54,8 +53,8 @@ export default {
       }
     },
     tryRegister() {
-      if (this.isLoading) return
-      this.isLoading = true
+      if (this.formDisabled) return
+      this.formDisabled = true
 
       this.clearErrors()
 
@@ -66,15 +65,18 @@ export default {
         .finally(this.afterRequest)
     },
     handleResponse() {
-      this.$emit('auth', 'register')
+      this.$emit('auth:event', 'register')
     },
     handleError(error) {
       const errorData = error.response.data
       if (errorData.code === 422) this.formErrors = errorData.error.errors
-      else alert('Произошла ошибка')
+      else {
+        alert('Произошла не предвиденная ошибка ошибка (Более подробное описание ошибки смотрите в консоли)')
+        console.log(error)
+      }
     },
     afterRequest() {
-      this.isLoading = false
+      this.formDisabled = null
     },
   },
   created() {

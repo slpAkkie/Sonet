@@ -1,16 +1,17 @@
 <template>
   <div class="auth-form__wrapper">
-    <router-view @auth="forwardAuthEvent" />
+    <router-view @auth:event="forwardAuthEvent" />
   </div>
 </template>
 
 <script>
+
 export default {
   name: 'AuthLayout',
-  emits: [ 'auth' ],
+  emits: [ 'auth:event' ],
   methods: {
     forwardAuthEvent(...params) {
-      this.$emit('auth', ...params)
+      this.$emit('auth:event', ...params)
     },
   },
 }
@@ -23,7 +24,7 @@ export default {
   gap: 1rem;
 
   &__wrapper {
-    width: 25rem;
+    width: 30rem;
     margin: 5rem auto;
   }
 

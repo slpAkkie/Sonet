@@ -1,9 +1,7 @@
 <template>
-
-  <div v-if="!fullScreen || fullScreen && play" class="preloader" :class="wrapperClasses">
-    <slot></slot>
-    <div v-if="play" class="preloader__overlay" :class="overlayClasses"></div>
-    <div v-if="play" class="preloader__inner">
+  <div v-if="play" class="preloader" :class="preloaderClasses">
+    <div class="preloader__overlay"></div>
+    <div class="preloader__inner">
       <div class="preloader__dot top left"></div>
       <div class="preloader__dot top right"></div>
       <div class="preloader__dot bottom left"></div>
@@ -14,7 +12,7 @@
 
 <script>
 export default {
-  name: "Preloader",
+  name: 'Preloader',
   props: {
     play: {
       type: Boolean,
@@ -24,25 +22,11 @@ export default {
       type: Boolean,
       default: false,
     },
-    fullColor: {
-      type: Boolean,
-      default: false,
-    },
-    noColor: {
-      type: Boolean,
-      default: false,
-    },
   },
   computed: {
-    wrapperClasses() {
+    preloaderClasses() {
       return {
         'preloader_full-screen': this.fullScreen,
-      }
-    },
-    overlayClasses() {
-      return {
-        'preloader__overlay_full-color': this.fullColor,
-        'preloader__overlay_no-color': this.noColor,
       }
     },
   },
@@ -65,6 +49,10 @@ export default {
     left: 0;
   }
 
+  &_full-screen > &__overlay {
+    background-color: var(--white);
+  }
+
   &__overlay {
     position: absolute;
     top: 0;
@@ -72,15 +60,7 @@ export default {
     bottom: 0;
     left: 0;
     //
-    background-color: var(--white-25);
-
-    &_full-color {
-      background-color: var(--white);
-    }
-
-    &_no-color {
-      background-color: transparent;
-    }
+    background-color: transparent;
   }
 
   &__inner {
@@ -94,8 +74,8 @@ export default {
     //
     display: grid;
     grid-template-areas:
-                      'a b'
-                      'd c';
+      'a b'
+      'd c';
     grid-template-columns: 50% 50%;
     grid-template-rows: 50% 50%;
     place-items: center;

@@ -5,21 +5,17 @@ import store from './store'
 import axios from 'axios';
 import vueAxios from 'vue-axios'
 
-// Set baseURL for api requests
+// Set baseURL for API requests
 axios.defaults.baseURL = 'http://api.localhost/'
 
-// Check authorization at some routes
-router.afterEach(to => {
-    store.dispatch('checkToken').then(response => {
-        ['/login', '/register'].includes(to.path)
-            ? response && router.push('/')
-            : !response && router.push('/login')
-    })
-
+// Check authorization after each route change
+router.afterEach(async to => {
+    if (['/login', '/register'].includes(to.path) && store.getters.isUser) await router.push('/')
+    else if (!['/login', '/register'].includes(to.path) && !store.getters.isUser) await router.push('/login')
 })
 
 createApp(App)
-    // Modules
+    // Plugins
     .use(store).use(router).use(vueAxios, axios)
-    // Mount
+    // Mounting
     .mount('#app')
