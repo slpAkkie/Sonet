@@ -70,6 +70,8 @@ export default {
 
   &__wrapper {
     position: relative;
+    //
+    z-index: 10;
   }
 
   &__separator {

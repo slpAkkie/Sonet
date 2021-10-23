@@ -24,7 +24,7 @@ export default {
   methods: {
     forwardAuthEvent(...params) {
       this.$emit('auth:event', ...params)
-    }
+    },
   },
 }
 </script>
@@ -43,7 +43,13 @@ export default {
     display: grid;
     grid-template-rows: auto;
     grid-template-columns: 1fr 30rem;
+    align-items: flex-start;
     gap: 3rem;
+
+    @media screen and (max-width: 749px) {
+      grid-template-rows: auto auto;
+      grid-template-columns: auto;
+    }
   }
 }
 </style>

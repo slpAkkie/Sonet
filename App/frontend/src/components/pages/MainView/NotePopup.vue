@@ -2,7 +2,9 @@
   <div class="note-popup__overlay" @click="$emit('popup:close', 'cancel')"></div>
   <div class="note-popup">
     <template v-if="!isLoading">
-      <div class="note-popup__close" @click="$emit('popup:close', 'cancel')">Закрыть</div>
+      <div class="note-popup__header">
+        <div class="note-popup__close" @click="$emit('popup:close', 'cancel')">Закрыть</div>
+      </div>
       <form action="/" method="post" @submit.prevent="save" class="note-popup__form">
         <Input v-model="data.title" />
         <Textarea class="note-popup__textarea" v-model="data.body" />
@@ -94,7 +96,7 @@ export default {
 
 <style lang="scss">
 .note-popup {
-  position: absolute;
+  position: fixed;
   top: 5rem;
   left: 0;
   right: 0;
@@ -106,6 +108,8 @@ export default {
   background-color: var(--white);
   border-radius: .4rem;
   box-shadow: 0 0 1.5rem 0 var(--gray-90-08);
+  //
+  z-index: 101;
 
   &__overlay {
     position: fixed;
@@ -115,12 +119,18 @@ export default {
     left: 0;
     //
     background-color: var(--white-25);
+    //
+    z-index: 100;
+  }
+
+  &__header {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
   }
 
   &__close {
     margin-bottom: 1.5rem;
-    //
-    text-align: right;
     //
     cursor: pointer;
   }
@@ -133,6 +143,7 @@ export default {
   }
 
   &__textarea {
+    min-height: 12rem;
     min-width: 100%;
   }
 

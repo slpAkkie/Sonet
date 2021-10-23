@@ -2,7 +2,7 @@
   <div class="control-panel">
     <Input v-model="searchQuery" placeholder="Поиск..." />
     <Button :value="displayMode.text" @click="toggleDisplayMode" />
-    <Button value="Добавить" @click="$emit('popup:new')" />
+    <Button value="Новая заметка" @click="$emit('popup:new')" />
   </div>
 </template>
 
