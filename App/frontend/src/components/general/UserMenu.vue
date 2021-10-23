@@ -1,29 +1,47 @@
 <template>
   <div class="user-menu__wrapper">
-    <img class="nav__user-img" src="@/assets/img/icons/user--flat-colored.png" alt="UserMenu" @click="openUserMenu">
-    <div v-if="openedUserMenu" class="nav__user-menu user-menu">
+    <img class="nav__user-img" src="@/assets/img/icons/user--flat-colored.png" alt="UserMenu" @click="toggle">
+    <div v-if="isOpen" class="nav__user-menu user-menu">
       <div class="user-menu__first-name">{{ $store.getters.user.first_name }}</div>
       <hr class="user-menu__separator">
-      <Button value="Выход" @click="$emit('click:logout')" appearance="danger" />
+      <Button value="Выход" @click="tryLogout" appearance="danger" />
     </div>
   </div>
+  <Preloader :play="isLoading" :full-screen="true" />
 </template>
 
 <script>
 import Button from '../elements/Button'
+import Preloader from '../general/Preloader'
 
 export default {
   name: 'UserMenu',
-  emits: [ 'click:logout' ],
+  emits: [ 'auth:event' ],
   components: {
     Button,
+    Preloader,
   },
   data: () => ({
-    openedUserMenu: false,
+    isOpen: false,
+    isLoading: false,
   }),
   methods: {
-    openUserMenu() {
-      this.openedUserMenu = !this.openedUserMenu
+    toggle() {
+      this.isOpen = !this.isOpen
+    },
+    tryLogout() {
+      this.isLoading = true
+      this.axios
+          .delete('logout')
+          .then(this.handleResponse)
+          .finally(this.afterRequest)
+    },
+    handleResponse() {
+      this.$store.dispatch('removeUser')
+      this.$emit('auth:event', 'logout')
+    },
+    afterRequest() {
+      this.isLoading = false
     },
   },
 }

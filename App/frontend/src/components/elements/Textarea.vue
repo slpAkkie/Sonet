@@ -1,5 +1,5 @@
 <template>
-  <textarea class="c-textarea" :type="type" :name="name" :id="id || name" :placeholder="placeholder" @input="$emit('update:modelValue', $event.target.value)"></textarea>
+  <textarea class="c-textarea" :type="type" :name="name" :id="id || name" :placeholder="placeholder" :value="modelValue" @input="$emit('update:modelValue', $event.target.value)"></textarea>
 </template>
 
 <script>
@@ -10,6 +10,7 @@ export default {
     placeholder: String,
     name: String,
     id: String,
+    modelValue: String,
   },
 }
 </script>

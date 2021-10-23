@@ -1,5 +1,5 @@
 <template>
-  <input class="c-input" :type="type" :name="name" :id="id || name" :placeholder="placeholder" @input="$emit('update:modelValue', $event.target.value)">
+  <input class="c-input" :type="type" :name="name" :id="id || name" :placeholder="placeholder" :value="modelValue" @input="$emit('update:modelValue', $event.target.value)">
 </template>
 
 <script>
@@ -10,6 +10,7 @@ export default {
     placeholder: String,
     name: String,
     id: String,
+    modelValue: String,
   },
 }
 </script>

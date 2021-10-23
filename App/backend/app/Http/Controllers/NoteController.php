@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\GetNoteRequest;
 use App\Http\Requests\StoreNoteRequest;
+use App\Http\Resources\CommonResource;
 use App\Http\Resources\NoteResource;
 use App\Models\Note;
 use Illuminate\Support\Facades\Auth;
@@ -26,5 +27,12 @@ class NoteController extends Controller
 
         $note->setWithFullResource();
         return NoteResource::make($note);
+    }
+
+    public function destroy(Note $note) {
+        $note->delete();
+        return CommonResource::make([
+            'message' => 'Deleted'
+        ]);
     }
 }

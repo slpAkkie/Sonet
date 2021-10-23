@@ -23,10 +23,14 @@ Route::middleware(['api-token'])->get('/user', [\App\Http\Controllers\AuthContro
 // Routes with authorization
 Route::middleware(['api-token'])->group(function () {
 
+    // User routes
+    Route::options('/user', [\App\Http\Controllers\AuthController::class, 'checkToken']);
+
     // Note routes
     Route::get('/notes', [\App\Http\Controllers\NoteController::class, 'index']);
     Route::get('/notes/{note}', [\App\Http\Controllers\NoteController::class, 'show']);
     Route::post('/notes', [\App\Http\Controllers\NoteController::class, 'store']);
+    Route::delete('/notes/{note}', [\App\Http\Controllers\NoteController::class, 'destroy']);
 
 });
 

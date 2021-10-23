@@ -2,11 +2,11 @@
   <nav class="nav">
     <div class="container">
       <div class="nav__inner">
-        <div class="nav__left">
+        <div class="nav__brand">
           <router-link to="/"><img class="nav__logo" src="@/assets/img/nav__logo.png" alt="Logo"></router-link>
         </div>
-        <div class="nav__right">
-          <UserMenu @click:logout="$emit('do:logout')" />
+        <div class="nav__user-menu">
+          <UserMenu @auth:event="forwardAuthEvent" />
         </div>
       </div>
     </div>
@@ -14,13 +14,18 @@
 </template>
 
 <script>
-import UserMenu from "./UserMenu";
+import UserMenu from './UserMenu'
 
 export default {
   name: 'Nav',
-  emits: [ 'do:logout' ],
+  emits: [ 'auth:event' ],
   components: {
     UserMenu,
+  },
+  methods: {
+    forwardAuthEvent(...params) {
+      this.$emit('auth:event', ...params)
+    }
   },
 }
 </script>

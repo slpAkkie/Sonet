@@ -61,7 +61,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"login\": \"root\",\r\n    \"password\": \"root\"\r\n}",
+							"raw": "{\r\n    \"login\": \"admin\",\r\n    \"password\": \"admin\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -75,6 +75,23 @@
 							],
 							"path": [
 								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Check user token",
+					"request": {
+						"method": "OPTIONS",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/user",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"user"
 							]
 						}
 					},
@@ -139,13 +156,13 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{host}}/notes/2",
+							"raw": "{{host}}/notes/1",
 							"host": [
 								"{{host}}"
 							],
 							"path": [
 								"notes",
-								"2"
+								"1"
 							]
 						}
 					},
@@ -172,6 +189,24 @@
 							],
 							"path": [
 								"notes"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/notes/1",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"notes",
+								"1"
 							]
 						}
 					},

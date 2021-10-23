@@ -1,7 +1,7 @@
 <template>
   <div class="note">
     <header class="note__header">
-      <h5 class="note__title like-link" @click="$emit('note:open', note)">{{ note.title }}</h5>
+      <h5 class="note__title">{{ note.title }}</h5>
       <div class="note__category-color" :style="`--color: ${categoryColor}`"></div>
     </header>
     <main class="note__main">{{ body }}</main>
@@ -15,7 +15,6 @@
 <script>
 export default {
   name: 'Note',
-  emits: [ 'note:open' ],
   props: {
     note: {
       type: Object,
@@ -47,6 +46,8 @@ export default {
   background-color: var(--gray-10);
   box-shadow: 0 0 1.5rem 0 var(--gray-90-08);
   border-radius: .4rem;
+  //
+  cursor: pointer;
 
   &__header, &__footer {
     display: flex;
@@ -54,8 +55,10 @@ export default {
     align-items: center;
   }
 
-  &__header {
+  &:hover > &__header {
+    color: #0983a2;
     //
+    transition: color .1s ease;
   }
 
   &__title {

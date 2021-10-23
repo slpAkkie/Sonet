@@ -1,37 +1,74 @@
 import { createStore } from 'vuex'
+import axios from 'axios'
 
 export default createStore({
   state: {
-    user: {},
-    api_token: null,
+    user: null,
+    notes: null,
   },
   mutations: {
-    setToken(state, api_token) {
-      state.api_token = api_token
-      api_token
-        ? localStorage.setItem('api_token', api_token)
-        : localStorage.removeItem('api_token')
-    },
     setUser(state, user) {
       state.user = user
+      localStorage.setItem('user', JSON.stringify(user))
+    },
+    pushNote(state, note) {
+      state.notes.push(note)
     },
   },
   actions: {
-    checkToken({ state }) {
-      return state.api_token
-        ? true
-        : !!(state.api_token = localStorage.getItem('api_token'))
+    loadNotes({ state }) {
+      axios
+        .get('notes')
+        .then(response => {
+          state.notes = response.data.data
+        })
+        .catch(() => {
+          state.notes = []
+        })
     },
-    removeToken(context) {
-      context.commit('setToken', null)
+    removeUser({ state }) {
+      state.user = null
+      state.notes = null
+      localStorage.removeItem('user')
+    },
+    getNote({ state }, id) {
+      return state.notes.find(note => note.id === id)
+    },
+    async deleteNote({ state }, id) {
+      let noteIndex = state.notes.findIndex(note => note.id === id)
+      if (noteIndex === -1) return
+
+      await axios.delete(`notes/${id}`)
+      state.notes.splice(noteIndex, 1)
     },
   },
   modules: {
     //
   },
   getters: {
-    api_token: state => state.api_token,
-    user: state => state.user,
-    isUserLoaded: state => !!state.user.api_token,
+    // TOKEN
+    isUser: (state, getters) => {
+      if (getters.userLoaded) return true
+
+      let userSerialized = localStorage.getItem('user')
+      if (!userSerialized) return false
+
+      try {
+        let user = JSON.parse(userSerialized)
+        if (!user.api_token) return false
+        state.user = user
+
+        return true
+      } catch (e) {
+        return false
+      }
+    },
+    token: (state, getters) => getters.isUser ? state.user.api_token : null,
+    // USER
+    user: state => state.user || {},
+    userLoaded: state => state.user !== null,
+    // NOTES
+    notes: state => state.notes || [],
+    notesLoaded: state => state.notes !== null,
   },
 })

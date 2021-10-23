@@ -1,11 +1,10 @@
 <template>
-  <MainLayout v-if="layout === 'main'" @authEvent="handleAuthEvent" />
-  <AuthLayout v-else-if="layout === 'auth'" @authEvent="handleAuthEvent" />
+  <component :is="getLayoutComponent" @auth:event="handleAuthEvent"></component>
 </template>
 
 <script>
-import AuthLayout from './views/layouts/AuthLayout'
-import MainLayout from './views/layouts/MainLayout'
+import AuthLayout from './layouts/AuthLayout'
+import MainLayout from './layouts/MainLayout'
 
 export default {
   name: 'App',
@@ -13,25 +12,43 @@ export default {
     AuthLayout,
     MainLayout,
   },
-  data: () => ({
-    layout: 'main',
-  }),
-  methods: {
-    changeLayout(layout, url = null) {
-      this.layout = layout
-      url && this.$router.push(url)
-    },
-    handleAuthEvent(event) {
-      if (event === 'login') this.changeLayout('main', '/')
-      else if (['register', 'logout'].includes(event)) this.changeLayout('auth', 'login')
+  computed: {
+    getLayoutComponent() {
+      return this.layoutKey ? this.layoutVariants[this.layoutKey].component : null
     },
   },
-  beforeCreate() {
-    this.$store.dispatch('checkToken').then(response => {
-      !response
-        ? this.changeLayout('auth')
-        : this.changeLayout('main')
-    })
+  data: () => ({
+    layoutKey: null,
+    layoutVariants: {
+      auth: {
+        component: 'AuthLayout',
+        baseUrl: '/login',
+        beforeCallback: (vue) => {
+          vue.axios.defaults.headers.common['Authorization'] = undefined
+        },
+      },
+      main: {
+        component: 'MainLayout',
+        baseUrl: '/',
+        beforeCallback: (vue) => {
+          vue.axios.defaults.headers.common['Authorization'] = `Bearer ${vue.$store.getters.token}`
+        },
+      },
+    },
+  }),
+  methods: {
+    async setLayout(layoutKey, url = null) {
+      this.layoutVariants[layoutKey].beforeCallback(this)
+      await this.$router.replace(url || this.layoutVariants[layoutKey].baseUrl)
+      this.layoutKey = layoutKey
+    },
+    handleAuthEvent(event) {
+      if (event === 'login') this.setLayout('main')
+      else if (['register', 'logout'].includes(event)) this.setLayout('auth')
+    },
+  },
+  beforeMount() {
+    this.setLayout(this.$store.getters.isUser ? 'main' : 'auth')
   },
 }
 </script>

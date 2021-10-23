@@ -1,87 +1,82 @@
 <template>
-  <div class="control-panel">
-    <Button value="Добавить" @click="openNotePopup" />
+  <ControlPanel
+      @displayMode:update="updateDisplayMode"
+      @popup:new="openNewNote"
+  />
+
+  <Preloader :play="isLoading" />
+  <div v-if="isNotes" class="note-wrapper" :class="displayModeClass">
+    <Note
+        v-for="note in notes"
+        :key="note.id"
+        :note="note"
+        @click="openNote(note.id)"
+    />
   </div>
-  <div v-if="!isLoadingNotes">
-    <div v-if="isNotes" class="note-wrapper" :class="classes">
-      <Note v-for="note in notes" :key="note.id" :note="note" @note:open="openNote" />
-    </div>
-    <p v-else>У вас нет заметок</p>
-  </div>
-  <Preloader v-else :play="true" :noColor="true" />
-  <NotePopup v-if="isPopup" :noteData="selectedNote" :loading="isPopupLoading" @close="saveNote" @cancel="closePopup" />
+  <p v-if="isNotNotes" class="text_center">У вас нет заметок</p>
+
+  <NotePopup
+      v-if="openedPopup"
+      @popup:close="closePopup"
+      :noteData="openedNote"
+  />
 </template>
 
 <script>
 import Preloader from '../components/general/Preloader'
-import Note from '../components/pages/Note'
-import Button from '../components/elements/Button'
-import NotePopup from "../components/pages/NotePopup";
+import Note from '../components/pages/MainView/Note'
+import ControlPanel from '../components/pages/MainView/ControlPanel'
+import NotePopup from "../components/pages/MainView/NotePopup";
 
 export default {
   name: 'MainView',
+  emits: [ 'auth:event' ],
   components: {
     Preloader,
     Note,
-    Button,
+    ControlPanel,
     NotePopup,
   },
   data: () => ({
-    isLoadingNotes: false,
-    notes: [],
-    displayMode: 'grid',
-    isPopup: false,
-    isPopupLoading: false,
-    selectedNote: null,
+    displayMode: null,
+    openedPopup: false,
+    openedNote: null,
   }),
   computed: {
-    isNotes() { return !!this.notes.length },
-    classes() {
-      return {
-        'note-wrapper_grid': this.displayMode === 'grid',
-        'note-wrapper_column': this.displayMode === 'column',
-      }
+    notes() {
+      return this.$store.getters.notes
+    },
+    isLoading() {
+      return !this.$store.getters.notesLoaded
+    },
+    isNotes() {
+      return !this.isLoading && !!this.$store.getters.notes.length
+    },
+    isNotNotes() {
+      return !this.isLoading && !this.$store.getters.notes.length
+    },
+    displayModeClass() {
+      return this.displayMode ? `note-wrapper_${this.displayMode.className}` : null
     },
   },
   methods: {
-    loadNotes() {
-      this.isLoadingNotes = true
-      this.axios
-        .get('notes')
-        .then(this.notesLoaded)
+    updateDisplayMode(displayMode) {
+      this.displayMode = displayMode
     },
-    notesLoaded(response) {
-      this.isLoadingNotes = false
-      this.notes = response.data.data
+    openNewNote() {
+      this.openedPopup = true
     },
-    openNote(note) {
-      this.selectedNote = note
-      this.openNotePopup()
-    },
-    openNotePopup() {
-      this.isPopup = true
+    async openNote(id) {
+      this.openedNote = Object.assign({}, await this.$store.dispatch('getNote', id))
+      this.openedPopup = true
     },
     closePopup() {
-      this.isPopup = false
-      this.isPopupLoading = false
-      this.selectedNote = null
-    },
-    saveNote(noteData) {
-      this.isPopupLoading = true
-      this.axios
-        .post('notes', noteData)
-        .then(this.noteSaved)
-        .catch(error => {
-          console.log(error.response.error)
-        })
-    },
-    noteSaved(response) {
-      this.notes.unshift(response.data.data)
-      this.closePopup()
+      this.openedPopup = false
+      this.openedNote = null
     },
   },
-  mounted() {
-    if (this.$store.getters.isUserLoaded) this.loadNotes()
+  beforeCreate() {
+    this.$store.dispatch('loadNotes')
   }
 }
 </script>
@@ -98,9 +93,5 @@ export default {
   &_column {
     grid-template-columns: 1fr;
   }
-}
-
-.control-panel {
-  margin-bottom: 1.5rem;
 }
 </style>
