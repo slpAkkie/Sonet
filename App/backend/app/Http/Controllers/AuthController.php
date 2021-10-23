@@ -45,4 +45,8 @@ class AuthController extends Controller
     public function getUserByToken() {
         return UserResource::make(Auth::user());
     }
+
+    public function checkToken() {
+        return \App\Http\Resources\CommonResource::make(['message' => 'ok']);
+    }
 }

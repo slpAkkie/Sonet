@@ -24,9 +24,7 @@ Route::middleware(['api-token'])->get('/user', [\App\Http\Controllers\AuthContro
 Route::middleware(['api-token'])->group(function () {
 
     // User routes
-    Route::options('/user', function () {
-        return \App\Http\Resources\CommonResource::make(['message' => 'ok']);
-    });
+    Route::options('/user', [\App\Http\Controllers\AuthController::class, 'checkToken']);
 
     // Note routes
     Route::get('/notes', [\App\Http\Controllers\NoteController::class, 'index']);
