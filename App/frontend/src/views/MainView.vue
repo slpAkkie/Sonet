@@ -13,7 +13,7 @@
         @click="openNote(note.id)"
     />
   </div>
-  <p v-if="isNotNotes" class="text_center">У вас нет заметок</p>
+  <p v-if="isNotNotes" class="text_center">Заметок нет</p>
 
   <NotePopup
       v-if="openedPopup"

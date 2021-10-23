@@ -1,5 +1,6 @@
 <template>
   <div class="control-panel">
+    <Input v-model="searchQuery" placeholder="Поиск..." />
     <Button :value="displayMode.text" @click="toggleDisplayMode" />
     <Button value="Добавить" @click="$emit('popup:new')" />
   </div>
@@ -7,20 +8,31 @@
 
 <script>
 import Button from '../../../components/elements/Button'
+import Input from '../../elements/Input'
 
 export default {
   name: 'ControlPanel',
   emits: [ 'displayMode:update', 'popup:new' ],
   components: {
     Button,
+    Input,
   },
   data: () => ({
     displayModes: [
       { className: 'grid', text: 'Сетка' },
       { className: 'column', text: 'Столбец' },
     ],
-    displayModeId: 0,
+    displayModeId: null,
+    searchQuery: '',
   }),
+  watch: {
+    displayModeId(newValue) {
+      this.$store.commit('setDisplayModeId', newValue)
+    },
+    searchQuery(newValue) {
+      this.$store.commit('setSearchQuery', newValue)
+    },
+  },
   computed: {
     displayMode() {
       return this.displayModes[this.displayModeId]
@@ -32,7 +44,8 @@ export default {
       this.$emit('displayMode:update', this.displayMode)
     },
   },
-  mounted() {
+  beforeMount() {
+    this.displayModeId = this.$store.getters.displayModeId
     this.$emit('displayMode:update', this.displayMode)
   }
 }

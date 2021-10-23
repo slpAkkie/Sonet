@@ -5,6 +5,8 @@ export default createStore({
   state: {
     user: null,
     notes: null,
+    searchQuery: '',
+    displayModeId: null,
   },
   mutations: {
     setUser(state, user) {
@@ -13,6 +15,13 @@ export default createStore({
     },
     pushNote(state, note) {
       state.notes.push(note)
+    },
+    setSearchQuery(state, query) {
+      state.searchQuery = query
+    },
+    setDisplayModeId(state, id) {
+      state.displayModeId = id
+      localStorage.setItem('displayModeId', id)
     },
   },
   actions: {
@@ -68,7 +77,16 @@ export default createStore({
     user: state => state.user || {},
     userLoaded: state => state.user !== null,
     // NOTES
-    notes: state => state.notes || [],
+    notes: (state, getters) => {
+      if (getters.notesLoaded) {
+        let regexp = new RegExp(state.searchQuery.toLowerCase(), 'g')
+        return state.notes.filter(note => note.title.toLowerCase().match(regexp) || note.body.toLowerCase().match(regexp) || note.created_at.toLowerCase().match(regexp) )
+      }
+      else return []
+    },
     notesLoaded: state => state.notes !== null,
+    displayModeId: state => {
+      return state.displayModeId || (state.displayModeId = localStorage.getItem('displayModeId') || 0)
+    },
   },
 })
