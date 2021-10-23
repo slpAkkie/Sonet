@@ -6,7 +6,7 @@
     </div>
     <hr class="sidebar__separator">
     <div class="sidebar__list">
-      <FolderRow title="Все заметки" :withControls="false" />
+      <FolderRow title="Мои заметки" :withControls="false" />
       <FolderRow title="Без категории" :withControls="false" />
       <FolderRow title="Доступные мне" :withControls="false" />
     </div>
