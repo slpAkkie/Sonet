@@ -1,14 +1,14 @@
 <template>
-  <div class="note-popup__overlay" @click="$emit('popup:close', 'cancel')"></div>
-  <div class="note-popup">
+  <div class="popup__overlay" @click="$emit('popup:close', 'cancel')"></div>
+  <div class="popup">
     <template v-if="!isLoading">
-      <div class="note-popup__header">
-        <div class="note-popup__close" @click="$emit('popup:close', 'cancel')">Закрыть</div>
+      <div class="popup__header">
+        <div class="popup__close" @click="$emit('popup:close', 'cancel')">Закрыть</div>
       </div>
-      <form action="/" method="post" @submit.prevent="save" class="note-popup__form">
+      <form action="/" method="post" @submit.prevent="save" class="popup__form">
         <Input v-model="data.title" />
-        <Textarea class="note-popup__textarea" v-model="data.body" />
-        <div class="note-popup__controls">
+        <Textarea class="popup__textarea" v-model="data.body" />
+        <div class="popup__controls">
           <Button v-if="mayBeDeleted" value="Удалить" @click="del" appearance="danger" />
           <Button value="Сохранить" @click="save" />
         </div>
@@ -95,7 +95,7 @@ export default {
 </script>
 
 <style lang="scss">
-.note-popup {
+.popup {
   position: fixed;
   top: 5rem;
   left: 0;
