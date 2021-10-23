@@ -1,17 +1,32 @@
 <template>
-  <ControlPanel @displayMode:update="updateDisplayMode" />
+  <ControlPanel
+      @displayMode:update="updateDisplayMode"
+      @popup:new="openNewNote"
+  />
 
   <Preloader :play="isLoading" />
   <div v-if="isNotes" class="note-wrapper" :class="displayModeClass">
-    <Note v-for="note in notes" :key="note.id" :note="note" @note:open="void 0" />
+    <Note
+        v-for="note in notes"
+        :key="note.id"
+        :note="note"
+        @click="openNote(note.id)"
+    />
   </div>
   <p v-if="isNotNotes" class="text_center">У вас нет заметок</p>
+
+  <NotePopup
+      v-if="openedPopup"
+      @popup:close="closePopup"
+      :noteData="openedNote"
+  />
 </template>
 
 <script>
 import Preloader from '../components/general/Preloader'
 import Note from '../components/pages/MainView/Note'
 import ControlPanel from '../components/pages/MainView/ControlPanel'
+import NotePopup from "../components/pages/MainView/NotePopup";
 
 export default {
   name: 'MainView',
@@ -20,9 +35,12 @@ export default {
     Preloader,
     Note,
     ControlPanel,
+    NotePopup,
   },
   data: () => ({
     displayMode: null,
+    openedPopup: false,
+    openedNote: null,
   }),
   computed: {
     notes() {
@@ -44,7 +62,18 @@ export default {
   methods: {
     updateDisplayMode(displayMode) {
       this.displayMode = displayMode
-    }
+    },
+    openNewNote() {
+      this.openedPopup = true
+    },
+    async openNote(id) {
+      this.openedNote = Object.assign({}, await this.$store.dispatch('getNote', id))
+      this.openedPopup = true
+    },
+    closePopup() {
+      this.openedPopup = false
+      this.openedNote = null
+    },
   },
   beforeCreate() {
     this.$store.dispatch('loadNotes')
@@ -64,14 +93,5 @@ export default {
   &_column {
     grid-template-columns: 1fr;
   }
-}
-
-.control-panel {
-  display: flex;
-  justify-content: flex-end;
-  align-items: center;
-  gap: 1.5rem;
-  //
-  margin-bottom: 1.5rem;
 }
 </style>

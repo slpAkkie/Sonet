@@ -69,15 +69,11 @@ export default {
     },
     handleError(error) {
       const errorData = error.response.data
-      if (errorData.code === 422) {
-        this.formErrors = errorData.error.errors
-        this.postData.password = ''
-        this.postData.password_confirmation = ''
-      }
-      else {
-        alert('Произошла не предвиденная ошибка ошибка (Более подробное описание ошибки смотрите в консоли)')
-        console.log(error)
-      }
+      if (errorData.code === 422) return
+
+      this.formErrors = errorData.error.errors
+      this.postData.password = ''
+      this.postData.password_confirmation = ''
     },
     afterRequest() {
       this.formDisabled = null

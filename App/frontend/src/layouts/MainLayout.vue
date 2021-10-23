@@ -34,6 +34,7 @@ export default {
   &-wrapper {
     min-height: calc(100vh - 9rem);
     padding-top: 3rem;
+    padding-bottom: 3rem;
     //
     background-color: var(--gray-15);
   }

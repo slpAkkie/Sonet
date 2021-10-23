@@ -11,6 +11,9 @@ export default createStore({
       state.user = user
       localStorage.setItem('user', JSON.stringify(user))
     },
+    pushNote(state, note) {
+      state.notes.push(note)
+    },
   },
   actions: {
     loadNotes({ state }) {
@@ -19,17 +22,24 @@ export default createStore({
         .then(response => {
           state.notes = response.data.data
         })
-        .catch(error => {
+        .catch(() => {
           state.notes = []
-
-          alert('Произошла не предвиденная ошибка ошибка (Более подробное описание ошибки смотрите в консоли)')
-          console.log(error)
         })
     },
     removeUser({ state }) {
       state.user = null
       state.notes = null
       localStorage.removeItem('user')
+    },
+    getNote({ state }, id) {
+      return state.notes.find(note => note.id === id)
+    },
+    async deleteNote({ state }, id) {
+      let noteIndex = state.notes.findIndex(note => note.id === id)
+      if (noteIndex === -1) return
+
+      await axios.delete(`notes/${id}`)
+      state.notes.splice(noteIndex, 1)
     },
   },
   modules: {

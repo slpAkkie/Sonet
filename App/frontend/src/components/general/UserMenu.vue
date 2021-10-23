@@ -34,16 +34,11 @@ export default {
       this.axios
           .delete('logout')
           .then(this.handleResponse)
-          .catch(this.handleError)
           .finally(this.afterRequest)
     },
     handleResponse() {
       this.$store.dispatch('removeUser')
       this.$emit('auth:event', 'logout')
-    },
-    handleError(error) {
-      alert('Произошла не предвиденная ошибка ошибка (Более подробное описание ошибки смотрите в консоли)')
-      console.log(error)
     },
     afterRequest() {
       this.isLoading = false
