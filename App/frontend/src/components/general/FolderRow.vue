@@ -1,13 +1,24 @@
 <template>
   <div class="folder-row">
     <div class="folder-row__title" @click="select">{{ title }}</div>
-    <div v-if="withControls" class="folder-row__controls"></div>
+    <div v-if="withControls" class="folder-row__controls">
+      <Button value="Удалить" appearance="danger" @click="del" />
+    </div>
   </div>
 </template>
 
 <script>
+import Button from '../elements/Button'
+
 export default {
   name: 'FolderRow',
+  emits: [
+      'folder:select',
+      'folder:del',
+  ],
+  components: {
+    Button,
+  },
   props: {
     title: {
       type: String,
@@ -26,6 +37,9 @@ export default {
   methods: {
     select() {
       this.$emit('folder:select', this.id || null)
+    },
+    del() {
+      this.$emit('folder:del', this.id)
     },
   },
 }
@@ -52,7 +66,7 @@ export default {
   &__title {
     flex-grow: 1;
     //
-    padding: .5rem 0;
+    padding: .7rem 0;
   }
 }
 </style>

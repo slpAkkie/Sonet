@@ -32,6 +32,11 @@ Route::middleware(['api-token'])->group(function () {
     Route::post('/notes', [\App\Http\Controllers\NoteController::class, 'store']);
     Route::delete('/notes/{note}', [\App\Http\Controllers\NoteController::class, 'destroy']);
 
+    // Folder routes
+    Route::get('/folders', [\App\Http\Controllers\FolderController::class, 'index']);
+    Route::post('/folders', [\App\Http\Controllers\FolderController::class, 'store']);
+    Route::delete('/folders/{folder}', [\App\Http\Controllers\FolderController::class, 'destroy']);
+
 });
 
 

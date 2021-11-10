@@ -19,6 +19,9 @@ class NoteResource extends JsonResource
                     'color' => $this->category->color,
                 ];
             }),
+            $this->mergeWhen(!$this->withFullResource(), [
+                'folder_id' => $this->folder_id
+            ]),
 
             $this->mergeWhen($this->withFullResource(), [
                 'folder' => $this->when($this->folder, function () {

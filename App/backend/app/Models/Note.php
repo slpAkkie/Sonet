@@ -16,14 +16,13 @@ class Note extends Model
         'body',
         'category_id',
         'folder_id',
-        'user_id',
     ];
 
     private $fullResource = false;
 
     public function __construct(array $attributes = [])
     {
-        $attributes['user_id'] = Auth::id();
+        $this->user_id = Auth::id();
         parent::__construct($attributes);
     }
 

@@ -26,7 +26,7 @@
 import Preloader from '../components/general/Preloader'
 import Note from '../components/pages/MainView/Note'
 import ControlPanel from '../components/pages/MainView/ControlPanel'
-import NotePopup from "../components/pages/MainView/NotePopup";
+import NotePopup from '../components/pages/MainView/NotePopup'
 
 export default {
   name: 'MainView',

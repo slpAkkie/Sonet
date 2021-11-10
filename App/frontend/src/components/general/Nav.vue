@@ -3,7 +3,7 @@
     <div class="container">
       <div class="nav__inner">
         <div class="nav__brand">
-          <router-link to="/"><img class="nav__logo" src="@/assets/img/nav__logo.png" alt="Logo"></router-link>
+          <h1 class="nav__brand-title">Sonet</h1>
         </div>
         <div class="nav__user-menu">
           <UserMenu @auth:event="forwardAuthEvent" />
@@ -44,8 +44,8 @@ export default {
     padding: 1.5rem 0;
   }
 
-  &__logo {
-    max-width: 10.5rem;
+  &__brand-title {
+    font-size: 3.5rem;
   }
 
   &__user-img {

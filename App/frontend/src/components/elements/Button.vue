@@ -38,7 +38,7 @@ export default {
   border-radius: .4rem;
   //
   cursor: pointer;
-  transition-property: background-color, color;
+  transition-property: background-color, border-color, color;
   transition-duration: .1s;
   transition-timing-function: ease;
   
@@ -53,6 +53,7 @@ export default {
     --text-color: var(--red-60);
 
     &:hover {
+      --border-color: var(--red-60);
       --background: var(--red-60);
       --text-color: var(--red-10);
     }

@@ -7,11 +7,6 @@
       </div>
       <form action="/" method="post" @submit.prevent="save" class="popup__form">
         <Input v-model="data.title" />
-        <Textarea class="popup__textarea" v-model="data.body" />
-        <select v-if="isFolders" class="c-input" name="folder_id" id="folder_id" v-model="data.folder_id">
-          <option value="">-----</option>
-          <option v-for="folder in folders" :key="folder.id" :value="folder.id">{{ folder.title }}</option>
-        </select>
         <div class="popup__controls">
           <Button v-if="mayBeDeleted" value="Удалить" @click="del" appearance="danger" />
           <Button value="Сохранить" @click="save" />
@@ -25,7 +20,6 @@
 <script>
 import Input from '../../elements/Input'
 import Button from '../../elements/Button'
-import Textarea from '../../elements/Textarea'
 import Preloader from '../../general/Preloader'
 
 export default {
@@ -34,11 +28,10 @@ export default {
   components: {
     Input,
     Button,
-    Textarea,
     Preloader,
   },
   props: {
-    noteData: {
+    folderData: {
       type: Object,
     },
   },
@@ -47,7 +40,6 @@ export default {
     data: {
       title: '',
       body: '',
-      folder_id: '',
     },
     action: null,
   }),
@@ -55,21 +47,15 @@ export default {
     mayBeDeleted() {
       return !!this.data.id
     },
-    isFolders() {
-      return !!this.$store.getters.folders.length
-    },
-    folders() {
-      return this.$store.getters.folders
-    },
   },
   methods: {
     del() {
-      let confirmation = confirm('Вы уверены, что хотите удалить эту заметку')
+      let confirmation = confirm('Вы уверены, что хотите удалить эту папку')
       if (!confirmation) return
 
       this.isLoading = true
       this.$store
-        .dispatch('deleteNote', this.data.id)
+        .dispatch('deleteFolder', this.data.id)
         .then(() => {
           this.isLoading = false
           this.$emit('popup:close')
@@ -79,7 +65,7 @@ export default {
       if (this.action === 'update') alert('Изменение еще не сделано')
       else if (this.action === 'post') {
         this.isLoading = true
-        this.axios[this.action]('notes', this.data)
+        this.axios[this.action]('folders', this.data)
           .then(this.handleResponse)
           .catch(this.handleError)
           .finally(this.afterRequest)
@@ -87,7 +73,7 @@ export default {
     },
     handleResponse(response) {
       let noteData = response.data.data
-      this.$store.commit('pushNote', noteData)
+      this.$store.commit('pushFolder', noteData)
       this.$emit('popup:close')
     },
     handleError(error) {
@@ -99,7 +85,7 @@ export default {
     },
   },
   beforeMount() {
-    if (this.noteData) this.data = this.noteData
+    if (this.folderData) this.data = this.folderData
     this.action = this.data.id ? 'update' : 'post'
   },
 }
