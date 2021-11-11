@@ -140,6 +140,7 @@ export default createStore({
     // FOLDERS
     folders: state => state.folders || [],
     foldersLoaded: state => state.folders !== null,
+    openedFolder: state => state.folderQuery,
     // CATEGORIES
     categories: state => state.categories || [],
     categoriesLoaded: state => state.categories !== null,

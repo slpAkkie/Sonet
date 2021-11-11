@@ -1,5 +1,5 @@
 <template>
-  <div class="folder-row">
+  <div class="folder-row" :class="active">
     <div class="folder-row__title" @click="select">{{ title }}</div>
     <div v-if="withControls" class="folder-row__controls">
       <Button value="Удалить" appearance="danger" @click="del" />
@@ -34,6 +34,13 @@ export default {
       default: true,
     },
   },
+  computed: {
+    active() {
+      return {
+        'folder-row_active': this.$store.getters.openedFolder && (this.$store.getters.openedFolder >= 0) && (this.$store.getters.openedFolder === this.id),
+      }
+    }
+  },
   methods: {
     select() {
       this.$emit('folder:select', this.id || null)
@@ -58,7 +65,7 @@ export default {
   transition-duration: .1s;
   cursor: pointer;
 
-  &:hover {
+  &:hover, &_active {
     color: var(--white);
     background-color: var(--blue-50);
   }
