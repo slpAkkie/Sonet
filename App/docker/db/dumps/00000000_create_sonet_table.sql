@@ -43,7 +43,7 @@ CREATE TABLE `folders` (
 CREATE TABLE `categories` (
   `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT,
   `title` varchar(255) NOT NULL,
-  `color` varchar(6) NOT NULL,
+  `color` varchar(7) NOT NULL,
   `order` int DEFAULT 0 NOT NULL,
   `user_id` bigint UNSIGNED NOT NULL,
   `created_at` timestamp NULL,

@@ -36,7 +36,7 @@ class User extends Authenticatable
         return $this->hasMany(Folder::class, 'user_id', 'id');
     }
 
-    public function category() {
+    public function categories() {
         return $this->hasMany(Category::class, 'user_id', 'id');
     }
 
