@@ -6,11 +6,19 @@
         <div class="popup__close" @click="$emit('popup:close', 'cancel')">Закрыть</div>
       </div>
       <form action="/" method="post" @submit.prevent="save" class="popup__form">
+        <label>Название</label>
         <Input v-model="data.title" />
+        <label>Описание</label>
         <Textarea class="popup__textarea" v-model="data.body" />
-        <select v-if="isFolders" class="c-input" name="folder_id" id="folder_id" v-model="data.folder_id">
+        <label>Папка</label>
+        <select class="c-input" name="folder_id" id="folder_id" v-model="data.folder_id">
           <option value="">-----</option>
           <option v-for="folder in folders" :key="folder.id" :value="folder.id">{{ folder.title }}</option>
+        </select>
+        <label>Категория</label>
+        <select class="c-input" name="category_id" id="category_id" v-model="data.category_id">
+          <option value="">-----</option>
+          <option v-for="category in categories" :key="category.id" :value="category.id">{{ category.title }}</option>
         </select>
         <div class="popup__controls">
           <Button v-if="mayBeDeleted" value="Удалить" @click="del" appearance="danger" />
@@ -48,6 +56,7 @@ export default {
       title: '',
       body: '',
       folder_id: '',
+      category_id: '',
     },
     action: null,
   }),
@@ -55,11 +64,11 @@ export default {
     mayBeDeleted() {
       return !!this.data.id
     },
-    isFolders() {
-      return !!this.$store.getters.folders.length
-    },
     folders() {
       return this.$store.getters.folders
+    },
+    categories() {
+      return this.$store.getters.categories
     },
   },
   methods: {
@@ -100,6 +109,8 @@ export default {
   },
   beforeMount() {
     if (this.noteData) this.data = this.noteData
+    if (!this.data.folder_id) this.data.folder_id = ''
+    if (!this.data.category_id) this.data.category_id = ''
     this.action = this.data.id ? 'update' : 'post'
   },
 }

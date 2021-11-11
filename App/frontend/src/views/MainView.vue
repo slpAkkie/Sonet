@@ -77,6 +77,7 @@ export default {
   },
   beforeCreate() {
     this.$store.dispatch('loadNotes')
+    this.$store.dispatch('loadCategories')
   }
 }
 </script>

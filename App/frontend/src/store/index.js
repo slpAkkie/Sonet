@@ -5,6 +5,7 @@ export default createStore({
   state: {
     user: null,
     folders: null,
+    categories: null,
     notes: null,
     searchQuery: '',
     folderQuery: null,
@@ -60,13 +61,13 @@ export default createStore({
     },
     async loadFolders({ state }) {
       axios
-        .get('folders')
-        .then(response => {
-          state.folders = response.data.data
-        })
-        .catch(() => {
-          state.folders = []
-        })
+          .get('folders')
+          .then(response => {
+            state.folders = response.data.data
+          })
+          .catch(() => {
+            state.folders = []
+          })
     },
     async deleteFolder({ state }, id) {
       let folderIndex = state.folders.findIndex(folder => folder.id === id)
@@ -77,6 +78,16 @@ export default createStore({
         if (note.folder_id === id) note.folder_id = null
       })
       state.folders.splice(folderIndex, 1)
+    },
+    async loadCategories({ state }) {
+      axios
+          .get('categories')
+          .then(response => {
+            state.categories = response.data.data
+          })
+          .catch(() => {
+            state.categories = []
+          })
     },
   },
   modules: {
@@ -129,5 +140,8 @@ export default createStore({
     // FOLDERS
     folders: state => state.folders || [],
     foldersLoaded: state => state.folders !== null,
+    // CATEGORIES
+    categories: state => state.categories || [],
+    categoriesLoaded: state => state.categories !== null,
   },
 })
