@@ -67,8 +67,9 @@ export default {
       this.openedPopup = true
     },
     async openNote(id) {
-      this.openedNote = Object.assign({}, await this.$store.dispatch('getNote', id))
-      this.openedPopup = true
+      this.$router.push(`/notes/${id}`)
+      // this.openedNote = Object.assign({}, await this.$store.dispatch('getNote', id))
+      // this.openedPopup = true
     },
     closePopup() {
       this.openedPopup = false

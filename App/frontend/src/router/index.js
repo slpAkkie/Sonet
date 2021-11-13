@@ -16,6 +16,12 @@ const routes = [
     name: 'RegisterView',
     component: () => import('../views/RegisterView'),
   },
+  {
+    path: '/notes/:id',
+    name: 'NoteView',
+    component: () => import('../views/NoteView'),
+    props: true,
+  },
 ]
 
 const router = createRouter({
