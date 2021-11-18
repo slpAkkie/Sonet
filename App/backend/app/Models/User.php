@@ -50,7 +50,7 @@ class User extends Authenticatable
         return User::where('api_token', $api_token)->firstOr(/**
          * @throws ApiTokenAuthorizationException
          */ function () {
-            return throw new ApiTokenAuthorizationException();
+            throw new ApiTokenAuthorizationException();
         });
     }
 
