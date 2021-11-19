@@ -21,11 +21,11 @@ Route::prefix('sonet')->group(function () {
     /** Auth --------------- */
     Route::post('/register', [\App\Http\Controllers\AuthController::class, 'register']);
     Route::post('/login', [\App\Http\Controllers\AuthController::class, 'login']);
-    Route::middleware(['api-token'])->delete('/logout', [\App\Http\Controllers\AuthController::class, 'logout']);
-    Route::middleware(['api-token'])->get('/user', [\App\Http\Controllers\AuthController::class, 'getAuthenticatedUser']);
+    Route::middleware('api-token')->delete('/logout', [\App\Http\Controllers\AuthController::class, 'logout']);
+    Route::middleware('api-token')->get('/user', [\App\Http\Controllers\AuthController::class, 'getAuthenticatedUser']);
 
     /** Authorization require --------------- */
-    Route::middleware(['api-token'])->group(function () {
+    Route::middleware('api-token')->group(function () {
 
         /** User --------------- */
         Route::options('/user', [\App\Http\Controllers\AuthController::class, 'checkToken']);
