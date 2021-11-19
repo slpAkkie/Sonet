@@ -4,7 +4,7 @@ namespace App\Exceptions;
 
 use Exception;
 
-class ModelNotSavedException extends Exception
+final class RecordDoesntExistException extends Exception
 {
     //
 }

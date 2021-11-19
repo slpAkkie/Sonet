@@ -2,9 +2,14 @@
 
 namespace App\Http\Resources;
 
-class CategoryResource extends CommonResource
+use App\Models\Category;
+
+/**
+ * @mixin Category
+ */
+final class CategoryResource extends CommonResource
 {
-    public function toArray($request)
+    public function toArray($request): array
     {
         return [
             'id' => $this->id,

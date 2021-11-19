@@ -2,9 +2,14 @@
 
 namespace App\Http\Resources;
 
-class FolderResource extends CommonResource
+use App\Models\Folder;
+
+/**
+ * @mixin Folder
+ */
+final class FolderResource extends CommonResource
 {
-    public function toArray($request)
+    public function toArray($request): array
     {
         return [
             'id' => $this->id,

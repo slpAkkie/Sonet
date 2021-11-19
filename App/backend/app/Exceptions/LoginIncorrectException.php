@@ -4,7 +4,7 @@ namespace App\Exceptions;
 
 use Exception;
 
-class ApiTokenAuthorizationException extends Exception
+final class LoginIncorrectException extends Exception
 {
     //
 }

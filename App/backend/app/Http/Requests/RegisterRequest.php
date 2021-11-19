@@ -2,7 +2,7 @@
 
 namespace App\Http\Requests;
 
-class RegisterRequest extends ApiRequest
+final class RegisterRequest extends ApiRequest
 {
     /**
      * Get the validation rules that apply to the request.
@@ -12,11 +12,11 @@ class RegisterRequest extends ApiRequest
     public function rules(): array
     {
         return [
-            'first_name'            => 'required',
-            'last_name'             => 'required',
-            'login'                 => 'required|unique:users,login',
-            'email'                 => 'required|email|unique:users,email',
-            'password'              => 'required|confirmed'
+            'first_name' => 'required',
+            'last_name'  => 'required',
+            'login'      => 'required|unique:users,login',
+            'email'      => 'required|email|unique:users,email',
+            'password'   => 'required|confirmed'
         ];
     }
 }

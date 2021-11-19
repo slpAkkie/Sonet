@@ -2,11 +2,35 @@
 
 namespace App\Models;
 
-use App\Exceptions\ModelNotSavedException;
+use App\Exceptions\RecordDoesntExistException;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Query\Builder;
+use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Auth;
 
+/**
+ * @property int|string|null id
+ * @property string title
+ * @property string body
+ * @property int|string folder_id
+ * @property int|string category_id
+ * @property int|string user_id
+ * @property int created_at
+ * @property int updated_at
+ *
+ * @property Category category
+ * @property Folder folder
+ * @property Collection<Attachment> attachments
+ * @property User author
+ * @property Collection<Comment> comments
+ * @property Collection<User> sharedWith
+ *
+ * @mixin Builder
+ */
 class Note extends Model
 {
     use HasFactory;
@@ -18,7 +42,7 @@ class Note extends Model
         'folder_id',
     ];
 
-    private $fullResource = false;
+    private $withAttachmentsResource = false;
 
     public function __construct(array $attributes = [])
     {
@@ -27,10 +51,10 @@ class Note extends Model
     }
 
     /**
-     * @throws ModelNotSavedException
+     * @throws RecordDoesntExistException
      */
     public function addAttachments($attachmentsData) {
-        if (!$this->id) throw new ModelNotSavedException();
+        if (!$this->id) throw new RecordDoesntExistException();
 
         $attachments = [];
 
@@ -40,35 +64,42 @@ class Note extends Model
         $this->attachments()->saveMany($attachments);
     }
 
-    public function withFullResource() {
-        return $this->fullResource;
+    public function isWithAttachments(): bool
+    {
+        return $this->withAttachmentsResource;
     }
 
-    public function setWithFullResource() {
-        $this->fullResource = true;
+    public function setWithAttachments() {
+        $this->withAttachmentsResource = true;
     }
 
-    public function attachments() {
+    public function attachments(): HasMany
+    {
         return $this->hasMany(Attachment::class, 'note_id', 'id');
     }
 
-    public function folder() {
+    public function folder(): BelongsTo
+    {
         return $this->belongsTo(Folder::class, 'folder_id', 'id');
     }
 
-    public function category() {
+    public function category(): BelongsTo
+    {
         return $this->belongsTo(Category::class, 'category_id', 'id');
     }
 
-    public function author() {
+    public function author(): BelongsTo
+    {
         return $this->belongsTo(User::class, 'user_id', 'id');
     }
 
-    public function comments() {
+    public function comments(): HasMany
+    {
         return $this->hasMany(Comment::class, 'note_id', 'id');
     }
 
-    public function sharedWith() {
+    public function sharedWith(): BelongsToMany
+    {
         return $this->belongsToMany(User::class, 'note_users', 'note_id', 'user_id')->withPivot('access_level_id');
     }
 }

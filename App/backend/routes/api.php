@@ -1,6 +1,5 @@
 <?php
 
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -14,37 +13,44 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-// Auth routes
-Route::post('/register', [\App\Http\Controllers\AuthController::class, 'register']);
-Route::post('/login', [\App\Http\Controllers\AuthController::class, 'login']);
-Route::middleware(['api-token'])->delete('/logout', [\App\Http\Controllers\AuthController::class, 'logout']);
-Route::middleware(['api-token'])->get('/user', [\App\Http\Controllers\AuthController::class, 'getUserByToken']);
+/** ==================================================
+ * Separate Sonet API from others ----------------- */
 
-// Routes with authorization
-Route::middleware(['api-token'])->group(function () {
+Route::prefix('sonet')->group(function () {
 
-    // User routes
-    Route::options('/user', [\App\Http\Controllers\AuthController::class, 'checkToken']);
+    /** Auth --------------- */
+    Route::post('/register', [\App\Http\Controllers\AuthController::class, 'register']);
+    Route::post('/login', [\App\Http\Controllers\AuthController::class, 'login']);
+    Route::middleware(['api-token'])->delete('/logout', [\App\Http\Controllers\AuthController::class, 'logout']);
+    Route::middleware(['api-token'])->get('/user', [\App\Http\Controllers\AuthController::class, 'getAuthenticatedUser']);
 
-    // Note routes
-    Route::get('/notes', [\App\Http\Controllers\NoteController::class, 'index']);
-    Route::get('/notes/{note}', [\App\Http\Controllers\NoteController::class, 'show']);
-    Route::post('/notes', [\App\Http\Controllers\NoteController::class, 'store']);
-    Route::delete('/notes/{note}', [\App\Http\Controllers\NoteController::class, 'destroy']);
+    /** Authorization require --------------- */
+    Route::middleware(['api-token'])->group(function () {
 
-    // Folder routes
-    Route::get('/folders', [\App\Http\Controllers\FolderController::class, 'index']);
-    Route::post('/folders', [\App\Http\Controllers\FolderController::class, 'store']);
-    Route::delete('/folders/{folder}', [\App\Http\Controllers\FolderController::class, 'destroy']);
+        /** User --------------- */
+        Route::options('/user', [\App\Http\Controllers\AuthController::class, 'checkToken']);
 
-    // Categories routes
-    Route::get('/categories', [\App\Http\Controllers\CategoryController::class, 'index']);
-    Route::post('/categories', [\App\Http\Controllers\CategoryController::class, 'store']);
-    Route::delete('/categories/{category}', [\App\Http\Controllers\FolderController::class, 'destroy']);
+        /** Notes --------------- */
+        Route::get('/notes', [\App\Http\Controllers\NoteController::class, 'index']);
+        Route::get('/notes/{note}', [\App\Http\Controllers\NoteController::class, 'show']);
+        Route::post('/notes', [\App\Http\Controllers\NoteController::class, 'store']);
+        Route::delete('/notes/{note}', [\App\Http\Controllers\NoteController::class, 'destroy']);
+
+        /** Folders --------------- */
+        Route::get('/folders', [\App\Http\Controllers\FolderController::class, 'index']);
+        Route::post('/folders', [\App\Http\Controllers\FolderController::class, 'store']);
+        Route::delete('/folders/{folder}', [\App\Http\Controllers\FolderController::class, 'destroy']);
+
+        /** Categories --------------- */
+        Route::get('/categories', [\App\Http\Controllers\CategoryController::class, 'index']);
+        Route::post('/categories', [\App\Http\Controllers\CategoryController::class, 'store']);
+        Route::delete('/categories/{category}', [\App\Http\Controllers\FolderController::class, 'destroy']);
+
+    });
+
+
+
+    /** Test --------------- */
+    Route::get('/test', [\App\Http\Controllers\Controller::class, 'test']);
 
 });
-
-
-
-// Test route
-Route::get('/test', [\App\Http\Controllers\Controller::class, 'test']);

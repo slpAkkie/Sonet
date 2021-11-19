@@ -4,10 +4,10 @@ namespace App\Http\Resources;
 
 class TestResource extends CommonResource
 {
-    public function __construct()
+    public function toArray($request): array
     {
-        parent::__construct([
-            'message' => 'test'
-        ]);
+        return [
+            'message' => 'Тест',
+        ];
     }
 }

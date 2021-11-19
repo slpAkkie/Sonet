@@ -61,7 +61,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"login\": \"admin\",\r\n    \"password\": \"admin\"\r\n}",
+							"raw": "{\r\n    \"login\": \"root\",\r\n    \"password\": \"root\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -175,7 +175,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"title\": \"Название заметки\",\r\n    \"body\": \"Тут какое-то тело\",\r\n    \"category_id\": null,\r\n    \"folder_id\": null,\r\n    \"attachments\": [\r\n        {\r\n            \"title\": \"Название файла\",\r\n            \"path\": \"/storage/files/file.ext\"\r\n        }\r\n    ]\r\n}",
+							"raw": "{\r\n    \"title\": \"Название заметки\",\r\n    \"body\": \"Тут какое-то тело\",\r\n    \"category_id\": null,\r\n    \"folder_id\": null\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -397,11 +397,7 @@
 	"variable": [
 		{
 			"key": "host",
-			"value": "api.localhost"
-		},
-		{
-			"key": "api_token",
-			"value": ""
+			"value": "api.localhost/sonet"
 		}
 	]
 }

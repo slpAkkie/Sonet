@@ -127,7 +127,7 @@ CREATE TABLE `comments` (
 CREATE TABLE `access_levels` (
   `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT,
   `title` varchar(128) NOT NULL,
-  `readonly` tinyint NOT NULL,
+  `readonly` boolean NOT NULL,
   `created_at` timestamp NULL,
   `updated_at` timestamp NULL,
 

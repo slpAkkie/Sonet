@@ -2,7 +2,7 @@
 
 namespace App\Http\Requests;
 
-class LoginRequest extends ApiRequest
+final class LoginRequest extends ApiRequest
 {
 
     /**
@@ -13,8 +13,8 @@ class LoginRequest extends ApiRequest
     public function rules(): array
     {
         return [
-            'login'     => 'required',
-            'password'  => 'required'
+            'login'    => 'required',
+            'password' => 'required'
         ];
     }
 }

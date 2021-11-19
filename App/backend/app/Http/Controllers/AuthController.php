@@ -2,33 +2,45 @@
 
 namespace App\Http\Controllers;
 
+use App\Exceptions\LoginIncorrectException;
 use App\Exceptions\PasswordIncorrectException;
-use App\Exceptions\UserNotFoundException;
 use App\Http\Requests\LoginRequest;
 use App\Http\Requests\RegisterRequest;
+use App\Http\Resources\CommonResource;
 use App\Http\Resources\LogoutResource;
+use App\Http\Resources\OkResource;
 use App\Http\Resources\UserCreatedResource;
 use App\Http\Resources\UserResource;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 
-class AuthController extends Controller
+final class AuthController extends Controller
 {
+    /**
+     * User registration
+     *
+     * @param RegisterRequest $request
+     * @return UserCreatedResource
+     */
     public function register(RegisterRequest $request): UserCreatedResource
     {
-        $user = new User($request->all());
-        $user->setPassword($request->get('password'));
+        $user = User::new($request->all());
 
         return UserCreatedResource::make($user);
     }
 
     /**
+     * Try to login with provided data
+     *
      * @throws PasswordIncorrectException
-     * @throws UserNotFoundException
+     * @throws LoginIncorrectException
      */
-    public function login(LoginRequest $request) {
+    public function login(LoginRequest $request): UserResource
+    {
+        /** @var User $user */
         $user = User::findByLogin($request->get('login'));
-        if (!$user) throw new UserNotFoundException();
+
+        if (!$user) throw new LoginIncorrectException();
         elseif (!$user->checkPassword($request->get('password'))) throw new PasswordIncorrectException();
 
         $user->generateToken();
@@ -36,17 +48,35 @@ class AuthController extends Controller
         return UserResource::make($user);
     }
 
-    public function logout() {
-        Auth::user()->removeToken();
+    /**
+     * Handle logout
+     *
+     * @return LogoutResource
+     */
+    public function logout(): LogoutResource
+    {
+        /** @var User $user */
+        $user = Auth::user();
+        $user->removeToken();
 
         return LogoutResource::make();
     }
 
-    public function getUserByToken() {
+    /**
+     * @return UserResource
+     */
+    public function getAuthenticatedUser(): UserResource
+    {
         return UserResource::make(Auth::user());
     }
 
-    public function checkToken() {
-        return \App\Http\Resources\CommonResource::make(['message' => 'ok']);
+    /**
+     * Return ok, because this method allowed only for successfully authenticated users
+     *
+     * @return CommonResource
+     */
+    public function checkToken(): CommonResource
+    {
+        return OkResource::make();
     }
 }

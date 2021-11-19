@@ -2,27 +2,27 @@
 
 namespace App\Http\Middleware;
 
-use App\Exceptions\ApiTokenAuthorizationException;
+use App\Exceptions\NoApiTokenProvidedException;
 use App\Models\User;
 use Closure;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
-class ApiToken
+final class ApiToken
 {
     /**
-     * Handle an incoming request.
+     * Check if bearer api token was sent
      *
-     * @param \Illuminate\Http\Request $request
-     * @param \Closure $next
+     * @param Request $request
+     * @param Closure $next
      * @return mixed
-     * @throws ApiTokenAuthorizationException
+     * @throws NoApiTokenProvidedException
      */
     public function handle(Request $request, Closure $next)
     {
-        if (!$request->bearerToken()) throw new ApiTokenAuthorizationException();
+        if (!$request->bearerToken()) throw new NoApiTokenProvidedException();
 
-        Auth::login(User::findByToken($request->bearerToken()));
+        Auth::login(User::findByTokenOrFail($request->bearerToken()));
         return $next($request);
     }
 }

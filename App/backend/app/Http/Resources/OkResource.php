@@ -2,12 +2,12 @@
 
 namespace App\Http\Resources;
 
-final class LogoutResource extends CommonResource
+final class OkResource extends CommonResource
 {
     public function toArray($request): array
     {
         return [
-            'message' => 'Выход',
+            'message' => 'OK',
         ];
     }
 }

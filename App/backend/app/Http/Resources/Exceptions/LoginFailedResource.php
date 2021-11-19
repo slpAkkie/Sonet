@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Http\Resources;
+namespace App\Http\Resources\Exceptions;
 
-class LoginFailedResource extends ValidationFailedResource
+final class LoginFailedResource extends ValidationFailedResource
 {
     public function __construct()
     {

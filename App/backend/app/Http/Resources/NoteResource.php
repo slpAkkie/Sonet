@@ -2,38 +2,35 @@
 
 namespace App\Http\Resources;
 
+use App\Models\Note;
 use Illuminate\Http\Resources\Json\JsonResource;
 use Illuminate\Support\Carbon;
 
-class NoteResource extends JsonResource
+/**
+ * @mixin Note
+ */
+final class NoteResource extends JsonResource
 {
-    public function toArray($request)
+    public function toArray($request): array
     {
         return [
             'id' => $this->id,
             'title' => $this->title,
             'body' => $this->body,
-            'category' => $this->when($this->category, function () {
-                return [
-                    'id' => $this->category->id,
-                    'title' => $this->category->title,
-                    'color' => $this->category->color,
-                ];
-            }),
-            $this->mergeWhen(!$this->withFullResource(), [
-                'folder_id' => $this->folder_id,
-            ]),
 
-            $this->mergeWhen($this->withFullResource(), [
-                'folder' => $this->when($this->folder, function () {
-                    return [
-                        'id' => $this->folder->id,
-                        'title' => $this->folder->title,
-                    ];
-                }),
+            'category' => $this->when(!!$this->category, [
+                'id' => $this->category->id,
+                'title' => $this->category->title,
+                'color' => $this->category->color,
+            ]),
+            'folder' => $this->when(!!$this->folder, [
+                'id' => $this->folder->id,
+                'title' => $this->folder->title,
+            ]),
+            $this->mergeWhen($this->isWithAttachments(), [
                 'attachments' => $this->when($this->attachments->count(), function () {
                     return AttachmentResource::collection($this->attachments);
-                }),
+                }, []),
             ]),
 
             'created_at' => Carbon::parse($this->created_at)->toDateTimeLocalString(),

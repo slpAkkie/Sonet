@@ -6,24 +6,50 @@ use App\Http\Requests\StoreCategoryRequest;
 use App\Http\Resources\CategoryResource;
 use App\Http\Resources\CommonResource;
 use App\Models\Category;
+use App\Models\User;
+use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 use Illuminate\Support\Facades\Auth;
 
 class CategoryController extends Controller
 {
-    public function index() {
-        return CategoryResource::collection(Auth::user()->categories()->orderBy('order', 'DESC')->get());
+    /**
+     * Show all user's categories
+     *
+     * @return AnonymousResourceCollection
+     */
+    public function index(): AnonymousResourceCollection
+    {
+        /** @var User $user */
+        $user = Auth::user();
+
+        return CategoryResource::collection($user->categories()->orderByDesc('order')->get());
     }
 
-    public function store(StoreCategoryRequest $request) {
+    /**
+     * Store new user's category
+     *
+     * @param StoreCategoryRequest $request
+     * @return CategoryResource
+     */
+    public function store(StoreCategoryRequest $request): CategoryResource
+    {
         ($category = new Category($request->all()))->save();
 
         return CategoryResource::make($category);
     }
 
-    public function destroy(Category $category) {
+    /**
+     * Delete user's category
+     *
+     * @param Category $category
+     * @return CommonResource
+     */
+    public function destroy(Category $category): CommonResource
+    {
         $category->delete();
+
         return CommonResource::make([
-            'message' => 'Deleted'
+            'message' => 'Удалено'
         ]);
     }
 }

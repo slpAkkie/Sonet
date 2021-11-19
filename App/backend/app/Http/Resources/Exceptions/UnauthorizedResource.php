@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Http\Resources;
+namespace App\Http\Resources\Exceptions;
 
-class AuthorizationExceptionResource extends CommonErrorResource
+final class UnauthorizedResource extends CommonErrorResource
 {
     public function __construct()
     {

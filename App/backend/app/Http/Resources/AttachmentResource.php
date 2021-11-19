@@ -2,9 +2,14 @@
 
 namespace App\Http\Resources;
 
-class AttachmentResource extends CommonResource
+use App\Models\Attachment;
+
+/**
+ * @mixin Attachment
+ */
+final class AttachmentResource extends CommonResource
 {
-    public function toArray($request)
+    public function toArray($request): array
     {
         return [
             'id' => $this->id,
