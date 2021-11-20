@@ -8,9 +8,11 @@ use Illuminate\Http\Resources\Json\JsonResource;
 
 abstract class CommonResource extends JsonResource
 {
-    /**
-     * ==================================================
-     * Override ------------------------------------- */
+    /*
+    |--------------------------------------------------
+    | Override
+    |--------------------------------------------------
+    */
 
     public function __construct($resource = null)
     {
@@ -18,14 +20,14 @@ abstract class CommonResource extends JsonResource
     }
 
     /**
-     * The "data" wrapper key
+     * The "data" wrapper key.
      *
      * @var string
      */
     public static $wrap = 'data';
 
     /**
-     * Set status code into the response data
+     * Set status code into the response data.
      *
      * @param Request $request
      * @return int[]
@@ -38,7 +40,7 @@ abstract class CommonResource extends JsonResource
     }
 
     /**
-     * Set status code as HTTP status code
+     * Set status code as HTTP status code.
      *
      * @param Request $request
      * @param JsonResponse $response
@@ -50,19 +52,21 @@ abstract class CommonResource extends JsonResource
 
 
 
-    /**
-     * ==================================================
-     * Customs ------------------------------------- */
+    /*
+    |--------------------------------------------------
+    | Custom properties
+    |--------------------------------------------------
+    */
 
     /**
-     * The response code
+     * The response code.
      *
      * @var int
      */
     protected $response_code;
 
     /**
-     * Get applied status code
+     * Get applied status code.
      *
      * @return int
      */

@@ -2,7 +2,7 @@
 
 namespace App\Http\Requests;
 
-class StoreCategoryRequest extends ApiRequest
+final class StoreCategoryRequest extends ApiRequest
 {
     /**
      * Get the validation rules that apply to the request.

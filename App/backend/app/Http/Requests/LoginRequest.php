@@ -14,7 +14,7 @@ final class LoginRequest extends ApiRequest
     {
         return [
             'login'    => 'required',
-            'password' => 'required'
+            'password' => 'required',
         ];
     }
 }

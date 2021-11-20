@@ -8,10 +8,10 @@ use Closure;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
-final class ApiToken
+final class AuthenticateWithToken
 {
     /**
-     * Check if bearer api token was sent
+     * Check if bearer api token was sent.
      *
      * @param Request $request
      * @param Closure $next

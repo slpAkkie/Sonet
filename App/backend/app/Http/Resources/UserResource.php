@@ -2,12 +2,10 @@
 
 namespace App\Http\Resources;
 
+use App\Models\User;
+
 /**
- * @property string first_name
- * @property string last_name
- * @property string login
- * @property string email
- * @property string api_token
+ * @mixin User
  */
 class UserResource extends CommonResource
 {

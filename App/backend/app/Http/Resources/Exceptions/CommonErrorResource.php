@@ -7,9 +7,11 @@ use Illuminate\Http\JsonResponse;
 
 abstract class CommonErrorResource extends CommonResource
 {
-    /**
-     * ==================================================
-     * Override ------------------------------------- */
+    /*
+    |--------------------------------------------------
+    | Override
+    |--------------------------------------------------
+    */
 
     public function __construct($message, $response_code, $metadata = [])
     {
@@ -21,7 +23,7 @@ abstract class CommonErrorResource extends CommonResource
     }
 
     /**
-     * The "data" wrapper key
+     * The "data" wrapper key.
      *
      * @var string
      */
@@ -36,26 +38,28 @@ abstract class CommonErrorResource extends CommonResource
 
 
 
-    /**
-     * ==================================================
-     * Customs ------------------------------------- */
+    /*
+    |--------------------------------------------------
+    | Custom properties
+    |--------------------------------------------------
+    */
 
     /**
-     * The error message
+     * The error message.
      *
      * @var int
      */
     protected $message;
 
     /**
-     * The error metadata that should be injected into the response data
+     * The error metadata that should be injected into the response data.
      *
      * @var int
      */
     protected $metadata;
 
     /**
-     * Create an HTTP response that represents the object
+     * Create an HTTP response that represents the object.
      *
      * @return JsonResponse
      */

@@ -17,7 +17,7 @@ use Illuminate\Support\Facades\Auth;
 final class AuthController extends Controller
 {
     /**
-     * User registration
+     * User registration.
      *
      * @param RegisterRequest $request
      * @return UserCreatedResource
@@ -30,14 +30,13 @@ final class AuthController extends Controller
     }
 
     /**
-     * Try to login with provided data
+     * Try to login with provided data.
      *
      * @throws PasswordIncorrectException
      * @throws LoginIncorrectException
      */
     public function login(LoginRequest $request): UserResource
     {
-        /** @var User $user */
         $user = User::findByLogin($request->get('login'));
 
         if (!$user) throw new LoginIncorrectException();
@@ -49,7 +48,28 @@ final class AuthController extends Controller
     }
 
     /**
-     * Handle logout
+     * Return ok, because this method allowed only for successfully authenticated users.
+     * Necessary to check the correctness of the saved token on the client.
+     *
+     * @return CommonResource
+     */
+    public function verifyUser(): CommonResource
+    {
+        return OkResource::make();
+    }
+
+    /**
+     * Get information about authenticated user.
+     *
+     * @return UserResource
+     */
+    public function identify(): UserResource
+    {
+        return UserResource::make(Auth::user());
+    }
+
+    /**
+     * Handle logout.
      *
      * @return LogoutResource
      */
@@ -60,23 +80,5 @@ final class AuthController extends Controller
         $user->removeToken();
 
         return LogoutResource::make();
-    }
-
-    /**
-     * @return UserResource
-     */
-    public function getAuthenticatedUser(): UserResource
-    {
-        return UserResource::make(Auth::user());
-    }
-
-    /**
-     * Return ok, because this method allowed only for successfully authenticated users
-     *
-     * @return CommonResource
-     */
-    public function checkToken(): CommonResource
-    {
-        return OkResource::make();
     }
 }

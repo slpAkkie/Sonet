@@ -2,12 +2,12 @@
 
 namespace App\Http\Resources;
 
-class DeletedResource extends CommonResource
+final class DeletedResource extends CommonResource
 {
     public function toArray($request): array
     {
         return [
-            'message' => 'Удалено'
+            'message' => 'Удалено',
         ];
     }
 }

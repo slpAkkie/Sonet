@@ -31,7 +31,7 @@ final class NoteResource extends JsonResource
                     'title' => $this->folder->title,
                 ];
             }, null),
-            $this->mergeWhen($this->isWithAttachments(), [
+            $this->mergeWhen($this->isResourceWithAttachments(), [
                 'attachments' => $this->when($this->attachments->count(), function () {
                     return AttachmentResource::collection($this->attachments);
                 }, []),

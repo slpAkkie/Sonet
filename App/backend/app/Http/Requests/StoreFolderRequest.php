@@ -2,7 +2,7 @@
 
 namespace App\Http\Requests;
 
-class StoreFolderRequest extends ApiRequest
+final class StoreFolderRequest extends ApiRequest
 {
     /**
      * Get the validation rules that apply to the request.
@@ -12,7 +12,7 @@ class StoreFolderRequest extends ApiRequest
     public function rules(): array
     {
         return [
-            'title' => 'required'
+            'title' => 'required',
         ];
     }
 }

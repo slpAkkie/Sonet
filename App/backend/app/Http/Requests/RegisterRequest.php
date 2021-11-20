@@ -16,7 +16,7 @@ final class RegisterRequest extends ApiRequest
             'last_name'  => 'required',
             'login'      => 'required|unique:users,login',
             'email'      => 'required|email|unique:users,email',
-            'password'   => 'required|confirmed'
+            'password'   => 'required|confirmed',
         ];
     }
 }

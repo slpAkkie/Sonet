@@ -81,17 +81,34 @@
 					"response": []
 				},
 				{
-					"name": "Check user token",
+					"name": "Verify user",
 					"request": {
-						"method": "OPTIONS",
+						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{host}}/user",
+							"raw": "{{host}}/verify-user",
 							"host": [
 								"{{host}}"
 							],
 							"path": [
-								"user"
+								"verify-user"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Identify user",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/identify",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"identify"
 							]
 						}
 					},
@@ -156,13 +173,13 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{host}}/notes/1",
+							"raw": "{{host}}/notes/17",
 							"host": [
 								"{{host}}"
 							],
 							"path": [
 								"notes",
-								"1"
+								"17"
 							]
 						}
 					},
@@ -175,7 +192,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"title\": \"Название заметки\",\r\n    \"body\": \"Тут какое-то тело\",\r\n    \"category_id\": null,\r\n    \"folder_id\": null\r\n}",
+							"raw": "{\r\n    \"title\": \"Название заметки\",\r\n    \"body\": \"Тут какое-то тело\",\r\n    \"category_id\": null,\r\n    \"folder_id\": null,\r\n    \"attachments\": []\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -195,18 +212,45 @@
 					"response": []
 				},
 				{
-					"name": "Delete",
+					"name": "Update",
 					"request": {
-						"method": "DELETE",
+						"method": "PUT",
 						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"title\": \"Название заметки2\",\r\n    \"body\": \"Тут какое-то тело\",\r\n    \"category_id\": null,\r\n    \"folder_id\": null,\r\n    \"attachments\": []\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
 						"url": {
-							"raw": "{{host}}/notes/1",
+							"raw": "{{host}}/notes/17",
 							"host": [
 								"{{host}}"
 							],
 							"path": [
 								"notes",
-								"1"
+								"17"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/notes/12",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"notes",
+								"12"
 							]
 						}
 					},
@@ -345,23 +389,6 @@
 					"response": []
 				}
 			]
-		},
-		{
-			"name": "Test request",
-			"request": {
-				"method": "GET",
-				"header": [],
-				"url": {
-					"raw": "{{host}}/test",
-					"host": [
-						"{{host}}"
-					],
-					"path": [
-						"test"
-					]
-				}
-			},
-			"response": []
 		}
 	],
 	"auth": {
@@ -398,6 +425,10 @@
 		{
 			"key": "host",
 			"value": "api.localhost/sonet"
+		},
+		{
+			"key": "api_token",
+			"value": ""
 		}
 	]
 }

@@ -1,24 +1,35 @@
-# sonet
+# Sonet Frontend
 
-## Project setup
-```
+Frontend часть проекта [Sonet](https://github.com/slpAkkie/Sonet)
+
+## Начало работы
+
+```sh
 npm install
 ```
 
-### Compiles and hot-reloads for development
-```
+### Компиляция и запуск live-сервера
+
+```sh
 npm run serve
 ```
 
-### Compiles and minifies for production
-```
+### Компиляция и минификация для продакшена
+
+```sh
 npm run build
 ```
 
-### Lints and fixes files
-```
+### Линт и исправление файлов
+
+```sh
 npm run lint
 ```
 
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+## Автор
+
+Alexandr Shamanin (slpAkkie)
+
+## Версия
+
+1.x-alpha

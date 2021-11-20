@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Exceptions\NoApiTokenProvidedException;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -12,6 +13,11 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
 
 /**
+ * @property int|string|null id
+ * @property string first_name
+ * @property string last_name
+ * @property string login
+ * @property string email
  * @property string password_salt
  * @property string password
  * @property string|null api_token
@@ -24,9 +30,11 @@ class User extends Authenticatable
 
 
 
-    /**
-     * ==================================================
-     * Mass assignment ------------------------------- */
+    /*
+    |--------------------------------------------------
+    | Mass assignment
+    |--------------------------------------------------
+    */
 
     /**
      * The attributes that are mass assignable.
@@ -42,12 +50,14 @@ class User extends Authenticatable
 
 
 
-    /**
-     * ==================================================
-     * Methods --------------------------------------- */
+    /*
+    |--------------------------------------------------
+    | Methods
+    |--------------------------------------------------
+    */
 
     /**
-     * Register new User
+     * Register new User.
      *
      * @param $attributes
      * @return User
@@ -62,7 +72,7 @@ class User extends Authenticatable
     }
 
     /**
-     * Set user's password
+     * Set user's password.
      *
      * @param $password
      * @return $this
@@ -77,7 +87,7 @@ class User extends Authenticatable
     }
 
     /**
-     * Generate new salt
+     * Generate new salt.
      *
      * @return User
      */
@@ -89,7 +99,7 @@ class User extends Authenticatable
     }
 
     /**
-     * Match the password with the salt
+     * Match the password with the salt.
      *
      * @param string $password
      * @return string
@@ -100,7 +110,7 @@ class User extends Authenticatable
     }
 
     /**
-     * Hash user's salted password
+     * Hash user's salted password.
      *
      * @param string $password
      * @return string
@@ -111,7 +121,7 @@ class User extends Authenticatable
     }
 
     /**
-     * Find user by login
+     * Find user by login.
      *
      * @param $login
      * @return User|null
@@ -122,7 +132,7 @@ class User extends Authenticatable
     }
 
     /**
-     * Check if password correct for this user
+     * Check if password correct for this user.
      *
      * @param $password
      * @return bool
@@ -133,7 +143,7 @@ class User extends Authenticatable
     }
 
     /**
-     * Generate new token
+     * Generate new token.
      *
      * @return $this
      */
@@ -150,7 +160,7 @@ class User extends Authenticatable
     }
 
     /**
-     * Find user by token
+     * Find user by token.
      *
      * @param $api_token
      * @return User
@@ -165,7 +175,7 @@ class User extends Authenticatable
     }
 
     /**
-     * Remove user's token
+     * Remove user's token.
      *
      * @return $this
      */
@@ -179,12 +189,14 @@ class User extends Authenticatable
 
 
 
-    /**
-     * ==================================================
-     * Relations ------------------------------------- */
+    /*
+    |--------------------------------------------------
+    | Relations
+    |--------------------------------------------------
+    */
 
     /**
-     * User's notes
+     * User's notes.
      *
      * @return HasMany
      */
@@ -194,17 +206,37 @@ class User extends Authenticatable
     }
 
     /**
-     * User's notes shared with him
+     * User's notes ordered by updated_at column.
+     *
+     * @return Collection
+     */
+    public function notesOrderedByUpdate(): Collection
+    {
+        return $this->notes()->orderBy('updated_at')->get();
+    }
+
+    /**
+     * User's notes shared with him.
      *
      * @return BelongsToMany
      */
-    public function sharedWithMe(): BelongsToMany
+    public function contributorIn(): BelongsToMany
     {
         return $this->belongsToMany(Note::class, 'note_users', 'user_id', 'note_id')->withPivot('access_level_id');
     }
 
     /**
-     * User's created folders
+     * User's notes shared with him ordered by updated_at column.
+     *
+     * @return Collection
+     */
+    public function contributorInOrderedByUpdate(): Collection
+    {
+        return $this->contributorIn()->orderBy('updated_at')->get();
+    }
+
+    /**
+     * User's created folders.
      *
      * @return HasMany
      */
@@ -214,7 +246,7 @@ class User extends Authenticatable
     }
 
     /**
-     * User's created categories
+     * User's created categories.
      *
      * @return HasMany
      */
@@ -224,7 +256,7 @@ class User extends Authenticatable
     }
 
     /**
-     * User's comments
+     * User's comments.
      *
      * @return HasMany
      */

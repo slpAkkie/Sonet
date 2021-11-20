@@ -2,7 +2,7 @@
 
 namespace App\Models;
 
-use App\Exceptions\RecordDoesntExistException;
+use App\Observers\NoteObserver;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -35,6 +35,19 @@ class Note extends Model
 {
     use HasFactory;
 
+
+
+    /*
+    |--------------------------------------------------
+    | Mass assignment
+    |--------------------------------------------------
+    */
+
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var string[]
+     */
     protected $fillable = [
         'title',
         'body',
@@ -42,49 +55,167 @@ class Note extends Model
         'folder_id',
     ];
 
-    private $withAttachmentsResource = false;
 
-    public function __construct(array $attributes = [])
+
+    /*
+    |--------------------------------------------------
+    | Custom properties
+    |--------------------------------------------------
+    */
+
+    /**
+     * Determines whether the resource should output attachments.
+     *
+     * @var bool
+     */
+    private $resourceWithAttachments = false;
+
+    /**
+     * Attachments that must be stored after the note is saved.
+     *
+     * @var array
+     */
+    private $attachmentsToStore = [];
+
+
+
+    /*
+    |--------------------------------------------------
+    | Override
+    |--------------------------------------------------
+    */
+
+    /**
+     * Bootstrap the model and its traits.
+     *
+     * @return void
+     */
+    protected static function boot()
     {
-        $this->user_id = Auth::id();
-        parent::__construct($attributes);
+        parent::boot();
+
+        self::observe(new NoteObserver);
     }
 
-    public function isWithAttachments(): bool
+
+
+    /*
+    |--------------------------------------------------
+    | Methods
+    |--------------------------------------------------
+    */
+
+    /**
+     * Create new Note.
+     *
+     * @param $attributes
+     * @return Note
+     */
+    static public function new($attributes): Note
     {
-        return $this->withAttachmentsResource;
+        $note = new self($attributes);
+
+        $note->user_id = Auth::id();
+
+        if (key_exists('attachments', $attributes)) $note->attachmentsToStore = $attributes['attachments'];
+
+        return $note;
     }
 
-    public function setWithAttachments() {
-        $this->withAttachmentsResource = true;
+    /**
+     * Store all attachments to be stored.
+     */
+    public function storeAttachments()
+    {
+        // TODO: Store attachments
     }
 
+    /**
+     * Does the resource have to output attachments.
+     *
+     * @return bool
+     */
+    public function isResourceWithAttachments(): bool
+    {
+        return $this->resourceWithAttachments;
+    }
+
+    /**
+     * Set the resource to output attachments.
+     *
+     * @return $this
+     */
+    public function setResourceWithAttachments(): Note
+    {
+        $this->resourceWithAttachments = true;
+
+        return $this;
+    }
+
+
+
+    /*
+    |--------------------------------------------------
+    | Relations
+    |--------------------------------------------------
+    */
+
+    /**
+     * Note attachments.
+     *
+     * @return HasMany
+     */
     public function attachments(): HasMany
     {
         return $this->hasMany(Attachment::class, 'note_id', 'id');
     }
 
+    /**
+     * Note folder.
+     *
+     * @return BelongsTo
+     */
     public function folder(): BelongsTo
     {
         return $this->belongsTo(Folder::class, 'folder_id', 'id');
     }
 
+    /**
+     * Note category.
+     *
+     * @return BelongsTo
+     */
     public function category(): BelongsTo
     {
         return $this->belongsTo(Category::class, 'category_id', 'id');
     }
 
+    /**
+     * Note author.
+     *
+     * @return BelongsTo
+     */
     public function author(): BelongsTo
     {
         return $this->belongsTo(User::class, 'user_id', 'id');
     }
 
+    /**
+     * Note comments.
+     *
+     * @return HasMany
+     */
     public function comments(): HasMany
     {
         return $this->hasMany(Comment::class, 'note_id', 'id');
     }
 
-    public function sharedWith(): BelongsToMany
+    /**
+     * Note contributors.
+     *
+     * @return BelongsToMany
+     */
+    public function contributors(): BelongsToMany
     {
         return $this->belongsToMany(User::class, 'note_users', 'note_id', 'user_id')->withPivot('access_level_id');
     }
