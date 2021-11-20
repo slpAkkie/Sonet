@@ -12,12 +12,12 @@
         <Textarea class="popup__textarea" v-model="data.body" />
         <label>Папка</label>
         <select class="c-input" name="folder_id" id="folder_id" v-model="data.folder_id">
-          <option value="">-----</option>
+          <option value="">--- Отсутствует ---</option>
           <option v-for="folder in folders" :key="folder.id" :value="folder.id">{{ folder.title }}</option>
         </select>
         <label>Категория</label>
         <select class="c-input" name="category_id" id="category_id" v-model="data.category_id">
-          <option value="">-----</option>
+          <option value="">--- Отсутствует ---</option>
           <option v-for="category in categories" :key="category.id" :value="category.id">{{ category.title }}</option>
         </select>
         <div class="popup__controls">

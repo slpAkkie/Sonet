@@ -6,6 +6,7 @@ use App\Exceptions\RecordDoesntExistException;
 use App\Http\Requests\ShowNoteRequest;
 use App\Http\Requests\StoreNoteRequest;
 use App\Http\Resources\CommonResource;
+use App\Http\Resources\DeletedResource;
 use App\Http\Resources\NoteResource;
 use App\Models\Note;
 use App\Models\User;
@@ -24,7 +25,7 @@ class NoteController extends Controller
         /** @var User $user */
         $user = Auth::user();
 
-        return NoteResource::collection($user->notes()->orderBy('update_at')->get());
+        return NoteResource::collection($user->notes()->orderBy('updated_at')->get());
     }
 
     /**
@@ -44,14 +45,11 @@ class NoteController extends Controller
      *
      * @param StoreNoteRequest $request
      * @return NoteResource
-     * @throws RecordDoesntExistException
      */
     public function store(StoreNoteRequest $request): NoteResource
     {
         $note = new Note($request->all());
         $note->save();
-
-        if ($request->get('attachments')) $note->addAttachments($request->get('attachments'));
 
         return NoteResource::make($note);
     }
@@ -60,14 +58,12 @@ class NoteController extends Controller
      * Delete user's note
      *
      * @param Note $note
-     * @return CommonResource
+     * @return DeletedResource
      */
-    public function destroy(Note $note): CommonResource
+    public function destroy(Note $note): DeletedResource
     {
         $note->delete();
 
-        return CommonResource::make([
-            'message' => 'Deleted'
-        ]);
+        return DeletedResource::make();
     }
 }

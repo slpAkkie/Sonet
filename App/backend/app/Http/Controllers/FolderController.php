@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreFolderRequest;
 use App\Http\Resources\CommonResource;
+use App\Http\Resources\DeletedResource;
 use App\Http\Resources\FolderResource;
 use App\Models\Folder;
 use App\Models\User;
@@ -42,14 +43,12 @@ class FolderController extends Controller
      * Delete user's folder
      *
      * @param Folder $folder
-     * @return CommonResource
+     * @return DeletedResource
      */
-    public function destroy(Folder $folder): CommonResource
+    public function destroy(Folder $folder): DeletedResource
     {
         $folder->delete();
 
-        return CommonResource::make([
-            'message' => 'Deleted'
-        ]);
+        return DeletedResource::make();
     }
 }

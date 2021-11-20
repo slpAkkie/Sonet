@@ -69,7 +69,7 @@ export default {
     },
     handleError(error) {
       const errorData = error.response.data
-      if (errorData.code === 422) return
+      if (errorData.code !== 422) return
 
       this.formErrors = errorData.error.errors
       this.postData.password = ''

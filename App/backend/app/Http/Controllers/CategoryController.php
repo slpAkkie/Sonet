@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreCategoryRequest;
 use App\Http\Resources\CategoryResource;
 use App\Http\Resources\CommonResource;
+use App\Http\Resources\DeletedResource;
 use App\Models\Category;
 use App\Models\User;
 use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
@@ -42,14 +43,12 @@ class CategoryController extends Controller
      * Delete user's category
      *
      * @param Category $category
-     * @return CommonResource
+     * @return DeletedResource
      */
-    public function destroy(Category $category): CommonResource
+    public function destroy(Category $category): DeletedResource
     {
         $category->delete();
 
-        return CommonResource::make([
-            'message' => 'Удалено'
-        ]);
+        return DeletedResource::make();
     }
 }

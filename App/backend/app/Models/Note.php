@@ -50,20 +50,6 @@ class Note extends Model
         parent::__construct($attributes);
     }
 
-    /**
-     * @throws RecordDoesntExistException
-     */
-    public function addAttachments($attachmentsData) {
-        if (!$this->id) throw new RecordDoesntExistException();
-
-        $attachments = [];
-
-        foreach ($attachmentsData as $attachment)
-            $attachments[] = new Attachment($attachment);
-
-        $this->attachments()->saveMany($attachments);
-    }
-
     public function isWithAttachments(): bool
     {
         return $this->withAttachmentsResource;

@@ -5,15 +5,15 @@
     <div class="note-editor__row">
       <div class="note-editor__col">
         <div>Папка</div>
-        <select class="c-input" name="folder_id" id="folder_id" v-model="note.folder.id">
-          <option value="">-----</option>
+        <select class="c-input" name="folder_id" id="folder_id" v-model="note.folder_id">
+          <option value="">--- Отсутствует ---</option>
           <option v-for="folder in folders" :key="folder.id" :value="folder.id">{{ folder.title }}</option>
         </select>
       </div>
       <div class="note-editor__col">
         <div>Категория</div>
-        <select class="c-input" name="category_id" id="category_id" v-model="note.category.id">
-          <option value="">-----</option>
+        <select class="c-input" name="category_id" id="category_id" v-model="note.category_id">
+          <option value="">--- Отсутствует ---</option>
           <option v-for="category in categories" :key="category.id" :value="category.id">{{ category.title }}</option>
         </select>
       </div>
@@ -64,6 +64,8 @@ export default {
   methods: {
     handleResponse(response) {
       this.note = response.data.data
+      this.note.category_id = this.note.category?.id || ''
+      this.note.folder_id = this.note.folder?.id || ''
     },
     handleError() {
       alert('Something went wrong!')

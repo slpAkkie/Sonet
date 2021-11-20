@@ -126,8 +126,8 @@ export default createStore({
             || note.created_at.toLowerCase().match(regexp))
             && (state.folderQuery !== null ? (
               state.folderQuery === -1
-                  ? !note.folder_id
-                  : note.folder_id === state.folderQuery
+                  ? !note.folder?.id
+                  : note.folder?.id === state.folderQuery
             ) : true)
         )
       }

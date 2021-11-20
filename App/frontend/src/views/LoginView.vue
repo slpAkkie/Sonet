@@ -1,9 +1,9 @@
 <template>
   <Preloader :play="formDisabled" />
   <form v-show="!formDisabled" action="#" method="post" class="auth-form" @submit.prevent="tryLogin">
-    <Input type="text" name="login" placeholder="Ваш логин" v-model="postData.login" />
+    <Input type="text" autocomplete="username" name="login" placeholder="Ваш логин" v-model="postData.login" />
     <p class="auth-form__error-message" v-if="formErrors.login">{{ formErrors.login }}</p>
-    <Input type="password" name="password" placeholder="Ваш пароль" v-model="postData.password" />
+    <Input type="password" autocomplete="current-password" name="password" placeholder="Ваш пароль" v-model="postData.password" />
     <p class="auth-form__error-message" v-if="formErrors.password">{{ formErrors.password }}</p>
     <Button type="submit" value="Войти" />
   </form>

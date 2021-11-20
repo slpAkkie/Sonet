@@ -9,7 +9,7 @@ namespace App\Http\Resources;
  * @property string email
  * @property string api_token
  */
-final class UserResource extends CommonResource
+class UserResource extends CommonResource
 {
     public function toArray($request): array
     {

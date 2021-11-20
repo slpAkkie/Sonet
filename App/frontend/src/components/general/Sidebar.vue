@@ -77,7 +77,7 @@ export default {
       this.openFolder()
     },
     selectShared() {
-      this.openFolder(null, '/shared')
+      this.openFolder(-2)
     },
     selectWithoutFolder() {
       this.openFolder(-1)

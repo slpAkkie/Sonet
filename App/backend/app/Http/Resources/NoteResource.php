@@ -18,15 +18,19 @@ final class NoteResource extends JsonResource
             'title' => $this->title,
             'body' => $this->body,
 
-            'category' => $this->when(!!$this->category, [
-                'id' => $this->category->id,
-                'title' => $this->category->title,
-                'color' => $this->category->color,
-            ]),
-            'folder' => $this->when(!!$this->folder, [
-                'id' => $this->folder->id,
-                'title' => $this->folder->title,
-            ]),
+            'category' => $this->when(!!$this->category, function () {
+                return [
+                    'id' => $this->category->id,
+                    'title' => $this->category->title,
+                    'color' => $this->category->color,
+                ];
+            }, null),
+            'folder' => $this->when(!!$this->folder, function () {
+                return [
+                    'id' => $this->folder->id,
+                    'title' => $this->folder->title,
+                ];
+            }, null),
             $this->mergeWhen($this->isWithAttachments(), [
                 'attachments' => $this->when($this->attachments->count(), function () {
                     return AttachmentResource::collection($this->attachments);
