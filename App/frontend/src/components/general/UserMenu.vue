@@ -7,7 +7,7 @@
       <Button value="Выход" @click="tryLogout" appearance="danger" />
     </div>
   </div>
-  <Preloader :play="isLoading" :full-screen="true" />
+  <Preloader :show="isLoading" :full-screen="true" />
 </template>
 
 <script>
@@ -16,7 +16,6 @@ import Preloader from '../general/Preloader'
 
 export default {
   name: 'UserMenu',
-  emits: [ 'auth:event' ],
   components: {
     Button,
     Preloader,
@@ -32,13 +31,13 @@ export default {
     tryLogout() {
       this.isLoading = true
       this.axios
-          .delete('logout')
+          .delete('user/logout')
           .then(this.handleResponse)
           .finally(this.afterRequest)
     },
     handleResponse() {
-      this.$store.dispatch('removeUser')
-      this.$emit('auth:event', 'logout')
+      this.$store.dispatch('logout')
+      this.$router.push('/login')
     },
     afterRequest() {
       this.isLoading = false

@@ -1,5 +1,5 @@
 <template>
-  <Preloader :play="formDisabled" />
+  <Preloader :show="formDisabled"/>
   <form v-show="!formDisabled" action="#" method="post" class="auth-form" @submit.prevent="tryRegister">
     <Input type="text" name="first_name" placeholder="Ваше имя" v-model="postData.first_name" />
     <p class="auth-form__error-message" v-if="formErrors.first_name">{{ formErrors.first_name }}</p>
@@ -23,8 +23,7 @@ import Button from '../components/elements/Button'
 import Preloader from '../components/general/Preloader'
 
 export default {
-  name: 'RegisterView',
-  emits: [ 'auth:event' ],
+  name: 'Register',
   components: {
     Input,
     Button,
@@ -65,7 +64,7 @@ export default {
         .finally(this.afterRequest)
     },
     handleResponse() {
-      this.$emit('auth:event', 'register')
+      this.$router.push('/login')
     },
     handleError(error) {
       const errorData = error.response.data

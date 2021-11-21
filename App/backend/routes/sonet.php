@@ -20,9 +20,11 @@ Route::post('/login', [AuthController::class, 'login']);
 Route::middleware('auth.token')->group(function () {
 
     /** User ---------------------------------- */
-    Route::get('/verify-user', [AuthController::class, 'verifyUser']);
-    Route::get('/identify', [AuthController::class, 'identify']);
-    Route::delete('/logout', [AuthController::class, 'logout']);
+    Route::prefix('/user')->group(function () {
+        Route::get('/verify', [AuthController::class, 'verify']);
+        Route::get('/identify', [AuthController::class, 'identify']);
+        Route::delete('/logout', [AuthController::class, 'logout']);
+    });
 
     /** Notes --------------------------------- */
     Route::apiResource('/notes', NoteController::class);

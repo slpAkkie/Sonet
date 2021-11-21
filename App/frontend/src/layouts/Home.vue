@@ -1,9 +1,9 @@
 <template>
-  <Nav @auth:event="forwardAuthEvent" />
+  <Nav />
   <div class="page-wrapper">
     <div class="container page-container">
       <main class="page-main">
-        <router-view />
+        <slot></slot>
       </main>
       <Sidebar />
     </div>
@@ -12,19 +12,13 @@
 
 <script>
 import Nav from '../components/general/Nav'
-import Sidebar from '../components/general/Sidebar'
+import Sidebar from '../components/Home/Sidebar'
 
 export default {
   name: 'MainLayout',
-  emits: [ 'auth:event' ],
   components: {
     Nav,
     Sidebar,
-  },
-  methods: {
-    forwardAuthEvent(...params) {
-      this.$emit('auth:event', ...params)
-    },
   },
 }
 </script>

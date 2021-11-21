@@ -7,8 +7,8 @@
 </template>
 
 <script>
-import Button from '../../../components/elements/Button'
-import Input from '../../elements/Input'
+import Button from '../elements/Button'
+import Input from '../elements/Input'
 
 export default {
   name: 'ControlPanel',

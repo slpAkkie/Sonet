@@ -11,7 +11,7 @@
       <FolderRow title="Доступные мне" :withControls="false" @folder:select="selectShared" />
     </div>
     <hr class="sidebar__separator sidebar__separator_inactive">
-    <Preloader :play="isLoading" />
+    <Preloader :show="isLoading"/>
     <template v-if="!isLoading">
       <div v-if="isFolders" class="sidebar__list">
         <FolderRow
@@ -36,9 +36,9 @@
 
 <script>
 import Button from '../elements/Button'
-import FolderRow from './FolderRow'
-import FolderPopup from '../pages/MainView/FolderPopup'
-import Preloader from './Preloader'
+import FolderRow from '../general/FolderRow'
+import FolderPopup from '../Home/FolderPopup'
+import Preloader from '../general/Preloader'
 
 export default {
   name: 'Sidebar',
@@ -85,7 +85,7 @@ export default {
     selectFolder(id) {
       this.openFolder(id)
     },
-    openFolder(folderId = null, path = '/') {
+    openFolder(folderId = null, path = '/home/') {
       this.$store.commit('folderQuery', folderId)
 
       let routerLocationRaw = { path: path }

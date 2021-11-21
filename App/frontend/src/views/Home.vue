@@ -4,7 +4,7 @@
       @popup:new="openNewNote"
   />
 
-  <Preloader :play="isLoading" />
+  <Preloader :show="isLoading"/>
   <div v-if="isNotes" class="note-wrapper" :class="displayModeClass">
     <Note
         v-for="note in notes"
@@ -24,9 +24,9 @@
 
 <script>
 import Preloader from '../components/general/Preloader'
-import Note from '../components/pages/MainView/Note'
-import ControlPanel from '../components/pages/MainView/ControlPanel'
-import NotePopup from '../components/pages/MainView/NotePopup'
+import Note from '../components/Home/Note'
+import ControlPanel from '../components/Home/ControlPanel'
+import NotePopup from '../components/Home/NotePopup'
 
 export default {
   name: 'MainView',
@@ -67,7 +67,7 @@ export default {
       this.openedPopup = true
     },
     async openNote(id) {
-      this.$router.push(`/notes/${id}`)
+      await this.$router.push(`/notes/${id}`)
       // this.openedNote = Object.assign({}, await this.$store.dispatch('getNote', id))
       // this.openedPopup = true
     },
@@ -76,7 +76,7 @@ export default {
       this.openedNote = null
     },
   },
-  beforeCreate() {
+  beforeMount() {
     this.$store.dispatch('loadNotes')
     this.$store.dispatch('loadCategories')
   }

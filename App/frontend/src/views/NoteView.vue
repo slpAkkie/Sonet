@@ -1,5 +1,5 @@
 <template>
-  <Preloader :play="isLoading" />
+  <Preloader :show="isLoading"/>
   <div class="note-editor" v-if="noteLoaded">
     <Input class="note-editor__title" placeholder="Название" name="title" v-model="note.title" />
     <div class="note-editor__row">

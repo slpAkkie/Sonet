@@ -2,22 +2,26 @@ import { createApp } from 'vue'
 import App from './App.vue'
 import router from './router'
 import store from './store'
-import axios from 'axios';
+import axios from 'axios'
 import vueAxios from 'vue-axios'
 
 const app = createApp(App)
 
 // Set baseURL for API requests
-axios.defaults.baseURL = '//api.localhost/sonet/'
+axios.defaults.baseURL = 'https://api.akkie.ru/sonet/'
+
+// Handle errors for all request
 axios.interceptors.response.use(response => response, async error => {
-    if (error.response.data.code === 401) {
-        await store.dispatch('removeUser')
+    // Authorization error (Api token incorrect)
+    if (error.response.status === 401) {
+        await store.dispatch('logout')
         router.go(0)
     }
 
     return Promise.reject(error)
 })
 
+// Start application
 app
     // Plugins
     .use(store).use(router).use(vueAxios, axios)

@@ -53,7 +53,7 @@ final class AuthController extends Controller
      *
      * @return CommonResource
      */
-    public function verifyUser(): CommonResource
+    public function verify(): CommonResource
     {
         return OkResource::make();
     }

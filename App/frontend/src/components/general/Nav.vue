@@ -3,10 +3,10 @@
     <div class="container">
       <div class="nav__inner">
         <div class="nav__brand">
-          <h1 class="nav__brand-title">Sonet</h1>
+          <h1 class="nav__brand-title"><router-link to="/home">Sonet</router-link></h1>
         </div>
         <div class="nav__user-menu">
-          <UserMenu @auth:event="forwardAuthEvent" />
+          <UserMenu />
         </div>
       </div>
     </div>
@@ -18,14 +18,8 @@ import UserMenu from './UserMenu'
 
 export default {
   name: 'Nav',
-  emits: [ 'auth:event' ],
   components: {
     UserMenu,
-  },
-  methods: {
-    forwardAuthEvent(...params) {
-      this.$emit('auth:event', ...params)
-    }
   },
 }
 </script>

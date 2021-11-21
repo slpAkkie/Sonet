@@ -16,12 +16,16 @@ html {
   font-size: 10px;
 }
 
-input, textarea {
-  font-family: OpenSans, sans-serif;
-}
-
 body {
   font-size: 1.6rem;
+}
+
+li {
+  list-style-type: none;
+}
+
+input, textarea {
+  font-family: OpenSans, sans-serif;
 }
 
 img {

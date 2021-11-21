@@ -1,18 +1,12 @@
 <template>
   <div class="auth-form__wrapper">
-    <router-view @auth:event="forwardAuthEvent" />
+    <slot></slot>
   </div>
 </template>
 
 <script>
 export default {
-  name: 'AuthLayout',
-  emits: [ 'auth:event' ],
-  methods: {
-    forwardAuthEvent(...params) {
-      this.$emit('auth:event', ...params)
-    },
-  },
+  name: 'Auth',
 }
 </script>
 

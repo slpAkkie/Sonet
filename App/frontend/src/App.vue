@@ -1,54 +1,24 @@
 <template>
-  <component :is="getLayoutComponent" @auth:event="handleAuthEvent"></component>
+  <component :is="routeLayout">
+    <router-view></router-view>
+  </component>
 </template>
 
 <script>
-import AuthLayout from './layouts/AuthLayout'
-import MainLayout from './layouts/MainLayout'
+import Auth from './layouts/Auth'
+import Home from './layouts/Home'
 
 export default {
   name: 'App',
   components: {
-    AuthLayout,
-    MainLayout,
+    Auth,
+    Home,
   },
   computed: {
-    getLayoutComponent() {
-      return this.layoutKey ? this.layoutVariants[this.layoutKey].component : null
-    },
-  },
-  data: () => ({
-    layoutKey: null,
-    layoutVariants: {
-      auth: {
-        component: 'AuthLayout',
-        baseUrl: '/login',
-        beforeCallback: (vue) => {
-          vue.axios.defaults.headers.common['Authorization'] = undefined
-        },
-      },
-      main: {
-        component: 'MainLayout',
-        baseUrl: '/',
-        beforeCallback: (vue) => {
-          vue.axios.defaults.headers.common['Authorization'] = `Bearer ${vue.$store.getters.token}`
-        },
-      },
-    },
-  }),
-  methods: {
-    async setLayout(layoutKey, url = null) {
-      this.layoutVariants[layoutKey].beforeCallback(this)
-      await this.$router.replace(url || this.layoutVariants[layoutKey].baseUrl)
-      this.layoutKey = layoutKey
-    },
-    handleAuthEvent(event) {
-      if (event === 'login') this.setLayout('main')
-      else if (['register', 'logout'].includes(event)) this.setLayout('auth')
-    },
-  },
-  beforeMount() {
-    this.setLayout(this.$store.getters.isUser ? 'main' : 'auth')
+    routeLayout() {
+      const { layout } = this.$route.meta
+      return layout || 'div'
+    }
   },
 }
 </script>
