@@ -212,7 +212,7 @@ class User extends Authenticatable
      */
     public function notesOrderedByUpdate(): Collection
     {
-        return $this->notes()->orderBy('updated_at')->get();
+        return $this->notes()->orderByDesc('updated_at')->get();
     }
 
     /**
@@ -232,7 +232,7 @@ class User extends Authenticatable
      */
     public function contributorInOrderedByUpdate(): Collection
     {
-        return $this->contributorIn()->orderBy('updated_at')->get();
+        return $this->contributorIn()->orderByDesc('updated_at')->get();
     }
 
     /**

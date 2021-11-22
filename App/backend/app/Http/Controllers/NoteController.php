@@ -50,7 +50,7 @@ class NoteController extends Controller
     {
         Gate::authorize('view-note', $note);
 
-        $note->setResourceWithAttachments();
+        $note->setFullResource();
 
         return NoteResource::make($note);
     }

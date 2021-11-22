@@ -2,9 +2,10 @@
   <div class="user-menu__wrapper">
     <img class="user-menu__user-icon" src="@/assets/img/icons/user--flat-colored.png" alt="UserMenu" @click="toggle">
     <div v-if="isOpen" class="user-menu">
-      <div class="user-menu__first-name">{{ $store.getters.user.first_name }}</div>
+      <div class="user-menu__first-name">{{ first_name }}</div>
       <hr class="user-menu__separator">
-      <Button value="Выход" @click="tryLogout" appearance="danger" />
+      <Button class="user-menu__button" value="Настройки" @click="openSettings" />
+      <Button class="user-menu__button" value="Выход" @click="tryLogout" appearance="danger" />
     </div>
   </div>
   <Preloader v-if="isLoading" :full-screen="true" />
@@ -24,6 +25,11 @@ export default {
     isOpen: false,
     isLoading: false,
   }),
+  computed: {
+    first_name() {
+      return this.$store.getters.user.first_name || 'Загрузка...'
+    },
+  },
   methods: {
     toggle() {
       this.isOpen = !this.isOpen
@@ -36,6 +42,9 @@ export default {
     },
     afterRequest() {
       this.$router.push('/logout')
+    },
+    openSettings() {
+      this.$router.push('/settings')
     },
   },
 }
@@ -82,6 +91,12 @@ export default {
     //
     background-color: var(--gray-30);
     border-radius: .4rem;
+  }
+
+  &__button {
+    & + & {
+      margin-top: 1rem;
+    }
   }
 }
 </style>

@@ -29,7 +29,7 @@ export default {
       if (this.$route.name === 'IndexSharedNotes') pageTitle = 'Доступные мне'
       else if (this.$route.name === 'IndexSharedNotes') pageTitle = 'Доступные мне'
       else if (this.$route.name === 'IndexNotesWithoutFolder') pageTitle = 'Без папки'
-      else if (this.$route.params.folder_id) pageTitle = this.$store.getters.folder(this.$route.params.folder_id)?.title
+      else if (this.$route.params.folder_id) pageTitle = 'Папка: ' + this.$store.getters.folder(this.$route.params.folder_id)?.title
 
       return pageTitle || 'Мои заметки'
     },
@@ -50,10 +50,6 @@ export default {
 </script>
 
 <style lang="scss">
-.page-title {
-  margin-bottom: 1.5rem;
-}
-
 .notes-wrapper {
   display: grid;
   gap: 3rem;

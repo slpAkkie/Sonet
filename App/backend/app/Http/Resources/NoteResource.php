@@ -5,6 +5,7 @@ namespace App\Http\Resources;
 use App\Models\Note;
 use Illuminate\Http\Resources\Json\JsonResource;
 use Illuminate\Support\Carbon;
+use Illuminate\Support\Str;
 
 /**
  * @mixin Note
@@ -16,7 +17,7 @@ final class NoteResource extends JsonResource
         return [
             'id' => $this->id,
             'title' => $this->title,
-            'body' => $this->body,
+            'body' => $this->when($this->isResourceWithFullBody(), $this->body, Str::limit($this->body, 120)),
 
             'category' => $this->when(!!$this->category, function () {
                 return $this->category->id;

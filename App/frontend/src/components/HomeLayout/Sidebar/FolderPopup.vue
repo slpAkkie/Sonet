@@ -21,6 +21,7 @@ import Preloader from '../../Preloader'
 import Input from '../../controls/Input'
 import Button from '../../controls/Button'
 
+// TODO: Refactor
 export default {
   name: 'NotePopup',
   emits: [ 'popup:close' ],

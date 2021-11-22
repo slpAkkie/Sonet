@@ -36,29 +36,29 @@ export default {
 
 <style lang="scss">
 .page {
-&-wrapper {
-   min-height: calc(100vh - 9rem);
-   padding-top: 3rem;
-   padding-bottom: 3rem;
- //
- background-color: var(--gray-15);
- }
+  &-wrapper {
+    min-height: calc(100vh - 9rem);
+    padding-top: 3rem;
+    padding-bottom: 3rem;
+    //
+    background-color: var(--gray-15);
+  }
 
-&-container {
-   display: grid;
-   grid-template-rows: auto;
-   grid-template-columns: 1fr 30rem;
-   align-items: flex-start;
-   gap: 3rem;
+  &-container {
+    display: grid;
+    grid-template-rows: auto;
+    grid-template-columns: 1fr 30rem;
+    align-items: flex-start;
+    gap: 3rem;
 
-&__single {
-   grid-template-columns: 1fr;
- }
+    &__single {
+      grid-template-columns: 1fr;
+    }
 
-@media screen and (max-width: 749px) {
-  grid-template-rows: auto auto;
-  grid-template-columns: auto;
-}
-}
+    @media screen and (max-width: 749px) {
+      grid-template-rows: auto auto;
+      grid-template-columns: auto;
+    }
+  }
 }
 </style>

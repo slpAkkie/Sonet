@@ -43,13 +43,6 @@ export default {
 
         return state.sharedNotes || []
     },
-    note: (getters) => (note_id) => {
-        let foundNote = null
-        if (getters.notes) foundNote = getters.notes?.find(note => note.id === +note_id) || false
-        if (!foundNote && getters.sharedNotes) foundNote = getters.sharedNotes?.find(note => note.id === +note_id) || false
-
-        return foundNote
-    },
     isShared: (getters) => (note_id) => {
         return !!getters.sharedNotes?.find(note => note.id === +note_id)
     },

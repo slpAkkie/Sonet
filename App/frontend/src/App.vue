@@ -31,4 +31,5 @@ export default {
 @import '/assets/scss/normalize';
 @import '/assets/scss/support';
 @import '/assets/scss/grid';
+@import '/assets/scss/general';
 </style>

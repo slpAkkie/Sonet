@@ -56,13 +56,11 @@ export default {
     // TODO: Attachments
     isWaiting: false,
     changes: {},
+    note: null,
   }),
   computed: {
     isLoading() {
-      return (this.note === null || this.isWaiting) && !this.requestFailed
-    },
-    note() {
-      return this.$store.getters.note(this.id)
+      return this.note === null || this.isWaiting
     },
     isShared() {
       return this.$store.getters.isShared(this.id)
@@ -72,6 +70,8 @@ export default {
     },
     title: {
       get() {
+        if (!this.note) return ''
+
         return this.changes['title'] !== undefined ? this.changes['title'] : this.note['title']
       },
       set(value) {
@@ -80,6 +80,8 @@ export default {
     },
     body: {
       get() {
+        if (!this.note) return ''
+
         return this.changes['body'] !== undefined ? this.changes['body'] : this.note['body']
       },
       set(value) {
@@ -88,6 +90,8 @@ export default {
     },
     folder_id: {
       get() {
+        if (!this.note) return ''
+
         return this.changes['folder_id'] !== undefined ? this.changes['folder_id'] : this.note['folder'] || ''
       },
       set(value) {
@@ -96,7 +100,9 @@ export default {
     },
     category_id: {
       get() {
-        return this.changes['category_id'] !== undefined ? this.changes['category_id'] : this.note['category']?.id || ''
+        if (!this.note) return ''
+
+        return this.changes['category_id'] !== undefined ? this.changes['category_id'] : this.note['category'] || ''
       },
       set(value) {
         this.changes['category_id'] = value
@@ -116,6 +122,9 @@ export default {
     },
   },
   methods: {
+    async loadNote() {
+      this.note = await this.$store.dispatch('loadNote', this.id)
+    },
     update() {
       this.isWaiting = true
 
@@ -127,6 +136,8 @@ export default {
       this.isWaiting = false
     },
     del() {
+      this.isWaiting = true
+
       this.$store
         .dispatch('deleteNote', this.id)
         .catch(this.handleDelError)
@@ -139,5 +150,8 @@ export default {
       this.$router.push('/home')
     },
   },
+  beforeMount() {
+    this.loadNote()
+  }
 }
 </script>

@@ -70,6 +70,8 @@ class Note extends Model
      */
     private $resourceWithAttachments = false;
 
+    private $resourceWithFullBody = false;
+
     /**
      * Attachments that must be stored after the note is saved.
      *
@@ -141,13 +143,24 @@ class Note extends Model
     }
 
     /**
+     * Does the resource have to output with full body.
+     *
+     * @return bool
+     */
+    public function isResourceWithFullBody(): bool
+    {
+        return $this->resourceWithFullBody;
+    }
+
+    /**
      * Set the resource to output attachments.
      *
      * @return $this
      */
-    public function setResourceWithAttachments(): Note
+    public function setFullResource(): Note
     {
         $this->resourceWithAttachments = true;
+        $this->resourceWithFullBody = true;
 
         return $this;
     }

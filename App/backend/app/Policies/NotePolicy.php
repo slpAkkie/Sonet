@@ -36,7 +36,13 @@ class NotePolicy
      */
     public function update(User $user, Note $note): bool
     {
-        return $user->id === $note->user_id; // TODO: Allow update the note for contributors with corresponding access rights
+        $access = $user->id === $note->user_id;
+
+        $sharedNote = $user->contributorIn()->wherePivot('note_id', $note->id)->first();
+
+        if ($sharedNote && !AccessLevel::isReadOnly($sharedNote->pivot->access_level_id)) $access = true;
+
+        return $access;
     }
 
     /**

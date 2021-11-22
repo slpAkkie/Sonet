@@ -13,7 +13,7 @@ final class StoreNoteRequest extends ApiRequest
     {
         return [
             'title'               => 'required|string',
-            'body'                => 'required|string',
+            'body'                => 'nullable|string',
             'category_id'         => 'nullable|exists:categories,id',
             'folder_id'           => 'nullable|exists:folders,id',
             'attachments'         => 'nullable|array',

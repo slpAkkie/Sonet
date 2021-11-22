@@ -7,14 +7,12 @@ export default {
     setUser(state, user) {
         state.user = user
     },
-    logout(state) {
-        state.logout = true
-    },
     clearStore(state) {
         state.apiToken = null
         localStorage.removeItem('apiToken')
 
         state.logout = false
+        state.verified = false
         state.user = null
 
         state.notes = null
@@ -22,12 +20,15 @@ export default {
         state.searchQuery = ''
 
         state.folders = null
-        // TODO: Also do not forget to clear another user data such as categories etc.
+        state.categories = null
     },
 
     // Notes
     setNotes(state, notes) {
         state.notes = notes
+    },
+    pushNote(state, note) {
+        state.notes.unshift(note)
     },
     setSharedNotes(state, sharedNotes) {
         state.sharedNotes = sharedNotes},

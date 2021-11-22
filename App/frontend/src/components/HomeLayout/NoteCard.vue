@@ -80,7 +80,7 @@ export default {
   }
 
   &__main {
-    //
+    flex-grow: 1;
   }
 
   &__footer {

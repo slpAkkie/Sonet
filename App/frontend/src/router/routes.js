@@ -34,6 +34,15 @@ export default [
         },
     },
     {
+        path: '/settings',
+        name: 'UserSettings',
+        component: () => import('../views/UserSettings'),
+        meta: {
+            layout: 'Authorized',
+            middleware: [ auth ]
+        },
+    },
+    {
         path: '/home',
         name: 'Home',
         component: () => import('../views/notes/Index'),
