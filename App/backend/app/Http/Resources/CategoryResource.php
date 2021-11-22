@@ -14,6 +14,7 @@ final class CategoryResource extends CommonResource
         return [
             'id' => $this->id,
             'title' => $this->title,
+            'color' => $this->color,
             'order' => $this->order,
         ];
     }

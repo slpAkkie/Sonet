@@ -10,14 +10,6 @@ export default [
         },
     },
     {
-        path: '/login',
-        name: 'Login',
-        component: () => import('../views/Login'),
-        meta: {
-            layout: 'Auth',
-        },
-    },
-    {
         path: '/register',
         name: 'Register',
         component: () => import('../views/Register'),
@@ -26,22 +18,75 @@ export default [
         },
     },
     {
+        path: '/login',
+        name: 'Login',
+        component: () => import('../views/Login'),
+        meta: {
+            layout: 'Auth',
+        },
+    },
+    {
+        path: '/logout',
+        name: 'Logout',
+        component: () => import('../views/Logout'),
+        meta: {
+            layout: 'Auth',
+        },
+    },
+    {
         path: '/home',
         name: 'Home',
-        component: () => import('../views/Home'),
+        component: () => import('../views/notes/Index'),
         meta: {
             middleware: [ auth ],
-            layout: 'Home',
+            layout: 'NotesIndex',
+        },
+    },
+    {
+        path: '/home/folder/:folder_id',
+        name: 'IndexFolderNotes',
+        component: () => import('../views/notes/Index'),
+        props: true,
+        meta: {
+            middleware: [ auth ],
+            layout: 'NotesIndex',
+        },
+    },
+    {
+        path: '/home/without-folder',
+        name: 'IndexNotesWithoutFolder',
+        component: () => import('../views/notes/Index'),
+        meta: {
+            middleware: [ auth ],
+            layout: 'NotesIndex',
+        },
+    },
+    {
+        path: '/home/shared',
+        name: 'IndexSharedNotes',
+        component: () => import('../views/notes/Index'),
+        meta: {
+            middleware: [ auth ],
+            layout: 'NotesIndex',
+        },
+    },
+    {
+        path: '/notes/create',
+        name: 'CreateNote',
+        component: () => import('../views/notes/Create'),
+        meta: {
+            middleware: [ auth ],
+            layout: 'Authorized',
         },
     },
     {
         path: '/notes/:id',
-        name: 'NoteView',
-        component: () => import('../views/NoteView'),
+        name: 'ViewNote',
+        component: () => import('../views/notes/View'),
         props: true,
         meta: {
             middleware: [ auth ],
-            layout: 'Home',
+            layout: 'Authorized',
         },
     },
 ]

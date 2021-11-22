@@ -1,5 +1,5 @@
 <template>
-  <div v-if="show" class="preloader" :class="preloaderClasses">
+  <div class="preloader" :class="preloaderClasses">
     <div class="preloader__overlay"></div>
     <div class="preloader__inner">
       <div class="preloader__dot top left"></div>
@@ -14,10 +14,6 @@
 export default {
   name: 'Preloader',
   props: {
-    show: {
-      type: Boolean,
-      default: false,
-    },
     fullScreen: {
       type: Boolean,
       default: false,
@@ -47,6 +43,8 @@ export default {
     right: 0;
     bottom: 0;
     left: 0;
+    //
+    z-index: 10;
   }
 
   &_full-screen > &__overlay {

@@ -2,10 +2,10 @@
 
 namespace App\Policies;
 
+use App\Models\AccessLevel;
 use App\Models\Note;
 use App\Models\User;
 use Illuminate\Auth\Access\HandlesAuthorization;
-use Illuminate\Auth\Access\Response;
 
 class NotePolicy
 {
@@ -20,7 +20,11 @@ class NotePolicy
      */
     public function view(User $user, Note $note): bool
     {
-        return $user->id === $note->user_id;
+        $access = $user->id === $note->user_id;
+
+        if ($user->contributorIn()->wherePivot('note_id', $note->id)->first()) $access = true;
+
+        return $access;
     }
 
     /**
@@ -44,6 +48,12 @@ class NotePolicy
      */
     public function delete(User $user, Note $note): bool
     {
-        return $user->id === $note->user_id;
+        $access = $user->id === $note->user_id;
+
+        $sharedNote = $user->contributorIn()->wherePivot('note_id', $note->id)->first();
+
+        if ($sharedNote && !AccessLevel::isReadOnly($sharedNote->pivot->access_level_id)) $access = true;
+
+        return $access;
     }
 }

@@ -1,26 +1,26 @@
 <template>
-  <Preloader :show="formDisabled"/>
+  <Preloader v-if="formDisabled"/>
   <form v-show="!formDisabled" action="#" method="post" class="auth-form" @submit.prevent="tryRegister">
     <Input type="text" name="first_name" placeholder="Ваше имя" v-model="postData.first_name" />
     <p class="auth-form__error-message" v-if="formErrors.first_name">{{ formErrors.first_name }}</p>
     <Input type="text" name="last_name" placeholder="Ваша фамилия" v-model="postData.last_name" />
     <p class="auth-form__error-message" v-if="formErrors.last_name">{{ formErrors.last_name }}</p>
-    <Input type="text" name="login" placeholder="Ваш логин" v-model="postData.login" />
+    <Input autocomplete="username" type="text" name="login" placeholder="Ваш логин" v-model="postData.login" />
     <p class="auth-form__error-message" v-if="formErrors.login">{{ formErrors.login }}</p>
-    <Input type="email" name="email" placeholder="Ваш email" v-model="postData.email" />
+    <Input autocomplete="email" type="email" name="email" placeholder="Ваш email" v-model="postData.email" />
     <p class="auth-form__error-message" v-if="formErrors.email">{{ formErrors.email }}</p>
-    <Input type="password" name="password" placeholder="Ваш пароль" v-model="postData.password" />
+    <Input autocomplete="new-password" type="password" name="password" placeholder="Ваш пароль" v-model="postData.password" />
     <p class="auth-form__error-message" v-if="formErrors.password">{{ formErrors.password }}</p>
-    <Input type="password" name="password_confirmation" placeholder="Ваш пароль" v-model="postData.password_confirmation" />
+    <Input autocomplete="new-password" type="password" name="password_confirmation" placeholder="Ваш пароль" v-model="postData.password_confirmation" />
     <Button type="submit" value="Зарегистрироваться" />
   </form>
   <p class="text_center">Если у вас у же есть аккаунт, вы можете <router-link to="/login">войти</router-link> в него</p>
 </template>
 
 <script>
-import Input from '../components/elements/Input'
-import Button from '../components/elements/Button'
-import Preloader from '../components/general/Preloader'
+import Preloader from '../components/Preloader'
+import Input from '../components/controls/Input'
+import Button from '../components/controls/Button'
 
 export default {
   name: 'Register',
@@ -57,8 +57,8 @@ export default {
 
       this.clearErrors()
 
-      this.axios
-        .post('register', this.postData)
+      this.$store
+        .dispatch('register', this.postData)
         .then(this.handleResponse)
         .catch(this.handleError)
         .finally(this.afterRequest)
@@ -66,11 +66,10 @@ export default {
     handleResponse() {
       this.$router.push('/login')
     },
-    handleError(error) {
-      const errorData = error.response.data
-      if (errorData.code !== 422) return
+    handleError(response) {
+      if (response.code !== 422) return
 
-      this.formErrors = errorData.error.errors
+      this.formErrors = response.error.errors
       this.postData.password = ''
       this.postData.password_confirmation = ''
     },
@@ -78,7 +77,7 @@ export default {
       this.formDisabled = null
     },
   },
-  created() {
+  beforeMount() {
     this.clearErrors()
   }
 }

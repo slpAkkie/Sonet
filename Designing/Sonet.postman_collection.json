@@ -168,18 +168,36 @@
 					"response": []
 				},
 				{
-					"name": "Show",
+					"name": "Index Shared",
 					"request": {
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{host}}/notes/17",
+							"raw": "{{host}}/notes/shared",
 							"host": [
 								"{{host}}"
 							],
 							"path": [
 								"notes",
-								"17"
+								"shared"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Show",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/notes/7",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"notes",
+								"7"
 							]
 						}
 					},
@@ -218,7 +236,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"title\": \"Название заметки2\",\r\n    \"body\": \"Тут какое-то тело\",\r\n    \"category_id\": null,\r\n    \"folder_id\": null,\r\n    \"attachments\": []\r\n}",
+							"raw": "{\r\n    \"title\": \"Название заметки\",\r\n    \"body\": \"\",\r\n    \"category_id\": null,\r\n    \"folder_id\": null,\r\n    \"attachments\": []\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -226,13 +244,13 @@
 							}
 						},
 						"url": {
-							"raw": "{{host}}/notes/17",
+							"raw": "{{host}}/notes/1",
 							"host": [
 								"{{host}}"
 							],
 							"path": [
 								"notes",
-								"17"
+								"1"
 							]
 						}
 					},
@@ -244,13 +262,13 @@
 						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": "{{host}}/notes/12",
+							"raw": "{{host}}/notes/7",
 							"host": [
 								"{{host}}"
 							],
 							"path": [
 								"notes",
-								"12"
+								"7"
 							]
 						}
 					},

@@ -61,7 +61,7 @@ CREATE TABLE `categories` (
 CREATE TABLE `notes` (
   `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT,
   `title` varchar(255) NOT NULL,
-  `body` longtext NOT NULL,
+  `body` longtext NULL,
   `folder_id` bigint UNSIGNED DEFAULT NULL,
   `category_id` bigint UNSIGNED DEFAULT NULL,
   `user_id` bigint UNSIGNED NOT NULL,
@@ -127,7 +127,7 @@ CREATE TABLE `comments` (
 CREATE TABLE `access_levels` (
   `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT,
   `title` varchar(128) NOT NULL,
-  `readonly` boolean NOT NULL,
+  `readonly` boolean NOT NULL DEFAULT 1,
   `created_at` timestamp NULL,
   `updated_at` timestamp NULL,
 
@@ -135,6 +135,7 @@ CREATE TABLE `access_levels` (
   CONSTRAINT `AccessLevelID` PRIMARY KEY (`id`),
   CONSTRAINT `UC_Title` UNIQUE KEY(`title`)
 );
+INSERT INTO `access_levels` (title, readonly) VALUES ('Полный доступ', 0), ('Только просмотр', 1);
 -- --------------------------------------------------
 -- note_users
 CREATE TABLE `note_users` (

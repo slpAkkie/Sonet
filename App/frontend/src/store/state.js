@@ -1,22 +1,19 @@
 export default {
     // Authorization
+    logout: false,
+    verified: false,
     isAuthorized: false,
     apiToken: null,
     user: null,
 
-
-
-
-
-
-
-
-
-
-    folders: null,
-    categories: null,
+    // Notes
     notes: null,
+    sharedNotes: null,
     searchQuery: '',
-    folderQuery: null,
-    displayModeId: null,
+
+    // Folders
+    folders: null,
+
+    // Categories
+    categories: null,
 }

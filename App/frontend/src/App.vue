@@ -5,14 +5,16 @@
 </template>
 
 <script>
+import Authorized from './layouts/Profile'
 import Auth from './layouts/Auth'
-import Home from './layouts/Home'
+import NotesIndex from './layouts/NotesIndex'
 
 export default {
   name: 'App',
   components: {
     Auth,
-    Home,
+    NotesIndex,
+    Authorized,
   },
   computed: {
     routeLayout() {

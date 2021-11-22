@@ -8,19 +8,18 @@
       <form action="/" method="post" @submit.prevent="save" class="popup__form">
         <Input v-model="data.title" />
         <div class="popup__controls">
-          <Button v-if="mayBeDeleted" value="Удалить" @click="del" appearance="danger" />
           <Button value="Сохранить" @click="save" />
         </div>
       </form>
     </template>
-    <Preloader :show="isLoading"/>
+    <Preloader v-if="isLoading"/>
   </div>
 </template>
 
 <script>
-import Input from '../elements/Input'
-import Button from '../elements/Button'
-import Preloader from '../general/Preloader'
+import Preloader from '../../Preloader'
+import Input from '../../controls/Input'
+import Button from '../../controls/Button'
 
 export default {
   name: 'NotePopup',
@@ -30,46 +29,21 @@ export default {
     Button,
     Preloader,
   },
-  props: {
-    folderData: {
-      type: Object,
-    },
-  },
   data: () => ({
     isLoading: false,
     data: {
       title: '',
       body: '',
     },
-    action: null,
   }),
-  computed: {
-    mayBeDeleted() {
-      return !!this.data.id
-    },
-  },
   methods: {
-    del() {
-      let confirmation = confirm('Вы уверены, что хотите удалить эту папку')
-      if (!confirmation) return
-
-      this.isLoading = true
-      this.$store
-        .dispatch('deleteFolder', this.data.id)
-        .then(() => {
-          this.isLoading = false
-          this.$emit('popup:close')
-        })
-    },
     save() {
-      if (this.action === 'update') alert('Изменение еще не сделано')
-      else if (this.action === 'post') {
-        this.isLoading = true
-        this.axios[this.action]('folders', this.data)
-          .then(this.handleResponse)
-          .catch(this.handleError)
-          .finally(this.afterRequest)
-      }
+      this.isLoading = true
+
+      this.axios.post('folders', this.data)
+        .then(this.handleResponse)
+        .catch(this.handleError)
+        .finally(this.afterRequest)
     },
     handleResponse(response) {
       let noteData = response.data.data
@@ -77,16 +51,11 @@ export default {
       this.$emit('popup:close')
     },
     handleError(error) {
-      let errorData = error.response.data
-      console.log(errorData)
+      console.log(error)
     },
     afterRequest() {
       this.isLoading = false
     },
-  },
-  beforeMount() {
-    if (this.folderData) this.data = this.folderData
-    this.action = this.data.id ? 'update' : 'post'
   },
 }
 </script>

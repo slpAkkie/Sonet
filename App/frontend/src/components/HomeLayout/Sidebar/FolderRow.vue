@@ -1,6 +1,6 @@
 <template>
-  <div class="folder-row" :class="active">
-    <div class="folder-row__title" @click="select">{{ title }}</div>
+  <div class="folder-row">
+    <router-link :to="link" class="folder-row__title link_static">{{ title }}</router-link>
     <div v-if="withControls" class="folder-row__controls">
       <Button value="Удалить" appearance="danger" @click="del" />
     </div>
@@ -8,14 +8,10 @@
 </template>
 
 <script>
-import Button from '../elements/Button'
+import Button from '../../controls/Button'
 
 export default {
   name: 'FolderRow',
-  emits: [
-      'folder:select',
-      'folder:del',
-  ],
   components: {
     Button,
   },
@@ -33,20 +29,24 @@ export default {
       type: Boolean,
       default: true,
     },
+    linkTo: {
+      type: String,
+      default: null,
+    },
   },
   computed: {
-    active() {
-      return {
-        'folder-row_active': this.$store.getters.openedFolder && (this.$store.getters.openedFolder >= 0) && (this.$store.getters.openedFolder === this.id),
-      }
-    }
+    link() {
+      return this.linkTo || `/home/folder/${this.id}`
+    },
   },
   methods: {
-    select() {
-      this.$emit('folder:select', this.id || null)
-    },
     del() {
-      this.$emit('folder:del', this.id)
+      this.$store
+        .dispatch('deleteFolder', this.id)
+        .then(this.handleResponse)
+    },
+    handleResponse() {
+      this.$router.go(0)
     },
   },
 }
@@ -65,15 +65,35 @@ export default {
   transition-duration: .1s;
   cursor: pointer;
 
-  &:hover, &_active {
+  &:hover {
     color: var(--white);
     background-color: var(--blue-50);
   }
 
   &__title {
+    display: block;
     flex-grow: 1;
     //
     padding: .7rem 0;
+
+    &.link_exact-active {
+      position: relative;
+
+      &::before {
+        content: '';
+        //
+        position: absolute;
+        top: 50%;
+        left: -1rem;
+        //
+        width: .3rem;
+        height: 100%;
+        //
+        background-color: var(--blue-50);
+        //
+        transform: translateY(-50%);
+      }
+    }
   }
 }
 </style>

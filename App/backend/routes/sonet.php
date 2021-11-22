@@ -27,6 +27,7 @@ Route::middleware('auth.token')->group(function () {
     });
 
     /** Notes --------------------------------- */
+    Route::get('/notes/shared', [NoteController::class, 'indexShared']);
     Route::apiResource('/notes', NoteController::class);
 
     /** Folders ------------------------------- */

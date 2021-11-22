@@ -1,18 +1,18 @@
 <template>
   <div class="user-menu__wrapper">
-    <img class="nav__user-img" src="@/assets/img/icons/user--flat-colored.png" alt="UserMenu" @click="toggle">
-    <div v-if="isOpen" class="nav__user-menu user-menu">
+    <img class="user-menu__user-icon" src="@/assets/img/icons/user--flat-colored.png" alt="UserMenu" @click="toggle">
+    <div v-if="isOpen" class="user-menu">
       <div class="user-menu__first-name">{{ $store.getters.user.first_name }}</div>
       <hr class="user-menu__separator">
       <Button value="Выход" @click="tryLogout" appearance="danger" />
     </div>
   </div>
-  <Preloader :show="isLoading" :full-screen="true" />
+  <Preloader v-if="isLoading" :full-screen="true" />
 </template>
 
 <script>
-import Button from '../elements/Button'
-import Preloader from '../general/Preloader'
+import Preloader from '../../Preloader'
+import Button from '../../controls/Button'
 
 export default {
   name: 'UserMenu',
@@ -30,17 +30,12 @@ export default {
     },
     tryLogout() {
       this.isLoading = true
-      this.axios
-          .delete('user/logout')
-          .then(this.handleResponse)
-          .finally(this.afterRequest)
-    },
-    handleResponse() {
-      this.$store.dispatch('logout')
-      this.$router.push('/login')
+      this.$store
+        .dispatch('logout')
+        .finally(this.afterRequest)
     },
     afterRequest() {
-      this.isLoading = false
+      this.$router.push('/logout')
     },
   },
 }
@@ -71,6 +66,13 @@ export default {
     position: relative;
     //
     z-index: 10;
+  }
+
+  &__user-icon {
+    width: 100%;
+    max-width: 3.2rem;
+    //
+    cursor: pointer;
   }
 
   &__separator {

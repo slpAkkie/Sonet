@@ -18,4 +18,8 @@ use Illuminate\Database\Query\Builder;
 class AccessLevel extends Model
 {
     use HasFactory;
+
+    public static function isReadOnly($access_level_id) {
+        return !!self::find($access_level_id)->readonly;
+    }
 }

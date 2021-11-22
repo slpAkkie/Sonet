@@ -1,5 +1,5 @@
 <template>
-    <Preloader :show="formDisabled"/>
+    <Preloader v-if="formDisabled"/>
     <form v-show="!formDisabled" action="#" method="post" class="auth-form" @submit.prevent="tryLogin">
       <Input type="text" autocomplete="username" name="login" placeholder="Ваш логин" v-model="postData.login" />
       <p class="auth-form__error-message" v-if="formErrors.login">{{ formErrors.login }}</p>
@@ -11,9 +11,9 @@
 </template>
 
 <script>
-import Input from '../components/elements/Input'
-import Button from '../components/elements/Button'
-import Preloader from '../components/general/Preloader'
+import Preloader from '../components/Preloader'
+import Input from '../components/controls/Input'
+import Button from '../components/controls/Button'
 
 export default {
   name: 'Login',

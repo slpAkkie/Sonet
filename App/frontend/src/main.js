@@ -8,14 +8,15 @@ import vueAxios from 'vue-axios'
 const app = createApp(App)
 
 // Set baseURL for API requests
-axios.defaults.baseURL = 'https://api.akkie.ru/sonet/'
+axios.defaults.baseURL = 'http://api.localhost/sonet/'
 
 // Handle errors for all request
-axios.interceptors.response.use(response => response, async error => {
+axios.interceptors.response.use(response => response, error => {
     // Authorization error (Api token incorrect)
-    if (error.response.status === 401) {
-        await store.dispatch('logout')
-        router.go(0)
+    if (error.response.status === 401 && !store.state.logout) {
+        store.dispatch('logout').finally(() => {
+            router.push('/logout')
+        })
     }
 
     return Promise.reject(error)

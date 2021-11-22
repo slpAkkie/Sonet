@@ -4,40 +4,51 @@ export default {
         state.apiToken = apiToken
         localStorage.setItem('apiToken', apiToken)
     },
-    removeApiToken(state) {
-        state.apiToken = null
-        localStorage.removeItem('apiToken')
-    },
     setUser(state, user) {
         state.user = user
     },
-    removeUser(state) {
+    logout(state) {
+        state.logout = true
+    },
+    clearStore(state) {
+        state.apiToken = null
+        localStorage.removeItem('apiToken')
+
+        state.logout = false
         state.user = null
+
+        state.notes = null
+        state.sharedNotes = null
+        state.searchQuery = ''
+
+        state.folders = null
+        // TODO: Also do not forget to clear another user data such as categories etc.
     },
 
-
-
-
-
-
-
-
-
-
-    pushNote(state, note) {
-        state.notes.push(note)
+    // Notes
+    setNotes(state, notes) {
+        state.notes = notes
     },
-    setSearchQuery(state, query) {
-        state.searchQuery = query
+    setSharedNotes(state, sharedNotes) {
+        state.sharedNotes = sharedNotes},
+    updateSearchQuery(state, searchQuery) {
+        state.searchQuery = searchQuery
     },
-    setDisplayModeId(state, id) {
-        state.displayModeId = id
-        localStorage.setItem('displayModeId', id)
+    updateNote(state, updatedNote) {
+        const noteIndex = state.notes.findIndex(note => note.id === updatedNote.id)
+        state.notes[noteIndex] = updatedNote
+    },
+
+    // Folders
+    setFolders(state, folders) {
+        state.folders = folders
     },
     pushFolder(state, folder) {
         state.folders.push(folder)
     },
-    folderQuery(state, id) {
-        state.folderQuery = id
+
+    // Categories
+    setCategories(state, categories) {
+        state.categories = categories
     },
 }

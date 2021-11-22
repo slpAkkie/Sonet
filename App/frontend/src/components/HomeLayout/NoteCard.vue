@@ -1,10 +1,10 @@
 <template>
-  <div class="note">
+  <div class="note" @click="open">
     <header class="note__header">
       <h5 class="note__title">{{ note.title }}</h5>
       <div class="note__category-color" :style="`--color: ${categoryColor}`"></div>
     </header>
-    <main class="note__main">{{ body }}</main>
+    <main class="note__main">{{ note.body }}</main>
     <footer class="note__footer">
       <div class="note__author">{{ note.author }}</div>
       <div class="note__created_at">{{ date }}</div>
@@ -14,7 +14,7 @@
 
 <script>
 export default {
-  name: 'Note',
+  name: 'NoteCard',
   props: {
     note: {
       type: Object,
@@ -22,14 +22,16 @@ export default {
     },
   },
   computed: {
-    body() {
-      return this.note.body
-    },
     date() {
-      return (new Date(this.note.created_at)).toLocaleDateString()
+      return (new Date(this.note['created_at'])).toLocaleDateString()
     },
     categoryColor() {
-      return this.note.category ? this.note.category.color : 'transparent'
+      return this.$store.getters.categoryColor(this.note.category)
+    },
+  },
+  methods: {
+    open() {
+      this.$router.push(`/notes/${this.note.id}`)
     },
   },
 }

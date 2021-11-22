@@ -28,6 +28,19 @@ class NoteController extends Controller
     }
 
     /**
+     * Show all user's own notes.
+     *
+     * @return AnonymousResourceCollection
+     */
+    public function indexShared(): AnonymousResourceCollection
+    {
+        /** @var User $user */
+        $user = Auth::user();
+
+        return NoteResource::collection($user->contributorInOrderedByUpdate());
+    }
+
+    /**
      * Show a specific note.
      *
      * @param Note $note

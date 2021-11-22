@@ -1,4 +1,5 @@
 import store from './index'
+import filterNotes from '../helpers/filterNotes'
 
 export default {
     // Authorization
@@ -11,68 +12,73 @@ export default {
 
         return false
     },
-
-
-
-
-
-
-
-
-
-
-    // TOKEN
-    isUser: (state, getters) => {
-        if (getters.userLoaded) return true
-
-        let userSerialized = localStorage.getItem('user')
-        if (!userSerialized) return false
-
-        try {
-            let user = JSON.parse(userSerialized)
-            if (!user.api_token) return false
-            state.user = user
-
-            return true
-        } catch (e) {
-            return false
-        }
-    },
     apiToken: (state) => {
         if (!state.apiToken) state.apiToken = localStorage.getItem('apiToken') || null
 
         return state.apiToken
     },
-    // USER
     user: state => state.user || {},
-    userLoaded: state => state.user !== null,
-    // NOTES
-    notes: (state, getters) => {
-        if (getters.notesLoaded) {
-            let regexp = new RegExp(state.searchQuery.toLowerCase(), 'g')
-            return state.notes.filter(
-                note =>
-                    (note.title.toLowerCase().match(regexp)
-                        || note.body.toLowerCase().match(regexp)
-                        || note.created_at.toLowerCase().match(regexp))
-                    && (state.folderQuery !== null ? (
-                        state.folderQuery === -1
-                            ? !note.folder?.id
-                            : note.folder?.id === state.folderQuery
-                    ) : true)
-            )
-        }
-        else return []
-    },
+
+    // Notes
     notesLoaded: state => state.notes !== null,
-    displayModeId: state => {
-        return state.displayModeId || (state.displayModeId = +localStorage.getItem('displayModeId') || 0)
+    notes: (state, getters) => {
+        if (!getters.notesLoaded && getters.apiToken) store.dispatch('loadNotes')
+
+        if (state.searchQuery) return filterNotes(state.notes, state.searchQuery)
+
+        return state.notes || []
     },
-    // FOLDERS
-    folders: state => state.folders || [],
+    notesInFolder: (getters) => (folder_id) => {
+        return getters.notes?.filter(note => {
+            if (!note['folder']) return false
+
+            return note['folder'] === +folder_id
+        }) || []
+    },
+    sharedNotesLoaded: state => state.sharedNotes !== null,
+    sharedNotes: (state, getters) => {
+        if (!getters.sharedNotesLoaded && getters.apiToken) store.dispatch('loadSharedNotes')
+
+        if (state.searchQuery) return filterNotes(state.sharedNotes, state.searchQuery)
+
+        return state.sharedNotes || []
+    },
+    note: (getters) => (note_id) => {
+        let foundNote = null
+        if (getters.notes) foundNote = getters.notes?.find(note => note.id === +note_id) || false
+        if (!foundNote && getters.sharedNotes) foundNote = getters.sharedNotes?.find(note => note.id === +note_id) || false
+
+        return foundNote
+    },
+    isShared: (getters) => (note_id) => {
+        return !!getters.sharedNotes?.find(note => note.id === +note_id)
+    },
+
+    // Folders
     foldersLoaded: state => state.folders !== null,
-    openedFolder: state => state.folderQuery,
-    // CATEGORIES
-    categories: state => state.categories || [],
+    folders: (state, getters) => {
+        if (!getters.foldersLoaded && getters.apiToken) store.dispatch('loadFolders')
+
+        return state.folders || []
+    },
+    folder: (getters) => (folder_id) => {
+        if (getters.folders) return getters.folders.find(folder => folder.id === +folder_id)
+    },
+
+    // Categories
     categoriesLoaded: state => state.categories !== null,
+    categories: (state, getters) => {
+        if (!getters.categoriesLoaded && getters.apiToken) store.dispatch('loadCategories')
+
+        return state.categories || []
+    },
+    categoryColor: (state, getters) => (category_id) => {
+        if (!getters.categories) return 'transparent'
+
+        const foundCategory = getters.categories.find(category => {
+            return category.id === category_id
+        })
+
+        return foundCategory ? foundCategory.color : 'transparent'
+    },
 }

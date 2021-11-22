@@ -3,7 +3,7 @@
     <div class="container">
       <div class="nav__inner">
         <div class="nav__brand">
-          <h1 class="nav__brand-title"><router-link to="/home">Sonet</router-link></h1>
+          <h1 class="nav__brand-title"><router-link to="/home" class="nav__brand-link link_static">Sonet</router-link></h1>
         </div>
         <div class="nav__user-menu">
           <UserMenu />
@@ -14,7 +14,7 @@
 </template>
 
 <script>
-import UserMenu from './UserMenu'
+import UserMenu from './Nav/UserMenu'
 
 export default {
   name: 'Nav',
@@ -38,14 +38,10 @@ export default {
     padding: 1.5rem 0;
   }
 
-  &__brand-title {
-    font-size: 3.5rem;
-  }
-
-  &__user-img {
-    max-width: 3.2rem;
-    //
-    cursor: pointer;
+  &__brand {
+    &-title {
+      font-size: 3.5rem;
+    }
   }
 }
 </style>

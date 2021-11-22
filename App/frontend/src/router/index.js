@@ -4,6 +4,8 @@ import routes from './routes'
 
 const router = createRouter({
   history: createWebHistory(process.env.BASE_URL),
+  linkActiveClass: 'link_active',
+  linkExactActiveClass: 'link_exact-active',
   routes
 })
 
