@@ -121,6 +121,15 @@ export default {
     },
 
     // Folders
+    async createFolder(context, folderData) {
+        try {
+            context.commit('pushFolder', (await axios.post('folders', folderData)).data.data)
+
+            return Promise.resolve()
+        } catch(error) {
+            return Promise.reject(error)
+        }
+    },
     async loadFolders(context) {
         if (context.getters.foldersLoaded || context.state.foldersLoading) return
 
@@ -149,6 +158,15 @@ export default {
     },
 
     // Categories
+    async createCategory(context, categoryData) {
+        try {
+            context.commit('pushCategory', (await axios.post('categories', categoryData)).data.data)
+
+            return Promise.resolve()
+        } catch(error) {
+            return Promise.reject(error)
+        }
+    },
     async loadCategories(context) {
         if (context.getters.categoriesLoaded || context.state.categoriesLoading) return
 
@@ -159,6 +177,20 @@ export default {
             context.commit('setCategories', [])
         } finally {
             context.state.categoriesLoading = false
+        }
+    },
+    async deleteCategory(context, id) {
+        try {
+            await axios.delete(`categories/${id}`)
+
+            return Promise.resolve()
+        } catch (e) {
+            return Promise.reject()
+        } finally {
+            // TODO: Map notes and remove info about folder
+            context.commit('setNotes', null)
+            // TODO: Just splice categories array don't erase
+            context.commit('setCategories', null)
         }
     },
 }

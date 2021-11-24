@@ -52,4 +52,7 @@ export default {
     setCategories(state, categories) {
         state.categories = categories
     },
+    pushCategory(state, category) {
+        state.categories.push(category)
+    },
 }

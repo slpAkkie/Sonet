@@ -1,10 +1,10 @@
 <template>
-  <h2 class="page-title">Настройки [{{ activeTab }}]</h2>
+  <h2 class="page-title">Настройки</h2>
   <div class="tabs">
     <div class="tabs__header">
       <div class="tab" v-for="(tab, i) in tabs" :key="i" @click="activeTab = i" :class="activeTab === i && 'tab_active'">{{ tab.title }}</div>
     </div>
-    <div class="tabs__content">
+    <div class="tab-content">
       <component :is="tabComponent"></component>
     </div>
   </div>
@@ -36,6 +36,9 @@ export default {
       return this.tabs[this.activeTab].component
     },
   },
+  mounted() {
+    this.$store.dispatch('loadCategories')
+  },
 }
 </script>
 
@@ -47,12 +50,6 @@ export default {
   &__header {
     display: flex;
     justify-content: flex-start;
-  }
-
-  &__content {
-    padding: 2rem 5rem;
-    border: .1rem solid var(--blue-50);
-    border-radius: 0 0 .4rem .4rem;
   }
 }
 
@@ -88,6 +85,22 @@ export default {
   &_active {
     --background-color: var(--blue-50);
     --text-color: var(--blue-10);
+  }
+}
+
+.tab-content {
+  padding: 2rem 5rem;
+  //
+  background-color: var(--white-25);
+  border: .1rem solid var(--blue-50);
+  border-radius: 0 0 .4rem .4rem;
+
+  &__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    //
+    margin-bottom: 1rem;
   }
 }
 </style>

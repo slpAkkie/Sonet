@@ -3,12 +3,13 @@
   <div class="popup">
     <div class="popup__inner" v-if="!isLoading">
       <div class="popup__header">
-        <h6>Новая папка</h6>
+        <h6>Новая категория</h6>
         <div class="popup__close" @click="$emit('popup:close', 'cancel')">Закрыть</div>
       </div>
       <form action="/" method="post" @submit.prevent="save" class="popup__form">
         <Input v-model="postData.title" />
         <div class="popup__controls">
+          <Input class="category-popup__color-picker" type="color" v-model="postData.color" />
           <Button value="Сохранить" @click="save" />
         </div>
       </form>
@@ -18,12 +19,12 @@
 </template>
 
 <script>
-import Preloader from '../../Preloader'
-import Input from '../../controls/Input'
-import Button from '../../controls/Button'
+import Preloader from '../Preloader'
+import Input from '../controls/Input'
+import Button from '../controls/Button'
 
 export default {
-  name: 'FolderPopup',
+  name: 'CategoryPopup',
   emits: [ 'popup:close' ],
   components: {
     Preloader,
@@ -34,13 +35,14 @@ export default {
     isLoading: false,
     postData: {
       title: '',
+      color: '#000000',
     },
   }),
   methods: {
     save() {
       this.isLoading = true
 
-      this.$store.dispatch('createFolder', this.postData)
+      this.$store.dispatch('createCategory', this.postData)
         .then(this.handleResponse)
         .catch(this.handleError)
         .finally(this.afterRequest)
@@ -57,3 +59,12 @@ export default {
   },
 }
 </script>
+
+<style lang="scss">
+.category-popup {
+  &__color-picker {
+    flex-grow: 1;
+    width: auto;
+  }
+}
+</style>

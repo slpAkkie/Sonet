@@ -1,6 +1,6 @@
 <template>
   <div class="folder-row">
-    <router-link :to="link" class="folder-row__title link_static">{{ title }}</router-link>
+    <router-link :to="link" class="folder-row__title link_static">{{ data.title }}</router-link>
     <div v-if="withControls" class="folder-row__controls">
       <Button value="Удалить" appearance="danger" @click="del" />
     </div>
@@ -16,14 +16,9 @@ export default {
     Button,
   },
   props: {
-    title: {
-      type: String,
+    data: {
+      type: Object,
       required: true,
-    },
-    id: {
-      type: Number,
-      required: false,
-      default: null,
     },
     withControls: {
       type: Boolean,
@@ -36,17 +31,13 @@ export default {
   },
   computed: {
     link() {
-      return this.linkTo || `/home/folder/${this.id}`
+      return this.linkTo || `/home/folder/${this.data.id}`
     },
   },
   methods: {
     del() {
       this.$store
-        .dispatch('deleteFolder', this.id)
-        .then(this.handleResponse)
-    },
-    handleResponse() {
-      this.$router.go(0)
+        .dispatch('deleteFolder', this.data.id)
     },
   },
 }

@@ -6,9 +6,9 @@
     </div>
     <hr class="sidebar__separator">
     <div class="sidebar__list">
-      <FolderRow title="Мои заметки" :withControls="false" linkTo="/home" />
-      <FolderRow title="Без папки" :withControls="false" linkTo="/home/without-folder" />
-      <FolderRow title="Доступные мне" :withControls="false" linkTo="/home/shared" />
+      <FolderRow :data="{ title: 'Мои заметки' }" :withControls="false" linkTo="/home" />
+      <FolderRow :data="{ title: 'Без папки' }" :withControls="false" linkTo="/home/without-folder" />
+      <FolderRow :data="{ title: 'Доступные мне' }" :withControls="false" linkTo="/home/shared" />
     </div>
     <hr class="sidebar__separator sidebar__separator_inactive">
     <Preloader v-if="isFolderLoading" :show="true" />
@@ -16,8 +16,7 @@
       <FolderRow
           v-for="folder in folders"
           :key="folder.id"
-          :id="folder.id"
-          :title="folder.title"
+          :data="folder"
       />
     </div>
     <h6 v-if="!isFolderLoading && !isFolders" class="text_center">Собственных папок нет</h6>

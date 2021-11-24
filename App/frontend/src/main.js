@@ -13,7 +13,7 @@ axios.defaults.baseURL = 'http://api.localhost/sonet/'
 // Handle errors for all request
 axios.interceptors.response.use(response => response, error => {
     // Authorization error (Api token incorrect)
-    if (error.response.status === 401 && !store.state.logout) {
+    if (error.response?.status === 401 && !store.state.logout) {
         store.dispatch('logout').finally(() => {
             router.push('/logout')
         })
