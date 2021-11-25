@@ -15,11 +15,11 @@ export default {
     padding: 1rem 2rem;
     //
     font-size: 2.5rem;
+    font-weight: bold;
   }
 
   &__body {
-    min-height: 15rem;
-    margin-bottom: 1.5rem;
+    min-height: 25rem;
     //
     resize: vertical;
   }
@@ -39,6 +39,10 @@ export default {
 
   &__col {
     flex-grow: 1;
+
+    &_shrink {
+      flex-grow: unset;
+    }
 
     &-title {
       margin-bottom: .5rem;

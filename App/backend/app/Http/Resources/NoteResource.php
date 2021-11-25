@@ -17,7 +17,7 @@ final class NoteResource extends JsonResource
         return [
             'id' => $this->id,
             'title' => $this->title,
-            'body' => $this->when($this->isResourceWithFullBody(), $this->body, Str::limit($this->body, 120)),
+            'body' => $this->when($this->isResourceWithFullBody(), $this->body, Str::limit($this->body, 100)),
 
             'category' => $this->when(!!$this->category, function () {
                 return $this->category->id;

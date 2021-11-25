@@ -19,10 +19,44 @@
           </select>
         </div>
       </div>
-      <Textarea class="note-editor__body" name="body" v-model="body" />
+      <div class="note-editor__row">
+        <Textarea class="note-editor__body" name="body" v-model="body" />
+      </div>
       <div class="note-editor__row note-editor__row_end">
         <Button value="Сохранить" @click="update" />
         <Button appearance="danger" value="Удалить" @click="del" />
+      </div>
+
+      <div v-if="!isShared" class="note-editor__accesses">
+        <div class="note-editor__row">
+          <h4 class="note-editor__contributors-title">Доступ</h4>
+        </div>
+        <div class="note-editor__row">
+          <div class="note-editor__col">
+            <Input placeholder="E-mail" list="email-datalist" v-model="contributor_email" />
+            <datalist id="email-datalist" v-if="contributors_hint">
+              <option v-for="contributor in contributors_hint" :key="contributor['id']" :value="contributor['email']">{{ contributor['full_name'] }}</option>
+            </datalist>
+          </div>
+          <div class="note-editor__col">
+            <select class="c-input" name="access_level_id" id="access_level_id" v-model="access_level_id">
+              <option value="">Выберите уровень доступа</option>
+              <option v-for="access_level in accessLevels" :key="access_level.id" :value="access_level.id">{{ access_level.title }}</option>
+            </select>
+          </div>
+          <div class="note-editor__col note-editor__col_shrink">
+            <Button value="Дать доступ" @click="addContributor" />
+          </div>
+        </div>
+        <Preloader v-if="isAccessesLoading" />
+        <div v-else class="note-editor__contributors-list">
+          <ContributorRow
+            v-for="contributor in contributors"
+            :key="contributor.user.id"
+            :contributor="contributor"
+            @del="deleteContributor"
+          />
+        </div>
       </div>
     </div>
     <div v-else>
@@ -39,6 +73,7 @@ import Input from '../../components/controls/Input'
 import Textarea from '../../components/controls/Textarea'
 import Button from '../../components/controls/Button'
 import NoteView from '../../layouts/NoteView'
+import ContributorRow from '../../components/NoteView/ContributorRow'
 
 export default {
   name: 'ViewNote',
@@ -48,16 +83,36 @@ export default {
     Input,
     Textarea,
     Button,
+    ContributorRow,
   },
   props: {
     id: String,
   },
   data: () => ({
     // TODO: Attachments
+    // TODO: Contributors list with deleting
     isWaiting: false,
+    isAccessesLoading: false,
     changes: {},
     note: null,
+    contributors: null,
+    contributors_hint: null,
+    contributors_hint_debounce_timeout_id: null,
+    contributor_email: '',
+    access_level_id: '',
   }),
+  watch: {
+    contributor_email(email) {
+      if (this.contributors_hint_debounce_timeout_id) clearTimeout(this.contributors_hint_debounce_timeout_id)
+
+      if (this.contributors_hint?.some(hint => hint['email'] === email)) return
+
+      this.contributors_hint_debounce_timeout_id = setTimeout(() => {
+        this.contributors_hint_debounce_timeout_id = null
+        this.loadContributorsHint()
+      }, 750)
+    },
+  },
   computed: {
     isLoading() {
       return this.note === null || this.isWaiting
@@ -114,6 +169,9 @@ export default {
     categories() {
       return this.$store.getters.categories
     },
+    accessLevels() {
+      return this.$store.getters.accessLevels
+    },
     postData() {
       return {
         id: this.note.id,
@@ -143,15 +201,71 @@ export default {
         .catch(this.handleDelError)
         .finally(this.afterDelRequest)
     },
-    handleDelError() {
-      alert('Что-то сломалось, мы уже выясняем причину')
+    handleDelError(error) {
+      console.log(error)
+      if (error.response.status === 403) {
+        alert(error.response.data.error.message)
+      } else alert('Что-то сломалось, мы уже выясняем причину')
     },
     afterDelRequest() {
       this.$router.push('/home')
     },
+    loadContributorsHint() {
+      if (!this.contributor_email) return
+
+      this.$store
+        .dispatch('findUserByEmail', this.contributor_email)
+        .then(response => this.contributors_hint = response)
+    },
+    loadContributors() {
+      this.isAccessesLoading = true
+      this.$store
+        .dispatch('loadContributors', this.id)
+        .then(response => this.contributors = response)
+        .catch(() => {
+          alert('Что-то сломалось, мы уже выясняем причину')
+          this.$router.push('/home')
+        })
+        .finally(() => {
+          this.isAccessesLoading = false
+        })
+    },
+    addContributor() {
+      this.$store
+        .dispatch('addContributor', {
+          note_id: this.id,
+          email: this.contributor_email,
+          access_level_id: this.access_level_id,
+        })
+        .then(response => {
+          this.contributor_email = ''
+          this.access_level_id = ''
+          this.contributors_hint = null
+
+          let index = this.contributors.findIndex(contributor => contributor.user.id === response.user.id)
+          if (index !== -1) this.contributors[index] = response
+          else this.contributors.unshift(response)
+        })
+        .catch(errors => console.log(errors))
+    },
+    deleteContributor(contributor_id) {
+      this.$store
+        .dispatch('deleteContributor', {
+          note_id: this.id,
+          contributor_id,
+        })
+        .then(() => {
+          this.loadContributors()
+        })
+        .catch(() => {
+          alert('Что-то сломалось, мы уже выясняем причину')
+        })
+    },
   },
   beforeMount() {
     this.loadNote()
+    this.loadContributors()
+    this.$store.dispatch('loadAccessLevels')
   }
 }
 </script>

@@ -37,5 +37,6 @@ class AuthServiceProvider extends ServiceProvider
 
         // TODO: Folder gates
         // TODO: Category gates
+        // TODO: Contributors gates
     }
 }

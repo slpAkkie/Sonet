@@ -28,6 +28,7 @@ use Illuminate\Support\Facades\Auth;
  * @property User author
  * @property Collection<Comment> comments
  * @property Collection<User> sharedWith
+ * @property Collection<User> contributors
  *
  * @mixin Builder
  */

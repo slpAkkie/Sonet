@@ -55,4 +55,9 @@ export default {
     pushCategory(state, category) {
         state.categories.push(category)
     },
+
+    // Access Levels
+    setAccessLevels(state, accessLevels) {
+        state.accessLevels = accessLevels
+    },
 }

@@ -23,4 +23,8 @@ export default {
     // Categories
     categories: null,
     categoriesLoading: false,
+
+    // Access Levels
+    accessLevels: null,
+    accessLevelsLoading: false,
 }

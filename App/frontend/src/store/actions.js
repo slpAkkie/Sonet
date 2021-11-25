@@ -111,8 +111,8 @@ export default {
             await axios.delete(`notes/${id}`)
 
             return Promise.resolve()
-        } catch (e) {
-            return Promise.reject()
+        } catch (error) {
+            return Promise.reject(error)
         } finally {
             // TODO: Just splice according array don't erase all of them
             context.commit('setNotes', null)
@@ -193,4 +193,52 @@ export default {
             context.commit('setCategories', null)
         }
     },
+
+    // Access Levels
+    async loadAccessLevels(context) {
+        if (context.getters.accessLevelsLoaded || context.state.accessLevelsLoading) return
+
+        try {
+            context.state.accessLevelsLoading = true
+            context.commit('setAccessLevels', (await axios.get('access_levels')).data.data)
+        } catch (e) {
+            context.commit('setAccessLevels', [])
+        } finally {
+            context.state.accessLevelsLoading = false
+        }
+    },
+    async findUserByEmail(context, email) {
+        try {
+            return (await axios.get(`users?email=${email}`)).data.data
+        } catch (e) {
+            return []
+        }
+    },
+    async loadContributors(context, note_id) {
+        try {
+            return Promise.resolve((await axios.get(`/notes/${note_id}/contributors`)).data.data)
+        } catch (error) {
+            return Promise.reject(error)
+        }
+    },
+    async addContributor(context, { note_id, email, access_level_id }) {
+        try {
+            return Promise.resolve((await axios
+                .put(`/notes/${note_id}/contributors`, {
+                    email,
+                    access_level_id,
+                })).data.data)
+        } catch (error) {
+            return Promise.reject(error)
+        }
+    },
+    async deleteContributor(context, { note_id, contributor_id }) {
+        try {
+            await axios.delete(`notes/${note_id}/contributors/${contributor_id}`)
+
+            return Promise.resolve()
+        } catch (e) {
+            return Promise.reject()
+        }
+    }
 }

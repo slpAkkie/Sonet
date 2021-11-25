@@ -57,10 +57,14 @@ export default {
   --background-color: var(--blue-10);
   --text-color: var(--blue-50);
   //
+  display: flex;
+  align-items: center;
+  //
   padding: 1rem 2rem;
   //
   color: var(--text-color);
   font-weight: bold;
+  text-align: center;
   //
   background-color: var(--background-color);
   //
@@ -99,8 +103,13 @@ export default {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    gap: 1.5rem;
     //
     margin-bottom: 1rem;
+
+    @media screen and (max-width: 450px) {
+      flex-direction: column;
+    }
   }
 }
 </style>

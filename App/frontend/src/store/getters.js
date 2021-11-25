@@ -74,4 +74,12 @@ export default {
 
         return foundCategory ? foundCategory.color : 'transparent'
     },
+
+    // Access Levels
+    accessLevelsLoaded: state => state.accessLevels !== null,
+    accessLevels: (state, getters) => {
+        if (!getters.accessLevelsLoaded && getters.apiToken) store.dispatch('loadAccessLevels')
+
+        return state.accessLevels || []
+    },
 }

@@ -2,10 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StoreContributorRequest;
 use App\Http\Requests\StoreNoteRequest;
 use App\Http\Requests\UpdateNoteRequest;
+use App\Http\Resources\ContributorResource;
 use App\Http\Resources\DeletedResource;
 use App\Http\Resources\NoteResource;
+use App\Models\AccessLevel;
 use App\Models\Note;
 use App\Models\User;
 use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
@@ -97,6 +100,53 @@ class NoteController extends Controller
         Gate::authorize('delete-note', $note);
 
         $note->delete();
+
+        return DeletedResource::make();
+    }
+
+    /**
+     * Show all note contributors
+     *
+     * @param Note $note
+     * @return AnonymousResourceCollection
+     */
+    public function indexContributors(Note $note): AnonymousResourceCollection
+    {
+        return ContributorResource::collection($note->contributors);
+    }
+
+    /**
+     * Add contributor to the note (Or also change it's access level)
+     *
+     * @param StoreContributorRequest $request
+     * @param Note $note
+     * @return ContributorResource
+     */
+    public function addContributor(StoreContributorRequest $request, Note $note): ContributorResource
+    {
+        $contributor = User::findByEmail($request->get('email'));
+
+        $note->contributors()->syncWithoutDetaching([
+            $contributor->id => [
+                'access_level_id' => $request->get('access_level_id'),
+            ],
+        ]);
+
+        $contributor->setAccessLevel(AccessLevel::find($request->get('access_level_id')));
+
+        return ContributorResource::make($contributor);
+    }
+
+    /**
+     * Delete contributor from note
+     *
+     * @param Note $note
+     * @param $user_id
+     * @return DeletedResource
+     */
+    public function destroyContributor(Note $note, $user_id): DeletedResource
+    {
+        $note->contributors()->detach($user_id);
 
         return DeletedResource::make();
     }

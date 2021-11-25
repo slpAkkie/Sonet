@@ -407,6 +407,118 @@
 					"response": []
 				}
 			]
+		},
+		{
+			"name": "Access Levels",
+			"item": [
+				{
+					"name": "Index",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/access_levels",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"access_levels"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Find user for contributors",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/users?email=root",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"users"
+							],
+							"query": [
+								{
+									"key": "email",
+									"value": "root"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Add Contributor",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"akkie@akkie.ru\",\r\n    \"access_level_id\": \"1\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/notes/1/contributors",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"notes",
+								"1",
+								"contributors"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Index contributors",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/notes/1/contributors",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"notes",
+								"1",
+								"contributors"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete contributor",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/notes/25/contributors/2",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"notes",
+								"25",
+								"contributors",
+								"2"
+							]
+						}
+					},
+					"response": []
+				}
+			]
 		}
 	],
 	"auth": {

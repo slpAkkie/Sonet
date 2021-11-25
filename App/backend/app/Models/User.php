@@ -52,9 +52,58 @@ class User extends Authenticatable
 
     /*
     |--------------------------------------------------
+    | Custom properties
+    |--------------------------------------------------
+    */
+
+    /**
+     * User access level to the note
+     * Necessary when set a contributor to the note
+     *
+     * @var null|AccessLevel
+     */
+    public $access_level = null;
+
+
+
+    /*
+    |--------------------------------------------------
     | Methods
     |--------------------------------------------------
     */
+
+    /**
+     * Set access level
+     *
+     * @param AccessLevel $accessLevel
+     * @return $this
+     */
+    public function setAccessLevel(AccessLevel $accessLevel): User
+    {
+        $this->access_level = $accessLevel;
+
+        return $this;
+    }
+
+    /**
+     * Get access level title
+     *
+     * @return string
+     */
+    public function getAccessLevel(): string
+    {
+        return $this->access_level ? $this->access_level->title : AccessLevel::find($this->pivot->access_level_id, 'title')->title;
+    }
+
+    /**
+     * Get user full name
+     *
+     * @return string
+     */
+    public function getFullName(): string
+    {
+        return $this->last_name . ' ' . $this->first_name;
+    }
 
     /**
      * Register new User.
@@ -129,6 +178,17 @@ class User extends Authenticatable
     public static function findByLogin($login): ?User
     {
         return User::where('login', $login)->first();
+    }
+
+    /**
+     * Find user by email.
+     *
+     * @param $email
+     * @return User|null
+     */
+    public static function findByEmail($email): ?User
+    {
+        return User::where('email', $email)->first();
     }
 
     /**
