@@ -119,6 +119,31 @@ export default {
             context.commit('setSharedNotes', null)
         }
     },
+    async saveAttachment(context, { note_id, attachment }) {
+        try {
+            let formData = new FormData()
+            formData.append('attachment', attachment)
+
+            let response = (await axios.post(`notes/${note_id}/attachments`, formData, {
+                headers: {
+                    'Content-Type': 'multipart/form-data',
+                }
+            })).data.data
+
+            return Promise.resolve(response)
+        } catch (error) {
+            return Promise.reject(error)
+        }
+    },
+    async deleteAttachment(context, attachment_id) {
+        try {
+            await axios.delete(`attachments/${attachment_id}`)
+
+            return Promise.resolve()
+        } catch (error) {
+            return Promise.reject(error)
+        }
+    },
 
     // Folders
     async createFolder(context, folderData) {

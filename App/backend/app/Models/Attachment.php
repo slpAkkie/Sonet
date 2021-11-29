@@ -2,10 +2,12 @@
 
 namespace App\Models;
 
+use App\Http\Resources\Exceptions\ValidationFailedResource;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Query\Builder;
+use Illuminate\Http\UploadedFile;
 
 /**
  * @property int|string|null id
@@ -23,11 +25,68 @@ class Attachment extends Model
 {
     use HasFactory;
 
+
+
+    /*
+    |--------------------------------------------------
+    | Mass assignment
+    |--------------------------------------------------
+    */
+
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var string[]
+     */
     protected $fillable = [
         'title',
         'path',
+        'note_id',
     ];
 
+
+
+    /*
+    |--------------------------------------------------
+    | Methods
+    |--------------------------------------------------
+    */
+
+    /**
+     * Create new attachment for the note and save it
+     *
+     * @param UploadedFile $file
+     * @param $note_id
+     * @return ValidationFailedResource|Attachment
+     */
+    public static function new(UploadedFile $file, $note_id)
+    {
+        $path = $file->storePublicly('sonet/attachments');
+        if (!$path) return ValidationFailedResource::make([ 'attachment' => 'Не удалось сохранить ваш файл' ]);
+
+        $attachment = new self([
+            'title' => $file->getClientOriginalName(),
+            'path' => $path,
+            'note_id' => $note_id,
+        ]);
+        $attachment->save();
+
+        return $attachment;
+    }
+
+
+
+    /*
+    |--------------------------------------------------
+    | Relations
+    |--------------------------------------------------
+    */
+
+    /**
+     * Attachment's note
+     *
+     * @return BelongsTo
+     */
     public function note(): BelongsTo
     {
         return $this->belongsTo(Note::class, 'note_id', 'id');

@@ -5,9 +5,6 @@ export default [
         path: '/',
         name: 'Landing',
         component: () => import('../views/Landing'),
-        meta: {
-            layout: 'Auth',
-        },
     },
     {
         path: '/register',

@@ -8,7 +8,7 @@ import vueAxios from 'vue-axios'
 const app = createApp(App)
 
 // Set baseURL for API requests
-axios.defaults.baseURL = 'http://api.localhost/sonet/'
+axios.defaults.baseURL = 'https://api.akkie.ru/sonet/'
 
 // Handle errors for all request
 axios.interceptors.response.use(response => response, error => {

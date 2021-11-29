@@ -22,6 +22,25 @@
       <div class="note-editor__row">
         <Textarea class="note-editor__body" name="body" v-model="body" />
       </div>
+
+      <div class="note-editor__attachments">
+        <div class="note-editor__row">
+          <h4 class="note-editor__section-title">Вложения</h4>
+        </div>
+        <div class="note-editor__row note-editor__attachments-wrapper">
+          <div v-if="isAttachments" class="note-editor__attachments-list">
+            <AttachmentCard
+              v-for="attachment in note.attachments"
+              :key="attachment.id"
+              :attachment="attachment"
+              @deleted="removeAttachment"
+            />
+          </div>
+          <div class="note-editor__add-attachment" @click="openInputDialogue">+</div>
+          <input type="file" multiple ref="attachmentsInput" hidden @change="processAttachment">
+        </div>
+      </div>
+
       <div class="note-editor__row note-editor__row_end">
         <Button value="Сохранить" @click="update" />
         <Button appearance="danger" value="Удалить" @click="del" />
@@ -29,7 +48,7 @@
 
       <div v-if="!isShared" class="note-editor__accesses">
         <div class="note-editor__row">
-          <h4 class="note-editor__contributors-title">Доступ</h4>
+          <h4 class="note-editor__section-title">Доступ</h4>
         </div>
         <div class="note-editor__row">
           <div class="note-editor__col">
@@ -74,6 +93,7 @@ import Textarea from '../../components/controls/Textarea'
 import Button from '../../components/controls/Button'
 import NoteView from '../../layouts/NoteView'
 import ContributorRow from '../../components/NoteView/ContributorRow'
+import AttachmentCard from '../../components/NoteView/AttachmentCard'
 
 export default {
   name: 'ViewNote',
@@ -83,6 +103,7 @@ export default {
     Input,
     Textarea,
     Button,
+    AttachmentCard,
     ContributorRow,
   },
   props: {
@@ -95,6 +116,8 @@ export default {
     isAccessesLoading: false,
     changes: {},
     note: null,
+    processingAttachments: [],
+    attachments: [],
     contributors: null,
     contributors_hint: null,
     contributors_hint_debounce_timeout_id: null,
@@ -112,6 +135,19 @@ export default {
         this.loadContributorsHint()
       }, 750)
     },
+    processingAttachments: {
+      handler(value) {
+        if (!value[0]) return
+
+        this.$store
+          .dispatch('saveAttachment', { note_id: this.id, attachment: value[0] })
+          .then((response) => {
+            this.processingAttachments.shift()
+            this.note.attachments.push(response)
+          })
+      },
+      deep: true,
+    },
   },
   computed: {
     isLoading() {
@@ -119,6 +155,9 @@ export default {
     },
     isShared() {
       return this.$store.getters.isShared(this.id)
+    },
+    isAttachments() {
+      return !!this.note.attachments.length
     },
     requestFailed() {
       return this.note === false
@@ -260,6 +299,17 @@ export default {
         .catch(() => {
           alert('Что-то сломалось, мы уже выясняем причину')
         })
+    },
+    openInputDialogue() {
+      this.$refs.attachmentsInput.click()
+    },
+    processAttachment(evt) {
+      this.processingAttachments.push(...evt.target.files)
+      evt.target.value = null
+    },
+    removeAttachment(id) {
+      let index = this.note.attachments.findIndex(attachment => attachment.id === id)
+      this.note.attachments.splice(index, 1)
     },
   },
   beforeMount() {
