@@ -71,9 +71,5 @@ export default {
       grid-template-columns: 1fr;
     }
   }
-
-  &_column {
-    grid-template-columns: 1fr;
-  }
 }
 </style>

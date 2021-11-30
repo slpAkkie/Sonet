@@ -38,6 +38,7 @@ export default {
   //
   position: relative;
   //
+  min-width: 14rem;
   min-height: 14rem;
 
   &_full-screen {

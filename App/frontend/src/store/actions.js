@@ -118,14 +118,11 @@ export default {
     async deleteNote(context, id) {
         try {
             await axios.delete(`notes/${id}`)
+            context.commit('removeNote', id)
 
             return Promise.resolve()
         } catch (error) {
             return Promise.reject(error)
-        } finally {
-            // TODO: Just splice according array don't erase all of them
-            context.commit('setNotes', null)
-            context.commit('setSharedNotes', null)
         }
     },
     async saveAttachment(context, { note_id, attachment }) {
@@ -179,15 +176,11 @@ export default {
     async deleteFolder(context, id) {
         try {
             await axios.delete(`folders/${id}`)
+            context.commit('removeFolder', id)
 
             return Promise.resolve()
         } catch (e) {
             return Promise.reject()
-        } finally {
-            // TODO: Map notes and remove info about folder
-            context.commit('setNotes', null)
-            // TODO: Just splice folders array don't erase
-            context.commit('setFolders', null)
         }
     },
 
@@ -216,15 +209,11 @@ export default {
     async deleteCategory(context, id) {
         try {
             await axios.delete(`categories/${id}`)
+            context.commit('removeCategory', id)
 
             return Promise.resolve()
         } catch (e) {
             return Promise.reject()
-        } finally {
-            // TODO: Map notes and remove info about folder
-            context.commit('setNotes', null)
-            // TODO: Just splice categories array don't erase
-            context.commit('setCategories', null)
         }
     },
 

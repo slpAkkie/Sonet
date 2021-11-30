@@ -1,5 +1,5 @@
 <template>
-  <div class="category-row">
+  <div class="category-row" :class="isWaiting ? 'category-row_disabled' : ''">
     <div class="category-row__title">{{ data.title }}</div>
     <div class="category-row__controls">
       <Button value="Удалить" appearance="danger" @click="del" />
@@ -21,10 +21,18 @@ export default {
       required: true,
     },
   },
+  data: () => ({
+    isWaiting: false,
+  }),
   methods: {
     del() {
+      this.isWaiting = true
+
       this.$store
         .dispatch('deleteCategory', this.data.id)
+        .catch(() => {
+          this.isWaiting = false
+        })
     },
   },
 }
@@ -34,6 +42,12 @@ export default {
 .category-row {
   display: flex;
   align-items: center;
+
+  &_disabled {
+    opacity: .5;
+    //
+    pointer-events: none;
+  }
 
   &__title {
     flex-grow: 1;

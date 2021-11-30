@@ -39,6 +39,10 @@ export default {
         const noteIndex = state.notes.findIndex(note => note.id === updatedNote.id)
         state.notes[noteIndex] = updatedNote
     },
+    removeNote(state, note_id) {
+        state.notes = state.notes.filter(note => note.id !== +note_id)
+        state.sharedNotes = state.sharedNotes.filter(note => note.id !== +note_id)
+    },
 
     // Folders
     setFolders(state, folders) {
@@ -47,13 +51,29 @@ export default {
     pushFolder(state, folder) {
         state.folders.push(folder)
     },
+    removeFolder(state, folder_id) {
+        state.folders = state.folders.filter(folder => folder.id !== folder_id)
+        state.notes = state.notes.map(note => {
+            if (note.folder === folder_id)
+            note.folder = null
+            return note
+        })
+    },
 
     // Categories
     setCategories(state, categories) {
-        state.categories = categories
+        state.categories = categories || null
     },
     pushCategory(state, category) {
         state.categories.push(category)
+    },
+    removeCategory(state, category_id) {
+        state.categories = state.categories.filter(category => category.id !== category_id)
+        state.notes = state.notes.map(note => {
+            if (note.category === category_id)
+            note.category = null
+            return note
+        })
     },
 
     // Access Levels

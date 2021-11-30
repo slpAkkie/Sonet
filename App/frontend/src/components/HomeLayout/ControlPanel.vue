@@ -1,7 +1,6 @@
 <template>
   <div class="control-panel">
     <Input v-model="searchQuery" placeholder="Поиск..." />
-    <!-- TODO: Toggle display mode between grid and column -->
     <Button value="Новая заметка" @click="createNewNote" />
   </div>
 </template>

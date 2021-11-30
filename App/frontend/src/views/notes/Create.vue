@@ -44,7 +44,7 @@ export default {
     Button,
   },
   data: () => ({
-    // TODO: Attachments
+    // TODO: Attachments (probably)
     postData: {
       title: '',
       body: '',
@@ -74,13 +74,21 @@ export default {
       this.isLoading = false
       this.$router.push(`/notes/${id}`)
     },
-    handleError() {
-      alert('Что-то сломалось, мы уже выясняем причину')
+    handleError(error) {
       this.isLoading = false
 
-      this.$router.push(`/home`)
+      if (error.code === 422) {
+        // TODO: Better error handler
+        let errors = error.error.errors
+        let errorMessage = []
+        for (let e in errors) if (Object.getOwnPropertyDescriptor(errors, e))
+          errorMessage.push(`${errors[e]}`)
 
-      // TODO: Handle validation errors
+        alert(errorMessage.join(', '))
+      } else {
+        alert('Что-то сломалось, мы уже выясняем причину')
+        this.$router.push(`/home`)
+      }
     },
   },
 }

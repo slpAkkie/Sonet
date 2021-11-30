@@ -35,6 +35,7 @@
               :attachment="attachment"
               @deleted="removeAttachment"
             />
+            <Preloader v-for="(item, i) in processingAttachments" :key="i" />
             <div class="note-editor__add-attachment" @click="openInputDialogue">+</div>
             <input type="file" multiple ref="attachmentsInput" hidden @change="processAttachment">
           </div>
@@ -110,8 +111,6 @@ export default {
     id: String,
   },
   data: () => ({
-    // TODO: Attachments
-    // TODO: Contributors list with deleting
     isWaiting: false,
     isAccessesLoading: false,
     changes: {},
@@ -287,7 +286,17 @@ export default {
           if (index !== -1) this.contributors[index] = response
           else this.contributors.unshift(response)
         })
-        .catch(errors => console.log(errors))
+        .catch(this.handleContributorError)
+    },
+    handleContributorError(error) {
+      if (error.response.status === 422) {
+        let errors = error.response.data.error.errors
+        let errorMessage = []
+        for (let e in errors) if (Object.getOwnPropertyDescriptor(errors, e))
+          errorMessage.push(`${errors[e]}`)
+
+        alert(errorMessage.join(', '))
+      }
     },
     deleteContributor(contributor_id) {
       this.$store
