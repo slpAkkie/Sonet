@@ -4,7 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Http\Resources\ContributorHintResource;
 use App\Http\Resources\DeletedResource;
+use App\Models\Attachment;
+use App\Models\Note;
 use App\Models\User;
+use Illuminate\Database\Query\Builder;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
@@ -38,7 +41,12 @@ class UserController extends Controller
     {
         /** @var User $user */
         $user = Auth::user();
-        $user->delete();
+        Attachment::whereIn('note_id', function (Builder $builder) {
+            return $builder->from('notes')->select('id')->where('user_id', Auth::id());
+        })->get('path')->each(function ($attachment) {
+            unlink('storage/' . $attachment['path']);
+        });
+         $user->delete();
 
         return DeletedResource::make();
     }
