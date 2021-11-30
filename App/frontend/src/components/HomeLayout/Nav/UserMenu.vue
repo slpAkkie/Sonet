@@ -65,8 +65,8 @@ export default {
   //
   text-align: center;
   //
-  box-shadow: 0 0 2.5rem 0 var(--c-info_inactive);
   background-color: var(--bg-lighter);
+  border: .1rem solid var(--primary);
   border-radius: .4rem;
   //
   transform: translateY(1rem);

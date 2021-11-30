@@ -49,7 +49,7 @@ export default {
   padding: 1rem 1.5rem;
   //
   background-color: var(--bg-lighter);
-  box-shadow: 0 0.5rem 1.5rem -0.2rem var(--bg-light);
+  box-shadow: 0 0.5rem 1.5rem -1rem var(--primary);
   border-radius: .4rem;
   //
   cursor: pointer;
