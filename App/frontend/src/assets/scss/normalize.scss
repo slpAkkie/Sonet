@@ -12,13 +12,15 @@
 }
 
 html {
-  font-family: OpenSans, sans-serif;
+  font-family: 'Golos UI', 'Segoe UI', sans-serif;
   font-size: 10px;
 }
 
 body {
-  color: var(--black);
+  color: var(--c-text);
   font-size: 1.6rem;
+  //
+  background-color: var(--bg-body);
 }
 
 li {
@@ -26,7 +28,7 @@ li {
 }
 
 input, textarea {
-  font-family: OpenSans, sans-serif;
+  font-family: 'OpenSans', sans-serif;
 }
 
 img {
@@ -34,7 +36,6 @@ img {
 }
 
 h1, h2, h3, h4, h5, h6, .style-header {
-  font-family: RobotoSlab, sans-serif;
   font-variation-settings: 'wght' 400;
 }
 
@@ -65,12 +66,13 @@ a {
   cursor: pointer;
 
   &:not(.link_static) {
-    color: #51b5d4;
+    color: var(--c-link);
+    font-variation-settings: 'wght' 450;
     //
     transition: color .1s ease;
 
     &:hover {
-      color: #0983a2;
+      color: var(--c-link_active);
     }
   }
 }

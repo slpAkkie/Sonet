@@ -45,8 +45,8 @@ export default {
     font-size: 7rem;
     line-height: 1em;
     //
-    border: .2rem dashed var(--gray-50);
-    color: var(--gray-80);
+    border: .2rem dashed var(--primary_muted);
+    color: var(--primary_muted);
     //
     cursor: pointer;
   }

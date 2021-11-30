@@ -27,7 +27,8 @@ export default {
 <style lang="scss">
 .nav {
   height: 9rem;
-  box-shadow: 0 .4rem 1.5rem var(--gray-90-08);
+  //
+  background-color: var(--bg-light);
 
   &__inner {
     display: flex;

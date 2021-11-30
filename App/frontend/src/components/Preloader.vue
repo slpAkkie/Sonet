@@ -31,7 +31,10 @@ export default {
 
 <style lang="scss">
 .preloader {
-  --dot-color: var(--blue-50);
+  --l-dot-color: var(--primary_dark);
+  --l-dot-size: 25px;
+  --l-dot-gap: 15px;
+  --l-preloader-size: calc(var(--l-dot-size) * 2 + var(--l-dot-gap) * 2);
   //
   position: relative;
   //
@@ -48,7 +51,7 @@ export default {
   }
 
   &_full-screen > &__overlay {
-    background-color: var(--white);
+    background-color: var(--bg-lighter);
   }
 
   &__overlay {
@@ -62,10 +65,6 @@ export default {
   }
 
   &__inner {
-    --dot-size: 25px;
-    --dot-gap: 15px;
-    --preloader-size: calc(var(--dot-size) * 2 + var(--dot-gap) * 2);
-    //
     position: absolute;
     top: 50%;
     left: 50%;
@@ -78,17 +77,17 @@ export default {
     grid-template-rows: 50% 50%;
     place-items: center;
     //
-    width: var(--preloader-size);
-    height: var(--preloader-size);
+    width: var(--l-preloader-size);
+    height: var(--l-preloader-size);
     //
     transform: translate(-50%, -50%);
   }
 
   &__dot {
-    width: var(--dot-size);
-    height: var(--dot-size);
+    width: var(--l-dot-size);
+    height: var(--l-dot-size);
     //
-    border-radius: var(--dot-size);
+    border-radius: var(--l-dot-size);
 
     &.top { top: 0 }
 
@@ -101,25 +100,25 @@ export default {
     &.top.left {
       animation: top-left 2s ease-in-out infinite;
       //
-      background-color: var(--dot-color);
+      background-color: var(--l-dot-color);
     }
 
     &.top.right {
       animation: top-right 2s ease-in-out infinite;
       //
-      background-color: var(--dot-color);
+      background-color: var(--l-dot-color);
     }
 
     &.bottom.right {
       animation: bottom-right 2s ease-in-out infinite;
       //
-      background-color: var(--dot-color);
+      background-color: var(--l-dot-color);
     }
 
     &.bottom.left {
       animation: bottom-left 2s ease-in-out infinite;
       //
-      background-color: var(--dot-color);
+      background-color: var(--l-dot-color);
     }
   }
 }
@@ -127,11 +126,11 @@ export default {
 @keyframes top-left {
   0% { transform: translate(0, 0) }
 
-  25% { transform: translate(calc(100% + var(--dot-gap)), 0) }
+  25% { transform: translate(calc(100% + var(--l-dot-gap)), 0) }
 
-  50% { transform: translate(calc(100% + var(--dot-gap)), calc(100% + var(--dot-gap))) }
+  50% { transform: translate(calc(100% + var(--l-dot-gap)), calc(100% + var(--l-dot-gap))) }
 
-  75% { transform: translate(0, calc(100% + var(--dot-gap))) }
+  75% { transform: translate(0, calc(100% + var(--l-dot-gap))) }
 
   100% { transform: translate(0, 0) }
 }
@@ -139,11 +138,11 @@ export default {
 @keyframes top-right {
   0% { transform: translate(0, 0) }
 
-  25% { transform: translate(0, calc(100% + var(--dot-gap))) }
+  25% { transform: translate(0, calc(100% + var(--l-dot-gap))) }
 
-  50% { transform: translate(calc(-100% - var(--dot-gap)), calc(100% + var(--dot-gap))) }
+  50% { transform: translate(calc(-100% - var(--l-dot-gap)), calc(100% + var(--l-dot-gap))) }
 
-  75% { transform: translate(calc(-100% - var(--dot-gap)), 0) }
+  75% { transform: translate(calc(-100% - var(--l-dot-gap)), 0) }
 
   100% { transform: translate(0, 0) }
 }
@@ -151,11 +150,11 @@ export default {
 @keyframes bottom-right {
   0% { transform: translate(0, 0) }
 
-  25% { transform: translate(calc(-100% - var(--dot-gap)), 0) }
+  25% { transform: translate(calc(-100% - var(--l-dot-gap)), 0) }
 
-  50% { transform: translate(calc(-100% - var(--dot-gap)), calc(-100% - var(--dot-gap))) }
+  50% { transform: translate(calc(-100% - var(--l-dot-gap)), calc(-100% - var(--l-dot-gap))) }
 
-  75% { transform: translate(0, calc(-100% - var(--dot-gap))) }
+  75% { transform: translate(0, calc(-100% - var(--l-dot-gap))) }
 
   100% { transform: translate(0, 0) }
 }
@@ -163,11 +162,11 @@ export default {
 @keyframes bottom-left {
   0% { transform: translate(0, 0) }
 
-  25% { transform: translate(0, calc(-100% - var(--dot-gap))) }
+  25% { transform: translate(0, calc(-100% - var(--l-dot-gap))) }
 
-  50% { transform: translate(calc(100% + var(--dot-gap)), calc(-100% - var(--dot-gap))) }
+  50% { transform: translate(calc(100% + var(--l-dot-gap)), calc(-100% - var(--l-dot-gap))) }
 
-  75% { transform: translate(calc(100% + var(--dot-gap)), 0) }
+  75% { transform: translate(calc(100% + var(--l-dot-gap)), 0) }
 
   100% { transform: translate(0, 0) }
 }

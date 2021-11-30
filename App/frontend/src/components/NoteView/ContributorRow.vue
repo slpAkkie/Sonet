@@ -42,7 +42,7 @@ export default {
   align-items: stretch;
   gap: .2rem;
   //
-  background-color: var(--blue-50);
+  background-color: var(--primary);
 
   @media screen and (max-width: 949px) {
     gap: 0;
@@ -78,7 +78,7 @@ export default {
     //
     padding: 1.5rem 1.5rem;
     //
-    background-color: var(--white);
+    background-color: var(--bg-lighter);
 
     @media screen and (max-width: 949px) {
       flex-grow: 1;
@@ -121,7 +121,9 @@ export default {
   }
 
   &__access-level {
-    background-color: var(--blue-10);
+    color: var(--primary_dark);
+    //
+    background-color: var(--primary_light);
   }
 }
 </style>

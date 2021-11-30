@@ -24,17 +24,17 @@ export default {
 
 <style lang="scss">
 .c-button {
-  --border-color: var(--blue-10);
-  --background: var(--blue-10);
-  --text-color: var(--blue-50);
+  --l-border-color: var(--c-info_inactive);
+  --l-background: var(--c-info_inactive);
+  --l-text-color: var(--c-info);
   //
   padding: .5rem 1.5rem;
   //
-  color: var(--text-color);
+  color: var(--l-text-color);
   font-weight: bold;
   //
-  background-color: var(--background);
-  border: .1rem solid var(--border-color);
+  background-color: var(--l-background);
+  border: .1rem solid var(--l-border-color);
   border-radius: .4rem;
   //
   cursor: pointer;
@@ -43,19 +43,19 @@ export default {
   transition-timing-function: ease;
   
   &:hover {
-    --background: var(--blue-50);
-    --text-color: var(--blue-10);
+    --l-background: var(--c-info);
+    --l-text-color: var(--c-info_inactive);
   }
 
   &_danger {
-    --border-color: var(--red-10);
-    --background: var(--red-10);
-    --text-color: var(--red-60);
+    --l-border-color: var(--c-danger_inactive);
+    --l-background: var(--c-danger_inactive);
+    --l-text-color: var(--c-danger);
 
     &:hover {
-      --border-color: var(--red-60);
-      --background: var(--red-60);
-      --text-color: var(--red-10);
+      --l-border-color: var(--c-danger);
+      --l-background: var(--c-danger);
+      --l-text-color: var(--c-danger_inactive);
     }
   }
 }

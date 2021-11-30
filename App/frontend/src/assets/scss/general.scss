@@ -16,9 +16,9 @@
   padding: 3rem;
   margin: 0 auto;
   //
-  background-color: var(--white);
+  background-color: var(--bg-popup);
   border-radius: .4rem;
-  box-shadow: 0 0 1.5rem 0 var(--gray-90-08);
+  box-shadow: 0 0 1.5rem 0 var(--bg-light);
   //
   z-index: 101;
 
@@ -33,7 +33,8 @@
     bottom: 0;
     left: 0;
     //
-    background-color: var(--white-25);
+    background-color: var(--bg-light);
+    opacity: .5;
     //
     z-index: 100;
   }

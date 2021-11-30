@@ -36,27 +36,8 @@ export default {
   align-items: center;
 
   &__title {
-    display: block;
     flex-grow: 1;
-
-    &.link_exact-active {
-      position: relative;
-
-      &::before {
-        content: '';
-        //
-        position: absolute;
-        top: 50%;
-        left: -1rem;
-        //
-        width: .3rem;
-        height: 100%;
-        //
-        background-color: var(--blue-50);
-        //
-        transform: translateY(-50%);
-      }
-    }
+    display: block;
   }
 }
 </style>

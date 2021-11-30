@@ -65,8 +65,8 @@ export default {
   //
   text-align: center;
   //
-  box-shadow: 0 0 2.5rem 0 var(--gray-90-08);
-  background-color: var(--white);
+  box-shadow: 0 0 2.5rem 0 var(--c-info_inactive);
+  background-color: var(--bg-lighter);
   border-radius: .4rem;
   //
   transform: translateY(1rem);
@@ -89,7 +89,7 @@ export default {
     height: .2rem;
     margin: 1rem auto;
     //
-    background-color: var(--gray-30);
+    background-color: var(--c-info_inactive);
     border-radius: .4rem;
   }
 

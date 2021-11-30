@@ -1,29 +1,63 @@
 :root {
 
-  // COMMON
-  --black: #000000;
+  // Color - black & white
   --white: #ffffff;
-  --white-25: #ffffff80;
 
-  // GRAY
-  --gray-90: #333333;
-  --gray-90-08: #33333314;
-  --gray-80: #585858;
-  --gray-50: #8E8E8E;
-  --gray-30: #E2E2E2;
-  --gray-15: #F2F2F2;
-  --gray-10: #F9F7F7;
-  --gray-10-08: #F9F7F714;
+  // Color - blue
+  --blue-00: #294b6e;
+  --blue-10: #375cbb;
+  --blue-20: #6e9df3;
+  --blue-50: #6283a3;
+  --blue-60: #86a5cb;
+  --blue-70: #e1e9ff;
+  --blue-80: #e2e8f6;
+  --blue-90: #f5f5ff;
 
-  // BLUE
-  --blue-90: #252A34;
-  --blue-80: #3C414A;
-  --blue-50: #375CBB;
-  --blue-40: #5D83E4;
-  --blue-10: #E2E8F6;
+  // Color - cyan
+  --cyan-10: #0093c4;
+  --cyan-20: #06b9eb;
 
-  // RED
-  --red-60: #DE2753;
-  --red-10: #F9E4E9;
+  // Color - red
+  --red-10: #de2753;
+  --red-60: #f9e4e9;
+
+
+
+
+
+  // Aliases
+  --primary_muted: var(--blue-60);
+  --primary_light: var(--blue-80);
+  --primary: var(--blue-20);
+  --primary_dark: var(--blue-10);
+
+  --secondary: var(--blue-50);
+  --secondary_dark: var(--blue-00);
+
+
+
+
+
+  // Links
+  --c-link: var(--cyan-10);
+  --c-link_active: var(--cyan-20);
+
+  // Backgrounds
+  --bg-lighter: var(--white);
+  --bg-light: var(--blue-70);
+
+  // Theme
+  --c-info: var(--blue-10);
+  --c-info_inactive: var(--blue-80);
+
+  --c-danger: var(--red-10);
+  --c-danger_inactive: var(--red-60);
+
+  // General
+  --c-text: var(--blue-00);
+
+  --bg-body: var(--blue-90);
+  --bg-popup: var(--blue-90);
+
 
 }

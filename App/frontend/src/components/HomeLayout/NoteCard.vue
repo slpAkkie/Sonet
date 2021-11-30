@@ -45,8 +45,8 @@ export default {
   //
   padding: 1rem 1.5rem;
   //
-  background-color: var(--gray-10);
-  box-shadow: 0 0 1.5rem 0 var(--gray-90-08);
+  background-color: var(--bg-lighter);
+  box-shadow: 0 0.5rem 1.5rem -0.2rem var(--bg-light);
   border-radius: .4rem;
   //
   cursor: pointer;
@@ -58,7 +58,7 @@ export default {
   }
 
   &:hover > &__header {
-    color: #0983a2;
+    color: var(--secondary);
     //
     transition: color .1s ease;
   }
@@ -88,11 +88,11 @@ export default {
   }
 
   &__author {
-    color: var(--blue-50);
+    color: var(--primary);
   }
 
   &__created_at {
-    color: var(--gray-50);
+    color: var(--primary_muted);
   }
 }
 </style>

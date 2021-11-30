@@ -75,7 +75,7 @@ export default {
   //
   padding: 1.5rem;
   //
-  background-color: var(--white);
+  background-color: var(--bg-lighter);
   border-radius: .4rem;
 
   &__header {
@@ -91,10 +91,10 @@ export default {
     height: .2rem;
     margin: 1rem auto;
     //
-    background-color: var(--blue-50);
+    background-color: var(--primary);
 
     &_inactive {
-      background-color: var(--gray-30);
+      background-color: var(--primary_light);
     }
   }
 }

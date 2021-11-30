@@ -57,8 +57,8 @@ export default {
   cursor: pointer;
 
   &:hover {
-    color: var(--white);
-    background-color: var(--blue-50);
+    color: var(--bg-lighter);
+    background-color: var(--c-info);
   }
 
   &__title {
@@ -80,7 +80,7 @@ export default {
         width: .3rem;
         height: 100%;
         //
-        background-color: var(--blue-50);
+        background-color: var(--c-info);
         //
         transform: translateY(-50%);
       }
