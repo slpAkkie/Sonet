@@ -27,23 +27,23 @@
         <div class="note-editor__row">
           <h4 class="note-editor__section-title">Вложения</h4>
         </div>
-        <div class="note-editor__row note-editor__attachments-wrapper">
-          <div v-if="isAttachments" class="note-editor__attachments-list">
+        <div class="note-editor__row">
+          <div class="note-editor__attachments-list">
             <AttachmentCard
               v-for="attachment in note.attachments"
               :key="attachment.id"
               :attachment="attachment"
               @deleted="removeAttachment"
             />
+            <div class="note-editor__add-attachment" @click="openInputDialogue">+</div>
+            <input type="file" multiple ref="attachmentsInput" hidden @change="processAttachment">
           </div>
-          <div class="note-editor__add-attachment" @click="openInputDialogue">+</div>
-          <input type="file" multiple ref="attachmentsInput" hidden @change="processAttachment">
         </div>
       </div>
 
       <div class="note-editor__row note-editor__row_end">
-        <Button value="Сохранить" @click="update" />
         <Button appearance="danger" value="Удалить" @click="del" />
+        <Button value="Сохранить" @click="update" />
       </div>
 
       <div v-if="!isShared" class="note-editor__accesses">
@@ -233,6 +233,8 @@ export default {
       this.isWaiting = false
     },
     del() {
+      if (!confirm('Вы уверены что хотите удалить заметку')) return
+
       this.isWaiting = true
 
       this.$store
@@ -319,3 +321,31 @@ export default {
   }
 }
 </script>
+
+<style lang="scss">
+.note-editor {
+  &__attachments-list {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 1.5rem;
+  }
+
+  &__add-attachment {
+    display: grid;
+    place-content: center;
+    //
+    width: 12rem;
+    height: 12rem;
+    //
+    font-size: 7rem;
+    line-height: 1em;
+    //
+    border: .2rem dashed var(--primary_muted);
+    color: var(--primary_muted);
+    //
+    cursor: pointer;
+  }
+}
+</style>

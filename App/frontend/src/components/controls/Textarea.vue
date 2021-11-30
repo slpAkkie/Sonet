@@ -19,7 +19,7 @@ export default {
 .c-textarea {
   max-width: 100%;
   width: 100%;
-  padding: .5rem 1.5rem;
+  padding: 1rem 1.5rem;
   //
   border: .1rem solid #dadada;
   border-radius: .4rem;

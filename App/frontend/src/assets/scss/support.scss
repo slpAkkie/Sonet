@@ -1,4 +1,9 @@
 .text {
+  &_highlight {
+    color: var(--c-danger);
+    font-variation-settings: 'wght' 750;
+  }
+
   &_center {
     text-align: center;
   }

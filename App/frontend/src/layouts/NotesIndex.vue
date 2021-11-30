@@ -29,7 +29,12 @@ export default {
       if (this.$route.name === 'IndexSharedNotes') pageTitle = 'Доступные мне'
       else if (this.$route.name === 'IndexSharedNotes') pageTitle = 'Доступные мне'
       else if (this.$route.name === 'IndexNotesWithoutFolder') pageTitle = 'Без папки'
-      else if (this.$route.params.folder_id) pageTitle = 'Папка: ' + this.$store.getters.folder(this.$route.params.folder_id)?.title
+      else if (this.$route.params.folder_id) {
+        let folder_title = this.$store.getters.folder(this.$route.params.folder_id)?.title
+        if (!folder_title) this.goToHome()
+
+        pageTitle = 'Папка: ' + this.$store.getters.folder(this.$route.params.folder_id)?.title
+      }
 
       return pageTitle || 'Мои заметки'
     },
@@ -44,6 +49,11 @@ export default {
       if (this.$route.params.folder_id) return !!this.$store.getters.notesInFolder(this.$route.params.folder_id).length
 
       return !!this.$store.getters.notes.length
+    },
+  },
+  methods: {
+    goToHome() {
+      this.$router.push('/home')
     },
   },
 }

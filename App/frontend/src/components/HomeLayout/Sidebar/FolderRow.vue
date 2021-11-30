@@ -1,6 +1,6 @@
 <template>
-  <div class="folder-row">
-    <router-link :to="link" class="folder-row__title link_static">{{ data.title }}</router-link>
+  <div class="folder-row" :class="isWaiting && 'folder-row_disabled'">
+    <router-link :to="link" ref="link" class="folder-row__title link_static">{{ data.title }}</router-link>
     <div v-if="withControls" class="folder-row__controls">
       <Button value="Удалить" appearance="danger" @click="del" />
     </div>
@@ -29,6 +29,9 @@ export default {
       default: null,
     },
   },
+  data: () => ({
+    isWaiting: false,
+  }),
   computed: {
     link() {
       return this.linkTo || `/home/folder/${this.data.id}`
@@ -36,8 +39,14 @@ export default {
   },
   methods: {
     del() {
+      if (!confirm('Вы уверены что хотите удалить папку')) return
+
+      this.isWaiting = true
       this.$store
         .dispatch('deleteFolder', this.data.id)
+        .catch(() => {
+          this.isWaiting = false
+        })
     },
   },
 }
@@ -56,7 +65,12 @@ export default {
   transition-duration: .1s;
   cursor: pointer;
 
-  &:hover {
+  &_disabled {
+    opacity: .5;
+    pointer-events: none;
+  }
+
+  &:hover:not(&_disabled) {
     color: var(--bg-lighter);
     background-color: var(--c-info);
   }

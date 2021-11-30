@@ -27,6 +27,7 @@ Route::middleware('auth.token')->group(function () {
         Route::get('/verify', [AuthController::class, 'verify']);
         Route::get('/identify', [AuthController::class, 'identify']);
         Route::delete('/logout', [AuthController::class, 'logout']);
+        Route::delete('/', [UserController::class, 'destroy']);
     });
     Route::get('/users', [UserController::class, 'indexForContributors']);
 

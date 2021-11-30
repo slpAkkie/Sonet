@@ -52,6 +52,15 @@ export default {
             return Promise.reject(error)
         }
     },
+    async deleteUser() {
+        try {
+            await axios.delete('user')
+
+            return Promise.resolve()
+        } catch (error) {
+            return Promise.reject(error)
+        }
+    },
 
     // Notes
     async createNote(context, noteData) {

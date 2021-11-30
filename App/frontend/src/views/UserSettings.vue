@@ -50,6 +50,10 @@ export default {
   &__header {
     display: flex;
     justify-content: flex-start;
+
+    @media screen and (max-width: 749px) {
+      justify-content: stretch;
+    }
   }
 }
 
@@ -57,8 +61,8 @@ export default {
   --l-background-color: var(--primary_light);
   --l-text-color: var(--primary_dark);
   //
-  display: flex;
-  align-items: center;
+  display: grid;
+  place-content: center;
   //
   padding: 1rem 2rem;
   //
@@ -72,6 +76,10 @@ export default {
   transition-property: background-color, color;
   transition-duration: .1s;
   transition-timing-function: ease;
+
+  @media screen and (max-width: 749px) {
+    flex-grow: 1;
+  }
 
   &:first-child {
     border-radius: .4rem 0 0 0;
@@ -94,16 +102,21 @@ export default {
   border: .1rem solid var(--primary_dark);
   border-radius: 0 0 .4rem .4rem;
 
+  &__row {
+    margin-bottom: 1.5rem;
+  }
+
   &__header {
     display: flex;
     justify-content: space-between;
     align-items: center;
     gap: 1.5rem;
     //
-    margin-bottom: 1rem;
+    margin-bottom: 2rem;
 
     @media screen and (max-width: 450px) {
       flex-direction: column;
+      align-items: flex-start;
     }
   }
 }

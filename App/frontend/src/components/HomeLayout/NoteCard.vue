@@ -1,7 +1,7 @@
 <template>
   <div class="note" @click="open">
     <header class="note__header">
-      <h5 class="note__title">{{ note.title }}</h5>
+      <h5 class="note__title">{{ title }}</h5>
       <div class="note__category-color" :style="`--color: ${categoryColor}`"></div>
     </header>
     <main class="note__main">{{ note.body }}</main>
@@ -22,6 +22,9 @@ export default {
     },
   },
   computed: {
+    title() {
+      return `${this.note.title.slice(0, 25).trim()}${this.note.title.length > 25 ? '...' : ''}`
+    },
     date() {
       return (new Date(this.note['created_at'])).toLocaleDateString()
     },

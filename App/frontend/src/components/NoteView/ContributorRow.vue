@@ -44,35 +44,24 @@ export default {
   //
   background-color: var(--primary);
 
-  @media screen and (max-width: 949px) {
-    gap: 0;
-  }
-
   &__group {
     flex-grow: 1;
     display: flex;
     justify-content: space-between;
     gap: .2rem;
 
-    @media screen and (max-width: 949px) {
+    &_contributor-info {
+      flex-direction: column;
       gap: 0;
     }
 
-    &_contributor-info {
-      @media screen and (max-width: 949px) {
-        flex-direction: column;
-      }
-    }
-
     &_access-info {
-      @media screen and (max-width: 949px) {
-        display: flex;
-        justify-content: space-between;
-      }
+      justify-content: space-between;
     }
   }
 
   &__data-cell {
+    flex-grow: 1;
     display: flex;
     align-items: center;
     //
@@ -80,30 +69,22 @@ export default {
     //
     background-color: var(--bg-lighter);
 
-    @media screen and (max-width: 949px) {
-      flex-grow: 1;
-    }
-
     &_grow {
       flex-grow: 1;
     }
   }
 
   &__email {
-    @media screen and (max-width: 949px) {
-      font-weight: bold;
-      font-size: 1.8rem;
-      //
-      padding-bottom: .5rem;
-    }
+    font-weight: bold;
+    font-size: 1.8rem;
+    //
+    padding-bottom: .5rem;
   }
 
   &__full-name {
-    @media screen and (max-width: 949px) {
-      padding-top: 0;
-      //
-      font-size: 1.4rem;
-    }
+    padding-top: 0;
+    //
+    font-size: 1.4rem;
   }
 
   &__access-level {
@@ -112,12 +93,6 @@ export default {
 
   &__controls {
     justify-content: center;
-    //
-    width: 11.5rem;
-
-    @media screen and (max-width: 949px) {
-      width: unset;
-    }
   }
 
   &__access-level {

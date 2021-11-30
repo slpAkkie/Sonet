@@ -24,33 +24,6 @@ export default {
     resize: vertical;
   }
 
-  &__attachments-wrapper {
-    justify-content: flex-start !important;
-  }
-
-  &__attachments-list {
-    display: flex;
-    justify-content: flex-start;
-    align-items: center;
-    gap: 1.5rem;
-  }
-
-  &__add-attachment {
-    display: grid;
-    place-content: center;
-    //
-    width: 12rem;
-    height: 12rem;
-    //
-    font-size: 7rem;
-    line-height: 1em;
-    //
-    border: .2rem dashed var(--primary_muted);
-    color: var(--primary_muted);
-    //
-    cursor: pointer;
-  }
-
   &__row {
     display: flex;
     justify-content: space-between;

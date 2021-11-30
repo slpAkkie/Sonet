@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Resources\ContributorHintResource;
+use App\Http\Resources\DeletedResource;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Http\Request;
@@ -26,5 +27,19 @@ class UserController extends Controller
                 ->limit(10)
                 ->get()
         );
+    }
+
+    /**
+     * Delete User
+     *
+     * @return DeletedResource
+     */
+    public function destroy(): DeletedResource
+    {
+        /** @var User $user */
+        $user = Auth::user();
+        $user->delete();
+
+        return DeletedResource::make();
     }
 }
