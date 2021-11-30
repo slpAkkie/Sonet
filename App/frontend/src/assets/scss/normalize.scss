@@ -27,7 +27,8 @@ li {
   list-style-type: none;
 }
 
-input, textarea {
+input, textarea, select {
+  color: var(--c-text);
   font-family: 'OpenSans', sans-serif;
 }
 
