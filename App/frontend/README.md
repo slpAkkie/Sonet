@@ -32,4 +32,4 @@ Alexandr Shamanin (slpAkkie)
 
 ## Версия
 
-1.x-alpha
+1.0

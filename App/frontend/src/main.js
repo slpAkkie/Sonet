@@ -4,11 +4,12 @@ import router from './router'
 import store from './store'
 import axios from 'axios'
 import vueAxios from 'vue-axios'
+import './registerServiceWorker'
 
 const app = createApp(App)
 
 // Set baseURL for API requests
-axios.defaults.baseURL = 'http://api.localhost/sonet/'
+axios.defaults.baseURL = 'https://api.akkie.ru/sonet/'
 
 // Handle errors for all request
 axios.interceptors.response.use(response => response, error => {

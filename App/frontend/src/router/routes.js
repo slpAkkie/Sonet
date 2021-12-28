@@ -1,10 +1,14 @@
 import auth from './middleware/auth'
+import guest from './middleware/guest'
 
 export default [
     {
         path: '/',
         name: 'Landing',
         component: () => import('../views/Landing'),
+        meta: {
+            middleware: [ guest ],
+        },
     },
     {
         path: '/register',
