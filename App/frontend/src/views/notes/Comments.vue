@@ -74,6 +74,7 @@ export default {
     },
     handleResponse(response) {
       this.comments.unshift(response)
+      this.commentBody = ''
     },
     handleError(error) {
       // TODO: Error handler
