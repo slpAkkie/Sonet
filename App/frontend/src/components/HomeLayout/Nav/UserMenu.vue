@@ -36,13 +36,13 @@ export default {
       this.isOpen = !this.isOpen
     },
     tryLogout() {
+      this.toggle()
       this.isLoading = true
       this.$store
         .dispatch('logout')
         .finally(this.afterRequest)
     },
     afterRequest() {
-      this.toggle()
       this.$router.push('/logout')
     },
     openSettings() {

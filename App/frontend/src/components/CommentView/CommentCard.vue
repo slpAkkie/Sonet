@@ -4,6 +4,7 @@
     <p class="comment-row__body">{{ comment.body }}</p>
     <div class="comment-row__footer">
       <div class="comment-row__created-at">{{ (new Date(comment.created_at)).toLocaleDateString() }}</div>
+      <!-- Disable button if you don't own -->
       <Button appearance="danger" value="Удалить" @click="del" />
     </div>
   </div>

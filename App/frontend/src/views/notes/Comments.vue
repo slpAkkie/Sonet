@@ -1,6 +1,6 @@
 <template>
   <div class="page-header">
-    <h2 class="page-title">Комментарии {{ amount }}</h2>
+    <h2 class="page-title">Комментарии {{ amountString }}</h2>
     <Button value="Назад" @click="goBack" />
   </div>
 
@@ -79,6 +79,7 @@ export default {
     },
     delComment(noteIndex) {
       this.comments.splice(noteIndex, 1)
+      this.$store.getters.note(this.note_id).comments_amount -= 1
     },
     sendComment() {
       this.commentFormDisabled = true
@@ -91,6 +92,7 @@ export default {
     handleResponse(response) {
       this.comments.unshift(response)
       this.commentBody = ''
+      this.$store.getters.note(this.note_id).comments_amount += 1
     },
     handleError(error) {
       // TODO: Error handler

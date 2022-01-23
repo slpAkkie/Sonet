@@ -4,10 +4,10 @@
       <h5 class="note__title">{{ title }}</h5>
       <div class="note__category-color" :style="`--color: ${categoryColor}`"></div>
     </header>
-    <main class="note__main">{{ note.body }}</main>
+    <main class="note__main" v-html="body"></main>
     <footer class="note__footer">
       <div v-if="note.author" class="note__author">{{ note.author }}</div>
-      <div v-else class="note__comments-amount">{{ comments_amount }}</div>
+      <div v-else class="note__comments-amount" ref="commentsAmountEl" @click="openComments">{{ comments_amount }}</div>
       <div class="note__created_at">{{ date }}</div>
     </footer>
   </div>
@@ -25,6 +25,11 @@ export default {
   computed: {
     title() {
       return `${this.note.title.slice(0, 25).trim()}${this.note.title.length > 25 ? '...' : ''}`
+    },
+    body() {
+      let split = this.note.body.split('\n')
+      split.splice(3)
+      return split.join('<br>')
     },
     date() {
       return (new Date(this.note['created_at'])).toLocaleDateString()
@@ -45,8 +50,11 @@ export default {
     },
   },
   methods: {
-    open() {
-      this.$router.push(`/notes/${this.note.id}`)
+    open(evt) {
+      if (evt.target !== this.$refs.commentsAmountEl) this.$router.push(`/notes/${this.note.id}`)
+    },
+    openComments() {
+      this.$router.push(`/notes/${this.note.id}/comments`)
     },
   },
 }
@@ -104,6 +112,10 @@ export default {
 
   &__created_at, &__comments-amount {
     color: var(--primary_muted);
+  }
+
+  &__comments-amount:hover {
+    text-decoration: underline;
   }
 }
 </style>

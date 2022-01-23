@@ -28,6 +28,13 @@ export default {
 
         return state.notes || []
     },
+    note: state => (note_id) => {
+        let found = state.notes.find(note => note.id === +note_id)
+
+        if (!found) found = state.sharedNotes.find(note => note.id === +note_id)
+
+        return found
+    },
     notesInFolder: (getters) => (folder_id) => {
         return getters.notes?.filter(note => {
             if (!note['folder']) return false

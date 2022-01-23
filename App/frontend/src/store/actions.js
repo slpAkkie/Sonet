@@ -159,7 +159,9 @@ export default {
     },
     async addComment(context, { commentBody, note_id }) {
         try {
-            return (await axios.post(`notes/${note_id}/comments`, { body: commentBody })).data.data
+            let response = await axios.post(`notes/${note_id}/comments`, { body: commentBody })
+
+            return response.data.data
         } catch (error) {
             return Promise.reject(error)
         }
