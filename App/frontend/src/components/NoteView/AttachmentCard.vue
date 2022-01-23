@@ -27,7 +27,7 @@ export default {
       return `${this.attachment.title.slice(0, 8).trim()}${this.attachment.title.length > 8 ? '...' : ''}`
     },
     link() {
-      return `//api.akkie.ru/storage/${this.attachment.path}`
+      return `${this.apiHost}storage/${this.attachment.path}`
     },
   },
   methods: {

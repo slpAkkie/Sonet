@@ -8,8 +8,16 @@ import './registerServiceWorker'
 
 const app = createApp(App)
 
+/**
+ * Api Hosts
+ *
+ * For production: https://api.akkie.cyou/sonet/
+ * For local development: http://api.localhost/
+ */
+app.config.globalProperties.apiHost = 'http://api.localhost/'
+
 // Set baseURL for API requests
-axios.defaults.baseURL = 'https://api.akkie.ru/sonet/'
+axios.defaults.baseURL = app.config.globalProperties.apiHost + 'sonet/'
 
 // Handle errors for all request
 axios.interceptors.response.use(response => response, error => {
