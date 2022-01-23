@@ -164,6 +164,15 @@ export default {
             return Promise.reject(error)
         }
     },
+    async deleteComment(context, comment_id) {
+        try {
+            await axios.delete(`comments/${comment_id}`)
+
+            return Promise.resolve()
+        } catch (error) {
+            return Promise.reject(error)
+        }
+    },
 
     // Folders
     async createFolder(context, folderData) {

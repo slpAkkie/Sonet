@@ -43,7 +43,7 @@ Route::middleware('auth.token')->group(function () {
     /** Notes comments ------------------------ */
     Route::post('/notes/{note}/comments', [CommentController::class, 'addComment']);
     Route::get('/notes/{note}/comments', [CommentController::class, 'indexComments']);
-    Route::delete('/notes/{note}/comments/{comment}', [CommentController::class, 'destroyComment']);
+    Route::delete('/comments/{comment}', [CommentController::class, 'destroyComment']);
 
     /** Attachments --------------------------- */
     Route::delete('/attachments/{attachment}', [AttachmentController::class, 'destroy']);

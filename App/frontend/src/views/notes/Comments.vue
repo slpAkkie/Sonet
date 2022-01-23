@@ -17,11 +17,13 @@
     </div>
 
     <div v-if="amount > 0" class="comments-list">
-      <div class="comment-row" v-for="comment in comments" :key="comment.id">
-        <h6 class="comment-row__author">{{ comment.user }}</h6>
-        <p class="comment-row__body">{{ comment.body }}</p>
-        <div class="comment-row__created-at">{{ (new Date(comment.created_at)).toLocaleDateString() }}</div>
-      </div>
+      <CommentCard
+        v-for="(comment, index) in comments"
+        :key="comment.id"
+        :noteIndex="index"
+        :comment="comment"
+        @comment:delete="delComment"
+      />
     </div>
     <div v-else-if="amount === 0">
       <h6>Комментариев еще нет</h6>
@@ -37,6 +39,7 @@
 import Button from '../../components/controls/Button'
 import Textarea from '../../components/controls/Textarea'
 import Preloader from '../../components/Preloader'
+import CommentCard from '../../components/CommentView/CommentCard'
 
 export default {
   name: 'ViewNoteComments',
@@ -45,6 +48,7 @@ export default {
     Button,
     Textarea,
     Preloader,
+    CommentCard,
   },
   data: () => ({
     comments: null,
@@ -72,6 +76,9 @@ export default {
     },
     goBack() {
       this.$router.push(`/notes/${this.note_id}`)
+    },
+    delComment(noteIndex) {
+      this.comments.splice(noteIndex, 1)
     },
     sendComment() {
       this.commentFormDisabled = true
@@ -147,6 +154,12 @@ export default {
   &__created-at {
     color: var(--primary_muted);
     font-size: 1.4rem;
+  }
+
+  &__footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
   }
 }
 </style>
