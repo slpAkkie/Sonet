@@ -11,7 +11,7 @@ const app = createApp(App)
 /**
  * Api Hosts
  *
- * For production: https://api.akkie.cyou/sonet/
+ * For production: https://api.akkie.cyou/
  * For local development: http://api.localhost/
  */
 app.config.globalProperties.apiHost = 'http://api.localhost/'
