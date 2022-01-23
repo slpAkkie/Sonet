@@ -6,7 +6,8 @@
     </header>
     <main class="note__main">{{ note.body }}</main>
     <footer class="note__footer">
-      <div class="note__author">{{ note.author }}</div>
+      <div v-if="note.author" class="note__author">{{ note.author }}</div>
+      <div v-else class="note__comments-amount">{{ comments_amount }}</div>
       <div class="note__created_at">{{ date }}</div>
     </footer>
   </div>
@@ -30,6 +31,17 @@ export default {
     },
     categoryColor() {
       return this.$store.getters.categoryColor(this.note.category)
+    },
+    comments_amount() {
+      let word = '',
+        amount = this.note.comments_amount,
+        variants = ['комментарий', 'комментария', 'комментариев']
+
+      if (amount % 100 === 1) word = variants[0]
+      else if (Math.floor(amount / 10) % 10 !== 1 && [2, 3, 4].includes(amount % 10)) word = variants[1]
+      else word = variants[2]
+
+      return `${amount} ${word}`
     },
   },
   methods: {
@@ -86,15 +98,11 @@ export default {
     flex-grow: 1;
   }
 
-  &__footer {
-    //
-  }
-
   &__author {
     color: var(--primary);
   }
 
-  &__created_at {
+  &__created_at, &__comments-amount {
     color: var(--primary_muted);
   }
 }

@@ -30,6 +30,7 @@ final class NoteResource extends JsonResource
                     return AttachmentResource::collection($this->attachments);
                 }, []),
             ]),
+            'comments_amount' => $this->comments()->count(),
 
             'created_at' => Carbon::parse($this->created_at)->toDateTimeLocalString(),
             'updated_at' => Carbon::parse($this->updated_at)->toDateTimeLocalString(),

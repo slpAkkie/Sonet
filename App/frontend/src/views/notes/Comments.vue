@@ -1,37 +1,42 @@
 <template>
   <div class="page-header">
-    <h2 class="page-title">Комментарии ({{ amount }})</h2>
+    <h2 class="page-title">Комментарии {{ amount }}</h2>
     <Button value="Назад" @click="goBack" />
   </div>
 
-  <div class="comment-form" :class="commentFormDisabled && 'comment-form_disabled'">
-    <div class="comment-form__row">
-      <Textarea class="comment-form__textarea" v-model="commentBody" />
-    </div>
-    <div class="comment-form__footer">
-      <Button value="Отправить" @click="sendComment" />
-    </div>
-  </div>
+  <Preloader v-if="comments === null" />
 
-  <div v-if="amount > 0" class="comments-list">
-    <div class="comment-row" v-for="comment in comments" :key="comment.id">
-      <h6 class="comment-row__author">{{ comment.user }}</h6>
-      <p class="comment-row__body">{{ comment.body }}</p>
-      <div class="comment-row__created-at">{{ (new Date(comment.created_at)).toLocaleDateString() }}</div>
-    </div>
-  </div>
-  <div v-else-if="amount === 0">
-    <h6>Комментариев еще нет</h6>
-    <p>Оставьте комментарий первым</p>
-  </div>
   <div v-else>
-    <h6>Загрузка...</h6>
+    <div class="comment-form" :class="commentFormDisabled && 'comment-form_disabled'">
+      <div class="comment-form__row">
+        <Textarea class="comment-form__textarea" v-model="commentBody" />
+      </div>
+      <div class="comment-form__footer">
+        <Button value="Отправить" @click="sendComment" />
+      </div>
+    </div>
+
+    <div v-if="amount > 0" class="comments-list">
+      <div class="comment-row" v-for="comment in comments" :key="comment.id">
+        <h6 class="comment-row__author">{{ comment.user }}</h6>
+        <p class="comment-row__body">{{ comment.body }}</p>
+        <div class="comment-row__created-at">{{ (new Date(comment.created_at)).toLocaleDateString() }}</div>
+      </div>
+    </div>
+    <div v-else-if="amount === 0">
+      <h6>Комментариев еще нет</h6>
+      <p>Оставьте комментарий первым</p>
+    </div>
+    <div v-else>
+      <h6>Загрузка...</h6>
+    </div>
   </div>
 </template>
 
 <script>
 import Button from '../../components/controls/Button'
 import Textarea from '../../components/controls/Textarea'
+import Preloader from '../../components/Preloader'
 
 export default {
   name: 'ViewNoteComments',
@@ -39,6 +44,7 @@ export default {
   components: {
     Button,
     Textarea,
+    Preloader,
   },
   data: () => ({
     comments: null,
@@ -47,8 +53,11 @@ export default {
   }),
   computed: {
     amount() {
+      return this.comments?.length
+    },
+    amountString() {
       let amount = this.comments?.length
-      return amount === undefined ? '...' : amount
+      return amount === undefined ? '' : `(${amount})`
     },
     postData() {
       return {

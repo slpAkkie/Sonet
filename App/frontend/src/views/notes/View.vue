@@ -43,7 +43,7 @@
       </div>
 
       <div class="note-editor__row note-editor__row_end">
-        <Button value="Комментарии" @click="openComments" class="note-editor__comments-button" />
+        <Button :value="`Комментарии (${this.note.comments_amount})`" @click="openComments" class="note-editor__comments-button" />
         <Button appearance="danger" value="Удалить" @click="del" />
         <Button value="Сохранить" @click="update" />
       </div>
