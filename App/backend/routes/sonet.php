@@ -39,6 +39,12 @@ Route::middleware('auth.token')->group(function () {
     Route::put('/notes/{note}/contributors', [NoteController::class, 'addContributor']);
     Route::delete('/notes/{note}/contributors/{user_id}', [NoteController::class, 'destroyContributor']);
 
+    /** Notes comments ------------------------ */
+    Route::post('/notes/{note}/comments', [NoteController::class, 'addComment']);
+    Route::get('/notes/{note}/comments', [NoteController::class, 'indexComments']);
+    Route::delete('/notes/{note}/comments/{comment}', [NoteController::class, 'destroyComment']);
+
+
     /** Attachments --------------------------- */
     Route::delete('/attachments/{attachment}', [AttachmentController::class, 'destroy']);
 

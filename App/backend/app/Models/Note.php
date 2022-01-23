@@ -134,6 +134,20 @@ class Note extends Model
     }
 
     /**
+     * Add comment to the note and store it
+     *
+     * @param $body
+     * @return Model
+     */
+    public function addComment($body): Model
+    {
+        return $this->comments()->create([
+            'body' => $body,
+            'user_id' => Auth::id(),
+        ]);
+    }
+
+    /**
      * Does the resource have to output attachments.
      *
      * @return bool

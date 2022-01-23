@@ -35,7 +35,7 @@ abstract class CommonResource extends JsonResource
     public function with($request): array
     {
         return [
-            'code' => $this->getStatusCode()
+            'code' => $this->getStatusCode(),
         ];
     }
 
