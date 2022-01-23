@@ -25,10 +25,31 @@ class Category extends Model
 {
     use HasFactory;
 
+
+
+    /*
+    |--------------------------------------------------
+    | Mass assignment
+    |--------------------------------------------------
+    */
+
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var string[]
+     */
     protected $fillable = [
         'title',
         'color',
     ];
+
+
+
+    /*
+    |--------------------------------------------------
+    | Methods
+    |--------------------------------------------------
+    */
 
     public function __construct(array $attributes = [])
     {
@@ -37,6 +58,28 @@ class Category extends Model
         parent::__construct($attributes);
     }
 
+    public function update(array $attributes = [], array $options = [])
+    {
+        $this->title = $attributes['title'];
+        $this->color = $attributes['color'];
+
+        $this->save();
+
+        return $this;
+    }
+
+
+    /*
+    |--------------------------------------------------
+    | Relations
+    |--------------------------------------------------
+    */
+
+    /**
+     * Category owner
+     *
+     * @return BelongsTo
+     */
     public function owner(): BelongsTo
     {
         return $this->belongsTo(User::class, 'user_id', 'id');

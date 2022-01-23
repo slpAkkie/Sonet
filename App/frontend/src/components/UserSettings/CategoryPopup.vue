@@ -26,6 +26,7 @@ import Button from '../controls/Button'
 export default {
   name: 'CategoryPopup',
   emits: [ 'popup:close' ],
+  props: [ 'data' ],
   components: {
     Preloader,
     Input,
@@ -35,14 +36,29 @@ export default {
     isLoading: false,
     postData: {
       title: '',
-      color: '#000000',
+      color: (() => {
+        let letters = '0123456789ABCDEF', color = ''
+
+        for (let i = 0; i < 6; i++) color += letters[Math.floor(Math.random() * 16)]
+
+        return `#${color}`
+      })(),
     },
   }),
+  computed: {
+  },
   methods: {
     save() {
       this.isLoading = true
 
-      this.$store.dispatch('createCategory', this.postData)
+      if (!this.data) this.$store.dispatch('createCategory', this.postData)
+        .then(this.handleResponse)
+        .catch(this.handleError)
+        .finally(this.afterRequest)
+      else this.$store.dispatch('updateCategory', {
+        id: this.data.id,
+        ...this.postData
+      })
         .then(this.handleResponse)
         .catch(this.handleError)
         .finally(this.afterRequest)
@@ -57,6 +73,9 @@ export default {
       this.isLoading = false
     },
   },
+  mounted() {
+    if (this.data) Object.assign(this.postData, this.data)
+  }
 }
 </script>
 

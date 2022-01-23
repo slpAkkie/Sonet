@@ -51,22 +51,22 @@ export default {
   computed: {
     first_name: {
       get() {
-        return this.$store.getters.user.first_name
+        return this.$store.getters.user.first_name || 'Загрузка данных...'
       },
     },
     last_name: {
       get() {
-        return this.$store.getters.user.last_name
+        return this.$store.getters.user.last_name || 'Загрузка данных...'
       },
     },
     login: {
       get() {
-        return this.$store.getters.user.login
+        return this.$store.getters.user.login || 'Загрузка данных...'
       },
     },
     email: {
       get() {
-        return this.$store.getters.user.email
+        return this.$store.getters.user.email || 'Загрузка данных...'
       },
     },
     password() {

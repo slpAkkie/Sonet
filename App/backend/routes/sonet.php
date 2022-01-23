@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CommentController;
 use App\Http\Controllers\AccessLevelController;
 use App\Http\Controllers\AttachmentController;
 use App\Http\Controllers\AuthController;
@@ -40,10 +41,9 @@ Route::middleware('auth.token')->group(function () {
     Route::delete('/notes/{note}/contributors/{user_id}', [NoteController::class, 'destroyContributor']);
 
     /** Notes comments ------------------------ */
-    Route::post('/notes/{note}/comments', [NoteController::class, 'addComment']);
-    Route::get('/notes/{note}/comments', [NoteController::class, 'indexComments']);
-    Route::delete('/notes/{note}/comments/{comment}', [NoteController::class, 'destroyComment']);
-
+    Route::post('/notes/{note}/comments', [CommentController::class, 'addComment']);
+    Route::get('/notes/{note}/comments', [CommentController::class, 'indexComments']);
+    Route::delete('/notes/{note}/comments/{comment}', [CommentController::class, 'destroyComment']);
 
     /** Attachments --------------------------- */
     Route::delete('/attachments/{attachment}', [AttachmentController::class, 'destroy']);

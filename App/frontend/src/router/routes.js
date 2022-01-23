@@ -99,4 +99,14 @@ export default [
             layout: 'Authorized',
         },
     },
+    {
+        path: '/notes/:note_id/comments',
+        name: 'ViewNoteComments',
+        component: () => import('../views/notes/Comments'),
+        props: true,
+        meta: {
+            middleware: [ auth ],
+            layout: 'Authorized',
+        },
+    },
 ]

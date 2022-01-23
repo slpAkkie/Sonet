@@ -43,6 +43,7 @@
       </div>
 
       <div class="note-editor__row note-editor__row_end">
+        <Button value="Комментарии" @click="openComments" class="note-editor__comments-button" />
         <Button appearance="danger" value="Удалить" @click="del" />
         <Button value="Сохранить" @click="update" />
       </div>
@@ -221,6 +222,9 @@ export default {
     async loadNote() {
       this.note = await this.$store.dispatch('loadNote', this.id)
     },
+    openComments() {
+      this.$router.push(`/notes/${this.postData.id}/comments`)
+    },
     update() {
       this.isWaiting = true
 
@@ -355,6 +359,10 @@ export default {
     color: var(--primary_muted);
     //
     cursor: pointer;
+  }
+
+  &__comments-button {
+    margin-right: auto;
   }
 }
 </style>

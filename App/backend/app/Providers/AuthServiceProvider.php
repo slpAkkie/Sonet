@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 use App\Models\Note;
+use App\Policies\CategoryPolicy;
 use App\Policies\CommentPolicy;
 use App\Policies\NotePolicy;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
@@ -39,6 +40,9 @@ class AuthServiceProvider extends ServiceProvider
         /** Comment gates --------------------- */
         Gate::define('create-comment', [CommentPolicy::class, 'create']);
         Gate::define('delete-comment', [CommentPolicy::class, 'delete']);
+
+        /** Category gates -------------------- */
+        Gate::define('update-category', [CategoryPolicy::class, 'update']);
 
         // TODO: Folder gates
         // TODO: Category gates

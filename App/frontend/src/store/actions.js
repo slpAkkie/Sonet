@@ -150,6 +150,20 @@ export default {
             return Promise.reject(error)
         }
     },
+    async loadComments(context, note_id) {
+        try {
+            return Promise.resolve((await axios.get(`notes/${note_id}/comments`)).data.data)
+        } catch (error) {
+            return Promise.reject(error)
+        }
+    },
+    async addComment(context, { commentBody, note_id }) {
+        try {
+            return (await axios.post(`notes/${note_id}/comments`, { body: commentBody })).data.data
+        } catch (error) {
+            return Promise.reject(error)
+        }
+    },
 
     // Folders
     async createFolder(context, folderData) {
@@ -188,6 +202,15 @@ export default {
     async createCategory(context, categoryData) {
         try {
             context.commit('pushCategory', (await axios.post('categories', categoryData)).data.data)
+
+            return Promise.resolve()
+        } catch(error) {
+            return Promise.reject(error)
+        }
+    },
+    async updateCategory(context, categoryData) {
+        try {
+            context.commit('updateCategory', (await axios.put(`categories/${categoryData.id}`, categoryData)).data.data)
 
             return Promise.resolve()
         } catch(error) {

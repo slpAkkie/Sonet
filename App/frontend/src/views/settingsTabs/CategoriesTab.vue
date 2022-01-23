@@ -9,13 +9,16 @@
       v-for="category in categories"
       :key="category.id"
       :data="category"
+
+      @category:edit="openEditCategory"
     />
   </div>
-  <p v-else>У вас еще нет категорий, но вы можете их создать</p>
+  <p v-else-if="categoriesLoaded">У вас еще нет категорий, но вы можете их создать</p>
 
   <CategoryPopup
     v-if="openedPopup"
     @popup:close="closePopup"
+    :data="categoryData"
   />
 </template>
 
@@ -33,6 +36,7 @@ export default {
   },
   data: () => ({
     openedPopup: false,
+    categoryData: null,
   }),
   computed: {
     isCategories() {
@@ -49,8 +53,13 @@ export default {
     openNewCategory() {
       this.openedPopup = true
     },
+    openEditCategory(data) {
+      this.categoryData = data
+      this.openedPopup = true
+    },
     closePopup() {
       this.openedPopup = false
+      this.categoryData = null
     },
   },
 }

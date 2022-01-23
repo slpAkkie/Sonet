@@ -67,6 +67,9 @@ export default {
     pushCategory(state, category) {
         state.categories.push(category)
     },
+    updateCategory(state, category) {
+        state.categories[state.categories.findIndex(cat => cat.id === category.id)] = category
+    },
     removeCategory(state, category_id) {
         state.categories = state.categories.filter(category => category.id !== category_id)
         state.notes = state.notes.map(note => {

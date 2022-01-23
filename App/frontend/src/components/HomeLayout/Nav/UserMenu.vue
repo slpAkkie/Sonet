@@ -1,4 +1,5 @@
 <template>
+  <div v-if="isOpen" class="user-menu__overlay" @click="toggle"></div>
   <div class="user-menu__wrapper">
     <img class="user-menu__user-icon" src="@/assets/img/icons/user--flat-colored.png" alt="UserMenu" @click="toggle">
     <div v-if="isOpen" class="user-menu">
@@ -41,9 +42,11 @@ export default {
         .finally(this.afterRequest)
     },
     afterRequest() {
+      this.toggle()
       this.$router.push('/logout')
     },
     openSettings() {
+      this.toggle()
       this.$router.push('/settings')
     },
   },
@@ -71,10 +74,20 @@ export default {
   //
   transform: translateY(1rem);
 
+  &__overlay {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    //
+    z-index: 100;
+  }
+
   &__wrapper {
     position: relative;
     //
-    z-index: 10;
+    z-index: 101;
   }
 
   &__user-icon {
