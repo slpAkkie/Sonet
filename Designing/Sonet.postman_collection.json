@@ -86,12 +86,13 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{host}}/verify-user",
+							"raw": "{{host}}/user/verify",
 							"host": [
 								"{{host}}"
 							],
 							"path": [
-								"verify-user"
+								"user",
+								"verify"
 							]
 						}
 					},
@@ -103,11 +104,12 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{host}}/identify",
+							"raw": "{{host}}/user/identify",
 							"host": [
 								"{{host}}"
 							],
 							"path": [
+								"user",
 								"identify"
 							]
 						}
@@ -157,6 +159,24 @@
 							],
 							"path": [
 								"user"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Auth Logs",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/user/auth-logs",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"user",
+								"auth-logs"
 							]
 						}
 					},
