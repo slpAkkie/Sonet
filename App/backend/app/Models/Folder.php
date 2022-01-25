@@ -22,9 +22,30 @@ class Folder extends Model
 {
     use HasFactory;
 
+
+
+    /*
+    |--------------------------------------------------
+    | Mass assignment
+    |--------------------------------------------------
+    */
+
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var string[]
+     */
     protected $fillable = [
         'title',
     ];
+
+
+
+    /*
+    |--------------------------------------------------
+    | Methods
+    |--------------------------------------------------
+    */
 
     public function __construct(array $attributes = [])
     {
@@ -33,6 +54,18 @@ class Folder extends Model
         parent::__construct($attributes);
     }
 
+
+    /*
+    |--------------------------------------------------
+    | Relations
+    |--------------------------------------------------
+    */
+
+    /**
+     * Folder owner
+     *
+     * @return BelongsTo
+     */
     public function owner(): BelongsTo
     {
         return $this->belongsTo(User::class, 'user_id', 'id');

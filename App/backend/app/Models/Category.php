@@ -58,7 +58,14 @@ class Category extends Model
         parent::__construct($attributes);
     }
 
-    public function update(array $attributes = [], array $options = [])
+    /**
+     * Update the category
+     *
+     * @param array $attributes
+     * @param array $options
+     * @return $this
+     */
+    public function update(array $attributes = [], array $options = []): Category
     {
         $this->title = $attributes['title'];
         $this->color = $attributes['color'];

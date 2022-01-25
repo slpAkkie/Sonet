@@ -10,6 +10,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Query\Builder;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Request;
 use Illuminate\Support\Str;
 
 /**
@@ -20,7 +21,8 @@ use Illuminate\Support\Str;
  * @property string email
  * @property string password_salt
  * @property string password
- * @property string|null api_token
+ *
+ * @property UserToken|null api_token
  *
  * @mixin Builder
  */
@@ -47,6 +49,13 @@ class User extends Authenticatable
         'login',
         'email',
     ];
+
+    /**
+     * Current token
+     *
+     * @var null|UserToken
+     */
+    public $api_token = null;
 
 
 
@@ -203,6 +212,49 @@ class User extends Authenticatable
     }
 
     /**
+     * Set current user token
+     *
+     * @param UserToken $token
+     * @return $this
+     */
+    public function setToken(UserToken $token): User
+    {
+        $this->api_token = $token;
+
+        return $this;
+    }
+
+    /**
+     * Get current token
+     *
+     * @return UserToken|null
+     */
+    public function getCurrentToken(): ?UserToken
+    {
+        return $this->api_token;
+    }
+
+    /**
+     * Get just current token string
+     *
+     * @return string
+     */
+    public function getCurrentTokenString(): string
+    {
+        return $this->getCurrentToken() ? $this->getCurrentToken()->token : '';
+    }
+
+    /**
+     * Check if token is set
+     *
+     * @return bool
+     */
+    public function isToken(): bool
+    {
+        return !!$this->api_token;
+    }
+
+    /**
      * Generate new token.
      *
      * @return $this
@@ -210,13 +262,16 @@ class User extends Authenticatable
     public function generateToken(): User
     {
         $api_token = Str::random(64);
-        while (!!static::where('api_token', $api_token)->count())
+        while (!!UserToken::where('token', $api_token)->count())
             $api_token = Str::random(64);
 
-        $this->api_token = $api_token;
-        $this->save();
+        ($userToken = new UserToken([
+            'token' => $api_token,
+            'user_id' => $this->id,
+            'user_agent' => Request::userAgent(),
+        ]))->save();
 
-        return $this;
+        return $this->setToken($userToken);
     }
 
     /**
@@ -228,10 +283,13 @@ class User extends Authenticatable
      */
     public static function findByTokenOrFail($api_token): User
     {
-        $user = User::where('api_token', $api_token)->first();
-        if (!$user) throw new NoApiTokenProvidedException();
+        $token = UserToken::where('token', $api_token)->first();
+        if (!$token) throw new NoApiTokenProvidedException();
 
-        return $user;
+        /** @var User $user */
+        $user = $token->user;
+
+        return $user->setToken($token);
     }
 
     /**
@@ -241,8 +299,7 @@ class User extends Authenticatable
      */
     public function removeToken(): User
     {
-        $this->api_token = null;
-        $this->save();
+        $this->getCurrentToken()->delete();
 
         return $this;
     }
@@ -254,6 +311,16 @@ class User extends Authenticatable
     | Relations
     |--------------------------------------------------
     */
+
+    /**
+     * All tokens related to this user
+     *
+     * @return HasMany
+     */
+    public function tokens(): HasMany
+    {
+        return $this->hasMany(UserToken::class, 'user_id', 'id');
+    }
 
     /**
      * User's notes.

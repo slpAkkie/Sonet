@@ -12,7 +12,7 @@ final class UpdateNoteRequest extends ApiRequest
     public function rules(): array
     {
         return [
-            'title'               => 'nullable|string|min:1',
+            'title'               => 'string|min:1',
             'body'                => 'nullable|string',
             'category_id'         => 'nullable|exists:categories,id',
             'folder_id'           => 'nullable|exists:folders,id',

@@ -7,20 +7,20 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Query\Builder;
 
+
 /**
  * @property int|string|null id
- * @property int|string user_id
- * @property int|string note_id
- * @property string body
- * @property int created_at
+ * @property string token
+ * @property int|string|null user_id
+ * @property string user_agent
  * @property int updated_at
+ * @property int created_at
  *
- * @property User author
- * @property Note note
+ * @property User user
  *
  * @mixin Builder
  */
-class Comment extends Model
+class UserToken extends Model
 {
     use HasFactory;
 
@@ -38,8 +38,9 @@ class Comment extends Model
      * @var string[]
      */
     protected $fillable = [
-        'body',
+        'token',
         'user_id',
+        'user_agent',
     ];
 
 
@@ -50,22 +51,12 @@ class Comment extends Model
     */
 
     /**
-     * Comment author
+     * Which user this token refers to
      *
      * @return BelongsTo
      */
-    public function author(): BelongsTo
+    public function user(): BelongsTo
     {
         return $this->belongsTo(User::class, 'user_id', 'id');
-    }
-
-    /**
-     * Which note this comment refers to
-     *
-     * @return BelongsTo
-     */
-    public function note(): BelongsTo
-    {
-        return $this->belongsTo(Note::class, 'note_id', 'id');
     }
 }
