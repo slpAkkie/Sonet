@@ -231,8 +231,17 @@ export default {
       this.$store
         .dispatch('updateNote', this.postData)
         .then(this.handleUpdateResponse)
+        .catch(this.handleUpdateError)
+        .finally(this.afterUpdateRequest)
     },
     handleUpdateResponse() {
+      this.isWaiting = false
+    },
+    handleUpdateError(error) {
+      // TODO: Handle error
+      console.log(error)
+    },
+    afterUpdateRequest() {
       this.isWaiting = false
     },
     del() {

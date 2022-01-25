@@ -27,6 +27,7 @@ export default {
       return `${this.note.title.slice(0, 25).trim()}${this.note.title.length > 25 ? '...' : ''}`
     },
     body() {
+      if (!this.note.body) return
       let split = this.note.body.split('\n')
       split.splice(3)
       return split.join('<br>')

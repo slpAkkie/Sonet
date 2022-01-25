@@ -27,6 +27,8 @@ Route::middleware('auth.token')->group(function () {
     Route::prefix('/user')->group(function () {
         Route::get('/verify', [AuthController::class, 'verify']);
         Route::get('/identify', [AuthController::class, 'identify']);
+        Route::get('/auth-logs', [AuthController::class, 'authLog']);
+        Route::delete('/auth-logs/{userToken}', [AuthController::class, 'removeAuthRecord']);
         Route::delete('/logout', [AuthController::class, 'logout']);
         Route::delete('/', [UserController::class, 'destroy']);
     });

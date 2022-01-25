@@ -13,20 +13,20 @@
 <script>
 import MainTab from './settingsTabs/MainTab'
 import CategoriesTab from './settingsTabs/CategoriesTab'
-import DangerTab from './settingsTabs/DangerTab'
+import AccountTab from './settingsTabs/AccountTab'
 
 export default {
   name: 'UserSettings',
   components: {
     MainTab,
     CategoriesTab,
-    DangerTab,
+    AccountTab,
   },
   data: () => ({
     tabs: [
       { title: 'Основные', component: 'MainTab' },
       { title: 'Категории', component: 'CategoriesTab' },
-      { title: 'Опасная зона', component: 'DangerTab' },
+      { title: 'Аккаунт', component: 'AccountTab' },
     ],
 
     activeTab: 0,

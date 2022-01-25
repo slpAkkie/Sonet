@@ -6,12 +6,16 @@ use App\Exceptions\LoginIncorrectException;
 use App\Exceptions\PasswordIncorrectException;
 use App\Http\Requests\LoginRequest;
 use App\Http\Requests\RegisterRequest;
+use App\Http\Resources\AuthLogResource;
 use App\Http\Resources\CommonResource;
+use App\Http\Resources\DeletedResource;
 use App\Http\Resources\LogoutResource;
 use App\Http\Resources\OkResource;
 use App\Http\Resources\UserCreatedResource;
 use App\Http\Resources\UserResource;
 use App\Models\User;
+use App\Models\UserToken;
+use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 use Illuminate\Support\Facades\Auth;
 
 final class AuthController extends Controller
@@ -66,6 +70,31 @@ final class AuthController extends Controller
     public function identify(): UserResource
     {
         return UserResource::make(Auth::user());
+    }
+
+    /**
+     * Get all auth events for the user
+     *
+     * @return AnonymousResourceCollection
+     */
+    public function authLog(): AnonymousResourceCollection
+    {
+        /** @var User $user */
+        $user = Auth::user();
+        return AuthLogResource::collection($user->tokens()->orderByDesc('updated_at')->get());
+    }
+
+    /**
+     * Deactivate authentication record
+     *
+     * @param UserToken $userToken
+     * @return DeletedResource
+     */
+    public function removeAuthRecord(UserToken $userToken): DeletedResource
+    {
+        $userToken->delete();
+
+        return DeletedResource::make();
     }
 
     /**

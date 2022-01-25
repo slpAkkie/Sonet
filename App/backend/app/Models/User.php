@@ -23,6 +23,7 @@ use Illuminate\Support\Str;
  * @property string password
  *
  * @property UserToken|null api_token
+ * @property Collection<UserToken>|null tokens
  *
  * @mixin Builder
  */
@@ -288,6 +289,7 @@ class User extends Authenticatable
 
         /** @var User $user */
         $user = $token->user;
+        $token->touch();
 
         return $user->setToken($token);
     }

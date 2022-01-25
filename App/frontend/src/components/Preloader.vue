@@ -48,7 +48,7 @@ export default {
     bottom: 0;
     left: 0;
     //
-    z-index: 10;
+    z-index: 100;
   }
 
   &_full-screen > &__overlay {

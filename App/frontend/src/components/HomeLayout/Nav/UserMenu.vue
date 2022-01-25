@@ -81,13 +81,13 @@ export default {
     bottom: 0;
     left: 0;
     //
-    z-index: 100;
+    z-index: 98;
   }
 
   &__wrapper {
     position: relative;
     //
-    z-index: 101;
+    z-index: 99;
   }
 
   &__user-icon {

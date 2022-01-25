@@ -11,7 +11,7 @@ CREATE TABLE `user_tokens` (
   `token` varchar(64) NOT NULL,
   `user_id` bigint UNSIGNED NOT NULL,
   `user_agent` varchar(255) NOT NULL,
-  `created_at` timestamp NOT NULL,
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_at` timestamp NOT NULL,
 
   -- INDEXES
