@@ -8,6 +8,7 @@ use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\FolderController;
 use App\Http\Controllers\NoteController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\ReportController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -58,5 +59,8 @@ Route::middleware('auth.token')->group(function () {
 
     /** Access Levels ------------------------- */
     Route::get('/access_levels', [AccessLevelController::class, 'index']);
+
+    /** PDF Report ---------------------------- */
+    Route::get('/report', [ReportController::class, 'getPDF']);
 
 });

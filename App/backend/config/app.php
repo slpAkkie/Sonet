@@ -175,6 +175,12 @@ return [
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
 
+        /*
+         * Sonet Service Providers...
+         */
+
+        Barryvdh\DomPDF\ServiceProvider::class,
+
     ],
 
     /*
