@@ -16,6 +16,7 @@ final class CategoryResource extends CommonResource
             'title' => $this->title,
             'color' => $this->color,
             'order' => $this->order,
+            'notes_amount' => $this->notes()->count(),
         ];
     }
 }

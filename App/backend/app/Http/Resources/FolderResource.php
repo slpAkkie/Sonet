@@ -15,6 +15,7 @@ final class FolderResource extends CommonResource
             'id' => $this->id,
             'title' => $this->title,
             'order' => $this->order,
+            'notes_amount' => $this->notes()->count(),
         ];
     }
 }

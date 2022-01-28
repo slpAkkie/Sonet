@@ -1,6 +1,6 @@
 <template>
   <div class="folder-row" :class="isWaiting && 'folder-row_disabled'">
-    <router-link :to="link" ref="link" class="folder-row__title link_static">{{ data.title }}</router-link>
+    <router-link :to="link" ref="link" class="folder-row__title link_static">{{ data.title }} <span class="folder-row__amount" v-if="data.notes_amount">[{{ data.notes_amount }}]</span></router-link>
     <div v-if="withControls" class="folder-row__controls">
       <Button value="Удалить" appearance="danger" @click="del" />
     </div>
@@ -99,6 +99,10 @@ export default {
         transform: translateY(-50%);
       }
     }
+  }
+
+  &__amount {
+    color: var(--primary_muted);
   }
 }
 </style>

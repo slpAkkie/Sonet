@@ -5,8 +5,10 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Query\Builder;
 use Illuminate\Support\Facades\Auth;
+use Ramsey\Collection\Collection;
 
 /**
  * @property int|string|null id
@@ -15,6 +17,7 @@ use Illuminate\Support\Facades\Auth;
  * @property int|string user_id
  *
  * @property User owner
+ * @property Collection<Note> notes
  *
  * @mixin Builder
  */
@@ -69,5 +72,15 @@ class Folder extends Model
     public function owner(): BelongsTo
     {
         return $this->belongsTo(User::class, 'user_id', 'id');
+    }
+
+    /**
+     * All notes with the folder
+     *
+     * @return HasMany
+     */
+    public function notes(): HasMany
+    {
+        return $this->hasMany(Note::class, 'folder_id', 'id');
     }
 }

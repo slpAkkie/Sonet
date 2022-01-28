@@ -1,7 +1,7 @@
 <template>
   <div class="category-row" :class="isWaiting ? 'category-row_disabled' : ''">
     <div class="category-row__color" :style="colorStyleString"></div>
-    <div class="category-row__title" @click="edit">{{ data.title }}</div>
+    <div class="category-row__title" @click="edit">{{ data.title }} <span class="category-row__amount">[{{ data.notes_amount }}]</span></div>
     <div class="category-row__controls">
       <Button value="Удалить" appearance="danger" @click="del" />
     </div>
@@ -72,6 +72,10 @@ export default {
     display: block;
     //
     cursor: pointer;
+  }
+
+  &__amount {
+    color: var(--primary_muted);
   }
 }
 </style>
