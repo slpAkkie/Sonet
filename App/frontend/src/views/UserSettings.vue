@@ -102,6 +102,10 @@ export default {
   border: .1rem solid var(--primary_dark);
   border-radius: 0 0 .4rem .4rem;
 
+  @media screen and (max-width: 749px) {
+    padding: 2rem;
+  }
+
   &__row {
     margin-bottom: 1.5rem;
   }

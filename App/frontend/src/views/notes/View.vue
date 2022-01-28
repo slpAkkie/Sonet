@@ -42,7 +42,7 @@
         </div>
       </div>
 
-      <div class="note-editor__row note-editor__row_end">
+      <div class="note-editor__controls">
         <Button :value="`Комментарии (${this.note.comments_amount})`" @click="openComments" class="note-editor__comments-button" />
         <Button appearance="danger" value="Удалить" @click="del" />
         <Button value="Сохранить" @click="update" />
@@ -52,8 +52,8 @@
         <div class="note-editor__row">
           <h4 class="note-editor__section-title">Доступ</h4>
         </div>
-        <div class="note-editor__row">
-          <div class="note-editor__col">
+        <div class="note-editor__row note-editor__row_breakable">
+          <div class="note-editor__col note-editor__new-contributor-email">
             <Input placeholder="E-mail" list="email-datalist" v-model="contributor_email" />
             <datalist id="email-datalist" v-if="contributors_hint">
               <option v-for="contributor in contributors_hint" :key="contributor['id']" :value="contributor['email']">{{ contributor['full_name'] }}</option>
@@ -372,6 +372,12 @@ export default {
 
   &__comments-button {
     margin-right: auto;
+  }
+
+  &__new-contributor-email {
+    @media screen and (max-width: 749px) {
+      width: 100%;
+    }
   }
 }
 </style>

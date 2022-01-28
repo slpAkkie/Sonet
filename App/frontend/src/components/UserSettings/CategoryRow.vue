@@ -3,7 +3,7 @@
     <div class="category-row__color" :style="colorStyleString"></div>
     <div class="category-row__title" @click="edit">{{ data.title }} <span class="category-row__amount">[{{ data.notes_amount }}]</span></div>
     <div class="category-row__controls">
-      <Button value="Удалить" appearance="danger" @click="del" />
+      <Button value="-" appearance="danger" @click="del" />
     </div>
   </div>
 </template>

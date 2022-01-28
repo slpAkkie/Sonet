@@ -35,6 +35,32 @@ export default {
     &_end {
       justify-content: flex-end;
     }
+
+    &_breakable {
+      @media screen and (max-width: 749px) {
+        flex-wrap: wrap;
+      }
+    }
+  }
+
+  &__controls {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 1.5rem;
+    //
+    margin-bottom: 1.5rem;
+
+    @media screen and (max-width: 749px) {
+      flex-direction: column;
+      justify-content: center;
+      align-items: flex-start;
+
+      &>* {
+        flex-grow: 1;
+        width: 100%;
+      }
+    }
   }
 
   &__col {

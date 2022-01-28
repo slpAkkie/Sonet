@@ -79,6 +79,8 @@ export default {
     font-size: 1.8rem;
     //
     padding-bottom: .5rem;
+    //
+    word-break: break-all;
   }
 
   &__full-name {
@@ -88,7 +90,7 @@ export default {
   }
 
   &__access-level {
-    flex-grow: 1;
+    flex-shrink: 0;
   }
 
   &__controls {

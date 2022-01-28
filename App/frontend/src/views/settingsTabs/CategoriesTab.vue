@@ -1,7 +1,7 @@
 <template>
   <div class="tab-content__header">
     <h6>Здесь расположены ваши категории</h6>
-    <Button value="Новая категория" @click="openNewCategory" />
+    <Button value="+" @click="openNewCategory" />
   </div>
   <p v-if="!categoriesLoaded">Загрузка...</p>
   <div class="categories-tab__categories-list" v-if="isCategories">

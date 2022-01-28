@@ -81,7 +81,7 @@ final class AuthController extends Controller
     {
         /** @var User $user */
         $user = Auth::user();
-        return AuthLogResource::collection($user->tokens()->orderByDesc('updated_at')->get());
+        return AuthLogResource::collection($user->tokens()->orderByDesc('created_at')->get());
     }
 
     /**

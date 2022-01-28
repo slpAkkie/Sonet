@@ -93,7 +93,7 @@ export default {
   }
 
   &__os-log {
-    flex-shrink: 0;
+    word-break: break-all;
   }
 
   &__date-log {

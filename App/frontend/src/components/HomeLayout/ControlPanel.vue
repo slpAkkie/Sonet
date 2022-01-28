@@ -1,7 +1,7 @@
 <template>
   <div class="control-panel">
     <Input v-model="searchQuery" placeholder="Поиск..." />
-    <Button value="Новая заметка" @click="createNewNote" />
+    <Button value="+" @click="createNewNote" />
   </div>
 </template>
 

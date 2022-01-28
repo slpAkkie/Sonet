@@ -2,7 +2,7 @@
   <aside class="sidebar">
     <div class="sidebar__header">
       <h4 class="sidebar__title">Папки</h4>
-      <Button value="Новая папка" @click="openNewFolder" />
+      <Button value="+" @click="openNewFolder" />
     </div>
     <hr class="sidebar__separator">
     <div class="sidebar__list">

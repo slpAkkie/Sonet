@@ -1,6 +1,6 @@
 <template>
   <li class="account-tab__log-row" :class="disabled ? 'account-tab__log-row_disabled' : ''">
-    <span class="account-tab__os-log">{{ os }}</span> <span class="account-tab__date-log">Последнее действие: {{ update_at }} | Вход {{ created_at }}</span> <Button v-if="!log.current" appearance="danger" value="Деактивировать" class="account-tab__deactivate" @click="deactivate" /> <span class="account-tab__current-session" v-else>Текущий сеанс</span>
+    <div><div class="account-tab__os-log">{{ os }}</div><div class="account-tab__date-log"><div>Последнее действие: {{ update_at }}</div><div>Вход {{ created_at }}</div></div></div><Button v-if="!log.current" appearance="danger" value="Выйти" class="account-tab__deactivate" @click="deactivate" /> <span class="account-tab__current-session" v-else>Текущий сеанс</span>
   </li>
 </template>
 
@@ -18,14 +18,17 @@ export default {
   }),
   computed: {
     os() {
-      let found = this.log['user_agent'].match(/\([^;]*;\s([^;]*);\s[^;]*\)/)
-      return found ? found[1] : 'Не известная ОС'
+      let found = this.log['user_agent'].match(/\(([^)]*)\)/)
+      if (!found) return this.log['user_agent'].split(' ')[0]
+
+      found = found[1].split('; ')
+      return found[0] === 'Linux' ? found[1] : found[0]
     },
     update_at() {
-      return (new Date(this.log['updated_at'])).toLocaleString()
+      return (new Date(this.log['updated_at'])).toLocaleString().slice(0, -3)
     },
     created_at() {
-      return (new Date(this.log['created_at'])).toLocaleString()
+      return (new Date(this.log['created_at'])).toLocaleString().slice(0, -3)
     },
   },
   methods: {
