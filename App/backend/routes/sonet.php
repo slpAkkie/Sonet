@@ -61,6 +61,10 @@ Route::middleware('auth.token')->group(function () {
     Route::get('/access_levels', [AccessLevelController::class, 'index']);
 
     /** PDF Report ---------------------------- */
-    Route::get('/report', [ReportController::class, 'getPDF']);
+    Route::get('/report/user', [ReportController::class, 'userReport']);
+    Route::get('/report/notes', [ReportController::class, 'notesReport']);
+    Route::get('/report/comments', [ReportController::class, 'commentsReport']);
+    Route::get('/report/categories', [ReportController::class, 'categoriesReport']);
+    Route::get('/report/folders', [ReportController::class, 'foldersReport']);
 
 });
