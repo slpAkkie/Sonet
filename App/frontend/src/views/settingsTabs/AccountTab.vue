@@ -14,6 +14,23 @@
     </div>
   </div>
 
+
+  <div class="tab-content__group">
+    <div class="tab-content__header">
+      <h6>Отчеты</h6>
+    </div>
+    <div class="tab-content__row">
+      <p>Здесь вы можете скачать некоторые отчеты, что мы для вас сделали</p>
+    </div>
+    <ul class="account-tab__reports-list">
+      <li class="account-tab__reports-item"><a href="#" data-report-type="user" target="_blank" @click.prevent="downloadReport">Отчет по пользователю</a></li>
+      <li class="account-tab__reports-item"><a href="#" data-report-type="notes" target="_blank" @click.prevent="downloadReport">Отчет по заметкам</a></li>
+      <li class="account-tab__reports-item"><a href="#" data-report-type="categories" target="_blank" @click.prevent="downloadReport">Отчет по категориям</a></li>
+      <li class="account-tab__reports-item"><a href="#" data-report-type="folders" target="_blank" @click.prevent="downloadReport">Отчет по папкам</a></li>
+      <li class="account-tab__reports-item"><a href="#" data-report-type="comments" target="_blank" @click.prevent="downloadReport">Отчет по комментариям</a></li>
+    </ul>
+  </div>
+
   <div class="tab-content__group">
     <div class="tab-content__header">
       <h6>Удалить аккаунт</h6>
@@ -68,6 +85,17 @@ export default {
     removeLog(index) {
       this.logs.splice(index, 1)
     },
+    async downloadReport(evt) {
+      const response = await this.axios.get(`/report/${evt.target.dataset.reportType}`, {
+        responseType: 'blob',
+      })
+      const blob = new Blob([response.data], {type: 'application/pdf'})
+      const link = document.createElement('a')
+      link.href = URL.createObjectURL(blob)
+      link.download = evt.target.text
+      link.click()
+      URL.revokeObjectURL(link.href)
+    },
   },
   mounted() {
     this.loadAuthLogs()
@@ -110,6 +138,16 @@ export default {
     //
     color: var(--primary);
     font-size: 1.4rem;
+  }
+
+  &__reports {
+    &-list {
+      margin-bottom: 2rem;
+    }
+
+    &-item {
+      margin-bottom: 1rem;
+    }
   }
 }
 </style>
