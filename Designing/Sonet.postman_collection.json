@@ -181,6 +181,24 @@
 						}
 					},
 					"response": []
+				},
+				{
+					"name": "Report",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/report/user",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"report",
+								"user"
+							]
+						}
+					},
+					"response": []
 				}
 			]
 		},
@@ -302,6 +320,24 @@
 									"path": [
 										"comments",
 										"1"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Report",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{host}}/report/comments",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"report",
+										"comments"
 									]
 								}
 							},
@@ -432,6 +468,24 @@
 						}
 					},
 					"response": []
+				},
+				{
+					"name": "Report",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/report/notes",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"report",
+								"notes"
+							]
+						}
+					},
+					"response": []
 				}
 			]
 		},
@@ -494,6 +548,24 @@
 							"path": [
 								"folders",
 								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Report",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/report/folders",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"report",
+								"folders"
 							]
 						}
 					},
@@ -587,6 +659,24 @@
 							"path": [
 								"categories",
 								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Report",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/report/categories",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"report",
+								"categories"
 							]
 						}
 					},
