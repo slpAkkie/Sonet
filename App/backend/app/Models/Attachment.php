@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Query\Builder;
 use Illuminate\Http\UploadedFile;
+use Illuminate\Support\Facades\Hash;
 
 /**
  * @property int|string|null id
@@ -61,7 +62,7 @@ class Attachment extends Model
      */
     public static function new(UploadedFile $file, $note_id)
     {
-        $path = $file->storePublicly('sonet/attachments');
+        $path = $file->storePubliclyAs('sonet/attachments', Hash::make($file->getClientOriginalName()) . '.' . $file->getClientOriginalExtension());
         if (!$path) return ValidationFailedResource::make([ 'attachment' => 'Не удалось сохранить ваш файл' ]);
 
         $attachment = new self([
