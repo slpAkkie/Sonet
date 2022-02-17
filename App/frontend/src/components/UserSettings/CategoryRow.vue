@@ -35,6 +35,8 @@ export default {
       this.$emit('category:edit', this.data)
     },
     del() {
+      if (!confirm('Вы уверены что хотите удалить категорию')) return
+
       this.isWaiting = true
 
       this.$store
