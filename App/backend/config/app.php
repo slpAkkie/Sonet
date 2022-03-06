@@ -181,12 +181,6 @@ return [
          */
         App\Providers\ModulesServiceProvider::class,
 
-        /*
-         * Sonet Service Providers...
-         */
-
-        Barryvdh\DomPDF\ServiceProvider::class,
-
     ],
 
     /*
