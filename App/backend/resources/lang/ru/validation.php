@@ -187,13 +187,6 @@ return [
         'title'                 => 'Наименование',
         'username'              => 'Никнейм',
         'year'                  => 'Год',
-
-        // Custom attributes for project
-        'category_id'           => 'Категория',
-        'folder_id'             => 'Папка',
-        'attachments.*'         => 'Вложение',
-        'attachments.*.title'   => 'Название',
-        'attachments.*.path'    => 'Путь к файлу',
     ],
 
 ];

@@ -12,5 +12,8 @@ return [
     */
 
     // TODO: Put everything for Sonet in a separate module
+    'modules' => [
+        'Sonet',
+    ],
 
 ];

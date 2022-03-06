@@ -165,6 +165,7 @@ return [
         /*
          * Package Service Providers...
          */
+        App\Providers\SonetAuthServiceProvider::class,
 
         /*
          * Application Service Providers...
@@ -174,6 +175,11 @@ return [
         // App\Providers\BroadcastServiceProvider::class,
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
+
+        /*
+         * General custom Service Providers
+         */
+        App\Providers\ModulesServiceProvider::class,
 
         /*
          * Sonet Service Providers...
