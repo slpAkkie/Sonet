@@ -19,6 +19,8 @@ class AccessLevel extends Model
 {
     use HasFactory;
 
+    protected $connection = 'sonet';
+
     public static function isReadOnly($access_level_id) {
         return !!self::find($access_level_id)->readonly;
     }

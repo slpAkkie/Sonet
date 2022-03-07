@@ -24,6 +24,8 @@ class UserToken extends Model
 {
     use HasFactory;
 
+    protected $connection = 'sonet';
+
 
 
     /*

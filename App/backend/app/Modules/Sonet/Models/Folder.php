@@ -25,6 +25,8 @@ class Folder extends Model
 {
     use HasFactory;
 
+    protected $connection = 'sonet';
+
 
 
     /*

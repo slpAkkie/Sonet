@@ -23,7 +23,7 @@ Route::prefix('sonet')->middleware('api')->group(function() {
     Route::post('/login', [AuthController::class, 'login']);
 
     /** Authorization require --------------------- */
-    Route::middleware('auth.token')->group(function () {
+    Route::middleware('sonet.auth')->group(function () {
 
         /** User ---------------------------------- */
         Route::prefix('/user')->group(function () {

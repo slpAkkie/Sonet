@@ -27,6 +27,9 @@ use Illuminate\Support\Str;
  */
 class User extends \App\Models\User
 {
+
+    protected $connection = 'sonet';
+
     /*
     |--------------------------------------------------
     | Mass assignment

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Middleware;
+namespace App\Modules\Sonet\Middleware;
 
 use App\Exceptions\NoApiTokenProvidedException;
 use App\Modules\Sonet\Models\User;
@@ -8,7 +8,7 @@ use Closure;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
-final class AuthenticateWithToken
+final class Authenticate
 {
     /**
      * Check if bearer api token was sent.
